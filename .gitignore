@@ -1,0 +1,27 @@
+# Dependencies and generated builds
+**/node_modules/
+**/dist/
+**/coverage/
+
+# Local runtime output
+**/*.log
+*.log
+
+# Local agent and editor state
+.codebase-memory/
+.codex-audit/
+.trae/
+.uploads/
+**/.DS_Store
+**/Thumbs.db
+/AGENTS.md
+/qimen-web-project/prototype-v2/edge-profile/
+
+# Environment and private credentials
+**/.env
+**/.env.*
+!**/.env.example
+**/*.pem
+**/*.key
+**/*credentials*.json
+**/*service-account*.json
