@@ -1,0 +1,90 @@
+<!doctype html>
+<html lang="zh-CN">
+<head>
+  <meta charset="utf-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1">
+  <meta name="theme-color" content="#f2efe7">
+  <title>奇门遁甲 · 宋版活盘</title>
+  <link rel="stylesheet" href="tokens.css?v=3.3">
+  <link rel="stylesheet" href="styles.css?v=3.3">
+</head>
+<body>
+  <main class="page-shell" aria-label="奇门遁甲宋版活盘首页">
+    <header class="topbar">
+      <a class="brand" href="#top" aria-label="奇门遁甲首页">
+        <span class="brand__mark" aria-hidden="true">中</span>
+        <span class="brand__text">
+          <strong>奇门遁甲</strong>
+          <small>QIMEN DUNJIA</small>
+        </span>
+      </a>
+      <nav class="nav" aria-label="主导航">
+        <a href="#plate">排盘</a>
+        <a href="#notes">知识</a>
+        <a href="#notes">案例</a>
+        <a href="#about">关于</a>
+      </nav>
+    </header>
+
+    <section class="hero" id="top" aria-labelledby="hero-title">
+      <aside class="title-rail">
+        <h1 class="title-rail__main" id="hero-title"><span>奇</span>门遁甲</h1>
+        <p class="title-rail__note">观天时 · 察地利 · 定人事</p>
+      </aside>
+
+      <article class="folio" id="plate" aria-label="今日奇门局盘">
+        <span class="folio__frame" aria-hidden="true"></span>
+        <span class="folio__fold" aria-hidden="true"></span>
+        <span class="folio__light" aria-hidden="true"></span>
+        <span class="book-ear" id="bookEar">阳遁七局 · 夏至下元</span>
+
+        <div class="instrument" id="instrument">
+          <canvas class="instrument__base" id="plateCanvas" aria-hidden="true"></canvas>
+          <div class="instrument__dial" id="compassDial" aria-hidden="true">
+            <canvas class="instrument__sky" id="skyCanvas"></canvas>
+            <span class="instrument__ring instrument__ring--outer"></span>
+            <span class="bearing bearing--south">南</span>
+            <span class="bearing bearing--west">西</span>
+            <span class="bearing bearing--north">北</span>
+            <span class="bearing bearing--east">东</span>
+            <span class="instrument__zero"></span>
+          </div>
+          <span class="instrument__ring instrument__ring--middle" aria-hidden="true"></span>
+          <span class="instrument__ring instrument__ring--inner" aria-hidden="true"></span>
+          <span class="instrument__index" aria-hidden="true"></span>
+          <div class="palace-grid" id="palaceGrid" role="grid" aria-label="九宫四层盘"></div>
+          <span class="axis" aria-hidden="true"></span>
+        </div>
+
+        <footer class="folio__actions">
+          <button class="text-command" id="replayButton" type="button">重演</button>
+          <a class="entry-link" href="#notes">入局</a>
+        </footer>
+      </article>
+
+      <aside class="bureau-note" id="notes" aria-labelledby="noteTitle">
+        <span class="bureau-note__kicker">今日局注</span>
+        <h2 id="noteTitle">先定其势<br>再择其门</h2>
+        <p class="bureau-note__summary" id="noteSummary">值符天心，值使开门。事有明路，仍须审时而行。</p>
+        <dl class="bureau-note__facts">
+          <div><dt>局式</dt><dd id="factBureau">阳遁七局</dd></div>
+          <div><dt>值符</dt><dd id="factStar">天心星</dd></div>
+          <div><dt>值使</dt><dd id="factDoor">开门</dd></div>
+        </dl>
+        <p class="bureau-note__palace" id="palaceNote" aria-live="polite">兑七宫：金气当令，宜先定边界，再开新局。</p>
+      </aside>
+    </section>
+
+    <p class="mobile-note" id="mobileNote">兑七宫 · 值符天心 · 值使开门</p>
+
+    <section class="next-band" id="about" aria-label="今日时局导读">
+      <span>卷一 · 今日时局</span>
+      <strong>由盘入局，由象见势</strong>
+      <span>下阅局注</span>
+    </section>
+  </main>
+  <noscript>请启用 JavaScript 以查看今日局盘。</noscript>
+  <script src="script.js?v=3.3"></script>
+</body>
+</html>
+

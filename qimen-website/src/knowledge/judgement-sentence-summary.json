@@ -1,0 +1,24 @@
+{
+  "updatedAt": "2026-07-03",
+  "total": 11,
+  "scenes": [
+    "行动建议",
+    "八门",
+    "八神",
+    "主客",
+    "九遁运筹",
+    "九星",
+    "宫性",
+    "四害",
+    "十干克应",
+    "转宫",
+    "应期"
+  ],
+  "updateWorkflow": [
+    "从知识库或复盘记录提炼新断语，写入 judgement-sentence-updates.json。",
+    "每条记录必须包含 id、scene、trigger、judgement、action、verification、updateRule，可附 status、reviewCount、hitRate。",
+    "运行 npm run knowledge:update，脚本会按 id 合并并生成摘要。",
+    "再运行 npm run verify:knowledge、npm run build，确认页面和数据结构有效。"
+  ]
+}
+

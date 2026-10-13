@@ -1,0 +1,177 @@
+<!doctype html>
+<html lang="zh-CN">
+<head>
+  <meta charset="utf-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1">
+  <title>奇门首页 v3 构图实验</title>
+  <style>
+    :root {
+      --paper: #f3f0e8;
+      --paper-light: #faf8f1;
+      --ink: #272b27;
+      --ink-mid: #656960;
+      --ink-faint: rgba(39, 43, 39, 0.2);
+      --celadon: #8b9a91;
+      --cinnabar: #98372f;
+      --rule: rgba(39, 43, 39, 0.24);
+      --font-song: "Source Han Serif SC", "Songti SC", "STSong", serif;
+      --font-kai: "LXGW WenKai", "STKaiti", "KaiTi", serif;
+    }
+
+    * { box-sizing: border-box; }
+    html, body { margin: 0; min-height: 100%; }
+    body {
+      background: var(--paper);
+      color: var(--ink);
+      font-family: var(--font-song);
+      overflow: hidden;
+    }
+
+    body::before {
+      content: "";
+      position: fixed;
+      inset: 0;
+      pointer-events: none;
+      opacity: 0.16;
+      background-image: url("data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' width='72' height='72' viewBox='0 0 72 72'%3E%3Cfilter id='n'%3E%3CfeTurbulence type='fractalNoise' baseFrequency='.38' numOctaves='2' stitchTiles='stitch'/%3E%3C/filter%3E%3Crect width='100%25' height='100%25' filter='url(%23n)' opacity='.18'/%3E%3C/svg%3E");
+      mix-blend-mode: multiply;
+    }
+
+    .shell {
+      width: min(1540px, 100vw);
+      height: 100vh;
+      min-height: 720px;
+      margin: 0 auto;
+      padding: 34px 46px 0;
+      display: grid;
+      grid-template-rows: 54px minmax(0, 1fr) 44px;
+    }
+
+    .topbar { display: flex; align-items: center; justify-content: space-between; }
+    .brand { display: flex; align-items: center; gap: 12px; }
+    .brand-mark {
+      width: 34px; height: 34px; border: 1px solid var(--rule); border-radius: 50%;
+      display: grid; place-items: center; color: var(--cinnabar); font-size: 16px;
+    }
+    .brand strong { display: block; font-size: 16px; font-weight: 600; }
+    .brand small { display: block; margin-top: 2px; font: 9px/1.2 Arial, sans-serif; color: var(--ink-mid); }
+    .nav { display: flex; gap: 34px; color: var(--ink-mid); font-size: 14px; }
+
+    .stage { min-height: 0; display: grid; align-items: center; }
+    .title-rail { justify-self: end; align-self: center; display: flex; gap: 22px; }
+    .title-main, .title-note { margin: 0; writing-mode: vertical-rl; }
+    .title-main { font-family: var(--font-kai); font-size: 44px; line-height: 1.05; font-weight: 500; }
+    .title-main span { color: var(--cinnabar); }
+    .title-note { font-size: 13px; line-height: 1.8; color: var(--ink-mid); }
+
+    .folio {
+      position: relative;
+      background: rgba(250, 248, 241, 0.74);
+      border: 1px solid var(--rule);
+      box-shadow: 0 22px 54px rgba(39, 43, 39, 0.08);
+      overflow: hidden;
+    }
+    .folio::before { content: ""; position: absolute; inset: 34px; border: 1px solid var(--rule); }
+    .folio::after { content: ""; position: absolute; top: 34px; bottom: 34px; left: 50%; border-left: 1px solid var(--ink-faint); }
+    .book-ear {
+      position: absolute; top: 70px; right: 33px; transform: translateX(100%);
+      border: 1px solid var(--rule); border-left: 0; padding: 12px 7px;
+      writing-mode: vertical-rl; font-size: 11px; color: var(--ink-mid);
+    }
+
+    .plate-wrap { position: absolute; display: grid; place-items: center; }
+    .plate {
+      position: relative; width: 100%; aspect-ratio: 1; border: 1px solid var(--rule); border-radius: 50%;
+      display: grid; place-items: center;
+      box-shadow: inset 0 0 0 16px rgba(139, 154, 145, 0.05), inset 0 0 0 17px var(--ink-faint);
+    }
+    .plate::before, .plate::after { content: ""; position: absolute; border-radius: 50%; border: 1px solid var(--ink-faint); }
+    .plate::before { inset: 10%; }
+    .plate::after { inset: 21%; }
+
+    .grid {
+      position: relative; width: 57%; aspect-ratio: 1; border: 1px solid var(--rule);
+      display: grid; grid-template-columns: repeat(3, 1fr); grid-template-rows: repeat(3, 1fr);
+    }
+    .cell { position: relative; display: grid; place-items: center; border-right: 1px solid var(--ink-faint); border-bottom: 1px solid var(--ink-faint); }
+    .cell:nth-child(3n) { border-right: 0; }
+    .cell:nth-child(n+7) { border-bottom: 0; }
+    .cell b { font-size: 18px; font-weight: 500; }
+    .cell small { position: absolute; right: 5px; bottom: 4px; color: var(--ink-mid); font-size: 10px; }
+    .cell.duty { color: var(--cinnabar); background: rgba(152, 55, 47, 0.035); }
+    .needle { position: absolute; left: 50%; top: 50%; width: 1px; height: 32%; background: var(--ink); transform-origin: 50% 100%; transform: translate(-50%, -100%) rotate(48deg); }
+    .needle::after { content: ""; position: absolute; top: -3px; left: 50%; width: 7px; height: 7px; border-radius: 50%; background: var(--cinnabar); transform: translateX(-50%); }
+
+    .notes { align-self: center; max-width: 260px; }
+    .notes .kicker { color: var(--cinnabar); font-size: 12px; }
+    .notes h2 { margin: 12px 0 16px; font-size: 26px; font-weight: 500; }
+    .notes p { margin: 0 0 22px; color: var(--ink-mid); font-size: 14px; line-height: 1.85; }
+    .notes dl { margin: 0; border-top: 1px solid var(--rule); }
+    .notes div { display: grid; grid-template-columns: 50px 1fr; gap: 16px; padding: 10px 0; border-bottom: 1px solid var(--ink-faint); }
+    .notes dt { font-size: 12px; color: var(--ink-mid); }
+    .notes dd { margin: 0; font-size: 13px; }
+    .entry { position: absolute; left: 50%; bottom: 49px; transform: translateX(-50%); font-size: 15px; border-bottom: 1px solid var(--cinnabar); padding-bottom: 5px; }
+    .next-hint { border-top: 1px solid var(--rule); display: flex; align-items: center; justify-content: space-between; color: var(--ink-mid); font-size: 12px; }
+
+    body[data-variant="a"] .stage { grid-template-columns: 150px minmax(620px, 760px) 250px; gap: 42px; justify-content: center; }
+    body[data-variant="a"] .folio { width: 100%; aspect-ratio: 1.12; }
+    body[data-variant="a"] .plate-wrap { width: 58%; left: 21%; top: 16%; }
+
+    body[data-variant="b"] .stage { grid-template-columns: 125px minmax(680px, 850px) 230px; gap: 28px; justify-content: center; }
+    body[data-variant="b"] .folio { width: 100%; aspect-ratio: 1.34; }
+    body[data-variant="b"] .plate-wrap { width: 55%; left: 10%; top: 11%; }
+    body[data-variant="b"] .folio::after { left: 68%; }
+    body[data-variant="b"] .entry { left: 84%; bottom: 52px; }
+    body[data-variant="b"] .folio-note { display: block; position: absolute; right: 7%; top: 22%; width: 18%; color: var(--ink-mid); font-size: 13px; line-height: 1.85; }
+    body:not([data-variant="b"]) .folio-note { display: none; }
+
+    body[data-variant="c"] .stage { grid-template-columns: 170px minmax(610px, 710px) 285px; gap: 44px; justify-content: center; }
+    body[data-variant="c"] .folio { width: 100%; aspect-ratio: 0.98; }
+    body[data-variant="c"] .plate-wrap { width: 68%; left: 16%; top: 20%; }
+    body[data-variant="c"] .notes { align-self: end; margin-bottom: 80px; }
+
+    @media (max-width: 900px) {
+      .shell { padding: 20px 18px 0; min-height: 667px; }
+      .nav { gap: 18px; font-size: 12px; }
+      .stage, body[data-variant="a"] .stage, body[data-variant="b"] .stage, body[data-variant="c"] .stage {
+        grid-template-columns: 54px minmax(0, 1fr); gap: 12px; align-items: center;
+      }
+      .title-rail { gap: 8px; }
+      .title-main { font-size: 29px; }
+      .title-note { display: none; }
+      .folio, body[data-variant="a"] .folio, body[data-variant="b"] .folio, body[data-variant="c"] .folio { aspect-ratio: 0.78; }
+      .plate-wrap, body[data-variant="a"] .plate-wrap, body[data-variant="b"] .plate-wrap, body[data-variant="c"] .plate-wrap { width: 88%; left: 6%; top: 21%; }
+      .notes { display: none; }
+      .folio-note { display: none !important; }
+    }
+  </style>
+</head>
+<body data-variant="a">
+  <main class="shell">
+    <header class="topbar">
+      <div class="brand"><span class="brand-mark">中</span><div><strong>奇门遁甲</strong><small>QIMEN DUNJIA</small></div></div>
+      <nav class="nav"><span>排盘</span><span>知识</span><span>案例</span><span>关于</span></nav>
+    </header>
+    <section class="stage">
+      <aside class="title-rail"><p class="title-main"><span>奇</span>门遁甲</p><p class="title-note">观天时 · 察地利 · 定人事</p></aside>
+      <article class="folio">
+        <span class="book-ear">阳遁七局 · 夏至下元</span>
+        <div class="plate-wrap"><div class="plate"><div class="grid">
+          <span class="cell"><b>四</b><small>巽 · 杜</small></span><span class="cell"><b>九</b><small>离 · 景</small></span><span class="cell"><b>二</b><small>坤 · 死</small></span>
+          <span class="cell"><b>三</b><small>震 · 伤</small></span><span class="cell"><b>五</b><small>中 · 禽</small></span><span class="cell duty"><b>七</b><small>兑 · 惊</small></span>
+          <span class="cell"><b>八</b><small>艮 · 生</small></span><span class="cell"><b>一</b><small>坎 · 休</small></span><span class="cell"><b>六</b><small>乾 · 开</small></span>
+        </div><span class="needle"></span></div></div>
+        <p class="folio-note">值符天心临兑七宫。金气当令，宜审势而后动，先定边界，再开新局。</p>
+        <span class="entry">入局</span>
+      </article>
+      <aside class="notes"><span class="kicker">今日局注</span><h2>先定其势<br>再择其门</h2><p>值符天心，值使开门。事有明路，仍须审时而行。</p><dl><div><dt>局式</dt><dd>阳遁七局</dd></div><div><dt>值符</dt><dd>天心星</dd></div><div><dt>值使</dt><dd>开门</dd></div></dl></aside>
+    </section>
+    <footer class="next-hint"><span>卷一 · 今日时局</span><span>下阅局注</span></footer>
+  </main>
+  <script>
+    const variant = new URLSearchParams(location.search).get("v") || "a";
+    document.body.dataset.variant = ["a", "b", "c"].includes(variant) ? variant : "a";
+  </script>
+</body>
+</html>
+

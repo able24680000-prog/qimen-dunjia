@@ -1,0 +1,1323 @@
+<!DOCTYPE html>
+<html lang="zh-CN">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>奇门学馆 · 山门预览</title>
+<style>
+  /* ========== 基础重置 ========== */
+  * { margin: 0; padding: 0; box-sizing: border-box; }
+  html { scroll-behavior: smooth; }
+  body {
+    font-family: 'Microsoft YaHei', sans-serif;
+    color: #1a1a1a;
+    background: #f0ead6;
+    overflow-x: hidden;
+    line-height: 1.7;
+    /* 宣纸纹理 */
+    background-image:
+      radial-gradient(circle at 20% 30%, rgba(139, 115, 85, 0.04) 0%, transparent 40%),
+      radial-gradient(circle at 80% 70%, rgba(139, 37, 0, 0.03) 0%, transparent 40%),
+      repeating-linear-gradient(45deg, rgba(139, 115, 85, 0.015) 0px, rgba(139, 115, 85, 0.015) 1px, transparent 1px, transparent 4px),
+      repeating-linear-gradient(-45deg, rgba(74, 63, 53, 0.012) 0px, rgba(74, 63, 53, 0.012) 1px, transparent 1px, transparent 5px),
+      linear-gradient(180deg, #f0ead6 0%, #ebe3cc 100%);
+    animation: paperFloat 12s ease-in-out infinite;
+  }
+  @keyframes paperFloat {
+    0%, 100% { transform: translateY(0px) rotate(0deg); }
+    50% { transform: translateY(-2px) rotate(0.05deg); }
+  }
+
+  /* ========== 字体类 ========== */
+  .font-song { font-family: 'Noto Serif SC', 'SimSun', 'STSong', serif; }
+  .font-kai  { font-family: 'KaiTi', 'STKaiti', serif; }
+  .font-hei  { font-family: 'Microsoft YaHei', sans-serif; }
+
+  /* ========== 通用容器 ========== */
+  .container { max-width: 1200px; margin: 0 auto; padding: 0 24px; }
+
+  /* ========== 山门 - 首屏 ========== */
+  .gateway {
+    min-height: 100vh;
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    justify-content: center;
+    position: relative;
+    padding: 60px 24px;
+    overflow: hidden;
+  }
+  /* 顶部古典纹样 - 左右对称 */
+  .ornament-row {
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+    width: 100%;
+    max-width: 900px;
+    margin-bottom: 40px;
+    opacity: 0;
+    animation: fadeInDown 1.2s ease-out 0.2s forwards;
+  }
+  .ornament {
+    width: 120px; height: 40px;
+    position: relative;
+    background:
+      linear-gradient(90deg, transparent 0%, #8b7355 50%, transparent 100%);
+  }
+  .ornament::before, .ornament::after {
+    content: '';
+    position: absolute;
+    top: 50%;
+    width: 12px; height: 12px;
+    border: 2px solid #8b7355;
+    transform: translateY(-50%) rotate(45deg);
+  }
+  .ornament.left::before { left: 0; background: #f0ead6; }
+  .ornament.left::after  { right: -6px; background: #f0ead6; }
+  .ornament.right::before { left: -6px; background: #f0ead6; }
+  .ornament.right::after  { right: 0; background: #f0ead6; }
+  .ornament .dot {
+    position: absolute;
+    top: 50%; left: 50%;
+    width: 6px; height: 6px;
+    background: #c0392b;
+    border-radius: 50%;
+    transform: translate(-50%, -50%);
+  }
+
+  /* 匾额 */
+  .plaque-wrap {
+    position: relative;
+    opacity: 0;
+    transform: translateY(-100px);
+    animation: plaqueDescend 1.6s cubic-bezier(0.22, 1, 0.36, 1) 0.5s forwards;
+  }
+  @keyframes plaqueDescend {
+    to { opacity: 1; transform: translateY(0); }
+  }
+  .plaque {
+    background:
+      repeating-linear-gradient(90deg, rgba(0,0,0,0.08) 0px, rgba(0,0,0,0.08) 2px, transparent 2px, transparent 8px),
+      linear-gradient(180deg, #4a2f1a 0%, #6b4423 50%, #3a1f0a 100%);
+    border: 4px solid #8b7355;
+    border-radius: 6px;
+    padding: 40px 80px;
+    box-shadow:
+      0 0 0 2px #2a1a0a inset,
+      0 0 0 8px #4a2f1a,
+      0 0 0 10px #8b7355,
+      0 20px 50px rgba(0, 0, 0, 0.5);
+    position: relative;
+  }
+  /* 匾额金边装饰角 */
+  .plaque::before, .plaque::after {
+    content: '';
+    position: absolute;
+    width: 24px; height: 24px;
+    border: 3px solid #c9a96a;
+  }
+  .plaque::before { top: 8px; left: 8px; border-right: none; border-bottom: none; }
+  .plaque::after  { bottom: 8px; right: 8px; border-left: none; border-top: none; }
+  .plaque-title {
+    font-family: 'Noto Serif SC', 'SimSun', 'STSong', serif;
+    font-size: 72px;
+    font-weight: 700;
+    color: #d4af6a;
+    letter-spacing: 16px;
+    text-shadow:
+      0 0 8px rgba(212, 175, 106, 0.6),
+      2px 2px 4px rgba(0, 0, 0, 0.8);
+    text-align: center;
+    padding-left: 16px; /* 补偿letter-spacing */
+  }
+  /* 匾额悬挂的钉子 */
+  .plaque-nail {
+    position: absolute;
+    top: -12px;
+    width: 14px; height: 14px;
+    background: radial-gradient(circle at 30% 30%, #8b7355, #2a1a0a);
+    border-radius: 50%;
+    box-shadow: 0 2px 4px rgba(0,0,0,0.6);
+  }
+  .plaque-nail.left { left: 30px; }
+  .plaque-nail.right { right: 30px; }
+
+  /* 印章 */
+  .seal {
+    position: absolute;
+    right: -30px;
+    bottom: -30px;
+    width: 90px; height: 90px;
+    background: #c0392b;
+    color: #f0ead6;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    font-family: 'Noto Serif SC', serif;
+    font-size: 18px;
+    font-weight: 700;
+    line-height: 1.1;
+    text-align: center;
+    border-radius: 48% 52% 47% 53% / 51% 49% 51% 49%;
+    box-shadow:
+      0 0 0 2px #8b2500 inset,
+      0 4px 12px rgba(0,0,0,0.3);
+    transform: scale(1.5) rotate(-15deg);
+    opacity: 0;
+    animation: sealStamp 0.6s cubic-bezier(0.34, 1.56, 0.64, 1) 2.2s forwards;
+    /* 印章不规则边缘 */
+    -webkit-mask: radial-gradient(circle at 50% 50%, #000 96%, transparent 100%);
+  }
+  .seal::before {
+    content: '';
+    position: absolute;
+    inset: 6px;
+    border: 1.5px solid #f0ead6;
+    border-radius: inherit;
+  }
+  .seal-text {
+    position: relative;
+    z-index: 2;
+    letter-spacing: 2px;
+  }
+  @keyframes sealStamp {
+    0% { transform: scale(1.5) rotate(-15deg); opacity: 0; }
+    60% { transform: scale(0.95) rotate(-8deg); opacity: 1; }
+    80% { transform: scale(1.05) rotate(-10deg); }
+    100% { transform: scale(1) rotate(-10deg); opacity: 0.92; }
+  }
+
+  /* 副标题 - 逐字浮现 */
+  .subtitle {
+    margin-top: 56px;
+    font-family: 'KaiTi', 'STKaiti', serif;
+    font-size: 24px;
+    color: #4a3f35;
+    letter-spacing: 4px;
+    text-align: center;
+  }
+  .subtitle .char {
+    display: inline-block;
+    opacity: 0;
+    transform: translateY(10px);
+    animation: charReveal 0.5s ease-out forwards;
+  }
+  @keyframes charReveal {
+    to { opacity: 1; transform: translateY(0); }
+  }
+
+  /* 入口按钮 */
+  .entry-buttons {
+    margin-top: 48px;
+    display: flex;
+    gap: 24px;
+    flex-wrap: wrap;
+    justify-content: center;
+    opacity: 0;
+    animation: fadeInUp 0.8s ease-out 2.8s forwards;
+  }
+  .btn {
+    font-family: 'Noto Serif SC', serif;
+    font-size: 18px;
+    padding: 14px 40px;
+    border: 2px solid #6b4423;
+    cursor: pointer;
+    position: relative;
+    overflow: hidden;
+    transition: all 0.4s ease;
+    letter-spacing: 4px;
+    text-decoration: none;
+    display: inline-block;
+  }
+  .btn-primary {
+    background:
+      repeating-linear-gradient(90deg, rgba(0,0,0,0.05) 0px, rgba(0,0,0,0.05) 1px, transparent 1px, transparent 4px),
+      linear-gradient(180deg, #6b4423 0%, #4a2f1a 100%);
+    color: #f0ead6;
+    border-color: #8b7355;
+    box-shadow: 0 4px 12px rgba(74, 47, 26, 0.4);
+  }
+  .btn-primary:hover {
+    transform: translateY(-2px);
+    box-shadow: 0 8px 20px rgba(74, 47, 26, 0.6);
+  }
+  .btn-secondary {
+    background: transparent;
+    color: #4a3f35;
+  }
+  .btn-secondary:hover {
+    background: #6b4423;
+    color: #f0ead6;
+  }
+  /* 墨迹晕染效果 */
+  .btn::after {
+    content: '';
+    position: absolute;
+    top: 50%; left: 50%;
+    width: 0; height: 0;
+    background: radial-gradient(circle, rgba(26, 26, 26, 0.4) 0%, transparent 70%);
+    border-radius: 50%;
+    transform: translate(-50%, -50%);
+    transition: width 0.6s ease, height 0.6s ease;
+    pointer-events: none;
+  }
+  .btn:hover::after {
+    width: 300px; height: 300px;
+  }
+
+  /* 底部小字 */
+  .gateway-footer-text {
+    margin-top: 60px;
+    font-family: 'KaiTi', serif;
+    font-size: 14px;
+    color: #6b4423;
+    letter-spacing: 8px;
+    opacity: 0;
+    animation: fadeIn 1s ease-out 3.2s forwards;
+  }
+  .gateway-footer-text::before,
+  .gateway-footer-text::after {
+    content: '·';
+    margin: 0 12px;
+    color: #8b7355;
+  }
+
+  /* 滚动提示 */
+  .scroll-hint {
+    position: absolute;
+    bottom: 24px;
+    left: 50%;
+    transform: translateX(-50%);
+    font-family: 'KaiTi', serif;
+    font-size: 12px;
+    color: #8b7355;
+    letter-spacing: 4px;
+    opacity: 0;
+    animation: fadeIn 1s ease-out 3.6s forwards, bounce 2s ease-in-out 4s infinite;
+  }
+  @keyframes bounce {
+    0%, 100% { transform: translateX(-50%) translateY(0); }
+    50% { transform: translateX(-50%) translateY(8px); }
+  }
+
+  /* ========== 古籍分隔线 ========== */
+  .divider {
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    margin: 80px 0;
+    gap: 16px;
+  }
+  .divider-line {
+    flex: 1;
+    max-width: 200px;
+    height: 1px;
+    background: linear-gradient(90deg, transparent, #8b7355, transparent);
+  }
+  .divider-icon {
+    width: 32px; height: 32px;
+    border: 2px solid #8b7355;
+    transform: rotate(45deg);
+    position: relative;
+    flex-shrink: 0;
+  }
+  .divider-icon::before {
+    content: '';
+    position: absolute;
+    inset: 4px;
+    background: #c0392b;
+  }
+
+  /* ========== 学馆三进 ========== */
+  .hall-section {
+    padding: 80px 0;
+    position: relative;
+  }
+  .hall-row {
+    display: flex;
+    align-items: stretch;
+    gap: 40px;
+    max-width: 1200px;
+    margin: 0 auto;
+    padding: 0 24px;
+  }
+  /* 大编号水印 */
+  .hall-number {
+    flex: 0 0 200px;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    font-family: 'KaiTi', 'STKaiti', serif;
+    font-size: 240px;
+    color: #6b4423;
+    opacity: 0;
+    line-height: 1;
+    position: relative;
+    transition: opacity 1.2s ease-out;
+  }
+  .hall-section.visible .hall-number {
+    opacity: 0.15;
+  }
+  .hall-number::before {
+    content: attr(data-label);
+    position: absolute;
+    bottom: 20px;
+    left: 50%;
+    transform: translateX(-50%);
+    font-size: 14px;
+    color: #6b4423;
+    opacity: 0.5;
+    letter-spacing: 6px;
+    font-family: 'KaiTi', serif;
+    writing-mode: horizontal-tb;
+  }
+
+  /* 卷轴卡片 */
+  .scroll-card {
+    flex: 1;
+    position: relative;
+    background:
+      linear-gradient(180deg, #f5efd9 0%, #ebe3cc 100%);
+    border: 1px solid #c9b896;
+    padding: 48px 56px;
+    min-height: 400px;
+    /* 卷轴展开动画 */
+    clip-path: inset(0 50% 0 50%);
+    transition: clip-path 1.4s cubic-bezier(0.65, 0, 0.35, 1);
+  }
+  .hall-section.visible .scroll-card {
+    clip-path: inset(0 0 0 0);
+  }
+  /* 卷轴轴头 */
+  .scroll-card::before,
+  .scroll-card::after {
+    content: '';
+    position: absolute;
+    top: -8px; bottom: -8px;
+    width: 24px;
+    background: linear-gradient(180deg, #6b4423 0%, #4a2f1a 50%, #6b4423 100%);
+    border-radius: 12px;
+    box-shadow:
+      0 0 0 2px #8b7355,
+      0 4px 8px rgba(0,0,0,0.3);
+  }
+  .scroll-card::before { left: -12px; }
+  .scroll-card::after  { right: -12px; }
+  /* 轴头帽 */
+  .scroll-cap-top, .scroll-cap-bottom {
+    position: absolute;
+    left: -16px;
+    width: 32px; height: 16px;
+    background: radial-gradient(ellipse at center, #8b7355 0%, #4a2f1a 80%);
+    border-radius: 50%;
+    z-index: 2;
+  }
+  .scroll-cap-top { top: -16px; }
+  .scroll-cap-bottom { bottom: -16px; }
+  .scroll-cap-right { left: auto; right: -16px; }
+
+  /* 卷轴内波纹动画 */
+  .ripple-line {
+    position: absolute;
+    top: 50%;
+    height: 2px;
+    width: 0;
+    background: linear-gradient(90deg, transparent, rgba(139, 115, 85, 0.4), transparent);
+    pointer-events: none;
+  }
+  .hall-section.visible .ripple-line {
+    animation: ripple 1.4s ease-out;
+  }
+  @keyframes ripple {
+    0% { width: 0; left: 50%; opacity: 1; }
+    100% { width: 100%; left: 0; opacity: 0; }
+  }
+
+  /* 卷轴内元素 */
+  .scroll-inner > * {
+    opacity: 0;
+    transform: translateY(20px);
+    transition: opacity 0.6s ease-out, transform 0.6s ease-out;
+  }
+  .hall-section.visible .scroll-inner > * {
+    opacity: 1;
+    transform: translateY(0);
+  }
+  .hall-section.visible .scroll-inner > *:nth-child(1) { transition-delay: 0.4s; }
+  .hall-section.visible .scroll-inner > *:nth-child(2) { transition-delay: 0.55s; }
+  .hall-section.visible .scroll-inner > *:nth-child(3) { transition-delay: 0.7s; }
+  .hall-section.visible .scroll-inner > *:nth-child(4) { transition-delay: 0.85s; }
+  .hall-section.visible .scroll-inner > *:nth-child(5) { transition-delay: 1.0s; }
+  .hall-section.visible .scroll-inner > *:nth-child(6) { transition-delay: 1.15s; }
+
+  .hall-title {
+    font-family: 'Noto Serif SC', serif;
+    font-size: 28px;
+    color: #1a1a1a;
+    margin-bottom: 16px;
+    letter-spacing: 2px;
+    border-bottom: 2px solid #8b7355;
+    padding-bottom: 12px;
+    display: inline-block;
+  }
+  .hall-desc {
+    font-family: 'KaiTi', serif;
+    font-size: 17px;
+    color: #4a3f35;
+    margin-bottom: 28px;
+    line-height: 1.8;
+  }
+
+  /* 课程标签 */
+  .course-tags {
+    display: flex;
+    flex-wrap: wrap;
+    gap: 10px;
+    margin-bottom: 28px;
+  }
+  .course-tag {
+    font-family: 'Microsoft YaHei', sans-serif;
+    font-size: 13px;
+    padding: 6px 14px;
+    background: #e8e0c8;
+    border: 1px solid #c9b896;
+    color: #4a3f35;
+    cursor: pointer;
+    transition: all 0.4s ease;
+    position: relative;
+    transform-style: preserve-3d;
+    perspective: 600px;
+  }
+  .course-tag:hover {
+    background: #6b4423;
+    color: #f0ead6;
+    transform: rotateX(360deg);
+    border-color: #8b7355;
+  }
+  .course-tag .code {
+    color: #8b2500;
+    font-weight: 700;
+    margin-right: 4px;
+  }
+  .course-tag:hover .code { color: #d4af6a; }
+
+  /* 学习路径 */
+  .learning-paths {
+    background: rgba(139, 115, 85, 0.06);
+    border-left: 3px solid #8b7355;
+    padding: 16px 20px;
+    margin-bottom: 28px;
+  }
+  .path-item {
+    font-family: 'KaiTi', serif;
+    font-size: 15px;
+    color: #4a3f35;
+    margin: 8px 0;
+    line-height: 1.7;
+  }
+  .path-item .path-name {
+    color: #8b2500;
+    font-weight: 700;
+    margin-right: 8px;
+  }
+  .path-arrow { color: #8b7355; margin: 0 4px; }
+
+  /* 功能网格 */
+  .feature-grid {
+    display: grid;
+    grid-template-columns: repeat(3, 1fr);
+    gap: 16px;
+    margin-bottom: 28px;
+  }
+  .feature-cell {
+    background: rgba(232, 224, 200, 0.6);
+    border: 1px solid #c9b896;
+    padding: 16px;
+    transition: all 0.3s ease;
+    cursor: pointer;
+  }
+  .feature-cell:hover {
+    background: #e8e0c8;
+    transform: translateY(-3px);
+    box-shadow: 0 4px 12px rgba(107, 68, 35, 0.2);
+    border-color: #8b7355;
+  }
+  .feature-cell .ft-title {
+    font-family: 'Noto Serif SC', serif;
+    font-size: 15px;
+    color: #8b2500;
+    margin-bottom: 6px;
+    font-weight: 700;
+  }
+  .feature-cell .ft-desc {
+    font-size: 13px;
+    color: #4a3f35;
+    line-height: 1.5;
+  }
+
+  /* 问题质量评估 */
+  .quality-check {
+    background: rgba(139, 37, 0, 0.05);
+    border: 1px dashed #8b2500;
+    padding: 16px 20px;
+    margin-bottom: 28px;
+  }
+  .quality-title {
+    font-family: 'KaiTi', serif;
+    font-size: 15px;
+    color: #8b2500;
+    margin-bottom: 12px;
+    font-weight: 700;
+  }
+  .quality-list {
+    display: grid;
+    grid-template-columns: repeat(2, 1fr);
+    gap: 8px;
+  }
+  .quality-item {
+    font-size: 13px;
+    display: flex;
+    align-items: center;
+    gap: 8px;
+  }
+  .quality-badge {
+    display: inline-block;
+    padding: 2px 8px;
+    border-radius: 2px;
+    font-size: 11px;
+    font-weight: 700;
+  }
+  .quality-badge.ok { background: #6b4423; color: #f0ead6; }
+  .quality-badge.warn { background: #c0392b; color: #f0ead6; }
+
+  /* 案例标签 */
+  .case-tags {
+    display: flex;
+    flex-wrap: wrap;
+    gap: 10px;
+    margin-bottom: 28px;
+  }
+  .case-tag {
+    font-family: 'Noto Serif SC', serif;
+    font-size: 14px;
+    padding: 8px 18px;
+    color: #f0ead6;
+    cursor: pointer;
+    transition: all 0.4s ease;
+    position: relative;
+    transform-style: preserve-3d;
+    perspective: 600px;
+    border-left: 3px solid rgba(255,255,255,0.3);
+  }
+  .case-tag:hover {
+    transform: rotateX(360deg);
+    box-shadow: 0 4px 12px rgba(0,0,0,0.3);
+  }
+  .case-tag.c-career { background: #6b4423; }
+  .case-tag.c-money  { background: #8b6914; }
+  .case-tag.c-love   { background: #8b2500; }
+  .case-tag.c-health { background: #4a6b23; }
+  .case-tag.c-study  { background: #4a3f35; }
+  .case-tag.c-trip   { background: #8b5a2b; }
+
+  /* 复盘功能列表 */
+  .review-list {
+    background: rgba(139, 115, 85, 0.06);
+    border-left: 3px solid #8b7355;
+    padding: 16px 20px;
+    margin-bottom: 16px;
+  }
+  .review-item {
+    font-family: 'KaiTi', serif;
+    font-size: 15px;
+    color: #4a3f35;
+    margin: 8px 0;
+    line-height: 1.7;
+  }
+  .review-item::before {
+    content: '·';
+    color: #8b2500;
+    margin-right: 8px;
+    font-weight: 700;
+  }
+
+  /* 校准提醒 */
+  .calibration-note {
+    background: rgba(192, 57, 43, 0.08);
+    border: 1px solid rgba(192, 57, 43, 0.3);
+    padding: 12px 16px;
+    margin-bottom: 28px;
+    font-family: 'KaiTi', serif;
+    font-size: 14px;
+    color: #8b2500;
+    line-height: 1.7;
+  }
+  .calibration-note::before {
+    content: '※';
+    margin-right: 8px;
+    font-weight: 700;
+  }
+
+  /* 进入按钮 */
+  .hall-btn {
+    font-family: 'Noto Serif SC', serif;
+    font-size: 16px;
+    padding: 12px 32px;
+    background: transparent;
+    color: #8b2500;
+    border: 2px solid #8b2500;
+    cursor: pointer;
+    transition: all 0.4s ease;
+    letter-spacing: 4px;
+    display: inline-block;
+    text-decoration: none;
+    position: relative;
+    overflow: hidden;
+  }
+  .hall-btn:hover {
+    background: #8b2500;
+    color: #f0ead6;
+    letter-spacing: 6px;
+  }
+
+  /* ========== 案头备览 - 原则标签墙 ========== */
+  .principles-section {
+    padding: 100px 0;
+    background:
+      linear-gradient(180deg, transparent 0%, rgba(232, 224, 200, 0.5) 50%, transparent 100%);
+  }
+  .principles-title {
+    text-align: center;
+    font-family: 'Noto Serif SC', serif;
+    font-size: 36px;
+    color: #1a1a1a;
+    margin-bottom: 12px;
+    letter-spacing: 8px;
+  }
+  .principles-subtitle {
+    text-align: center;
+    font-family: 'KaiTi', serif;
+    font-size: 16px;
+    color: #6b4423;
+    margin-bottom: 60px;
+    letter-spacing: 4px;
+  }
+  .principles-grid {
+    display: grid;
+    grid-template-columns: repeat(4, 1fr);
+    gap: 24px;
+    max-width: 1200px;
+    margin: 0 auto;
+    padding: 0 24px;
+  }
+  .principle-card {
+    height: 160px;
+    perspective: 1000px;
+    cursor: pointer;
+    opacity: 0;
+    transform: translateY(-40px) rotate(-3deg);
+    transition: opacity 0.6s ease-out, transform 0.6s ease-out;
+  }
+  .principle-card.visible {
+    opacity: 1;
+    transform: translateY(0) rotate(0);
+  }
+  .principle-inner {
+    position: relative;
+    width: 100%; height: 100%;
+    transition: transform 0.8s cubic-bezier(0.4, 0, 0.2, 1);
+    transform-style: preserve-3d;
+  }
+  .principle-card:hover .principle-inner {
+    transform: rotateY(180deg);
+  }
+  .principle-front, .principle-back {
+    position: absolute;
+    inset: 0;
+    backface-visibility: hidden;
+    -webkit-backface-visibility: hidden;
+    padding: 20px;
+    display: flex;
+    flex-direction: column;
+    justify-content: center;
+    align-items: center;
+    text-align: center;
+  }
+  /* 书签样式 - 顶部凹陷 */
+  .principle-front {
+    background: linear-gradient(180deg, #e8e0c8 0%, #d8cfb0 100%);
+    border: 1px solid #c9b896;
+    border-top: 4px solid #8b2500;
+    /* 书签顶部凹陷 */
+    -webkit-mask: radial-gradient(circle at 50% 0, transparent 8px, #000 9px);
+  }
+  .principle-num {
+    font-family: 'KaiTi', serif;
+    font-size: 12px;
+    color: #8b7355;
+    letter-spacing: 4px;
+    margin-bottom: 8px;
+  }
+  .principle-name {
+    font-family: 'Noto Serif SC', serif;
+    font-size: 22px;
+    color: #8b2500;
+    font-weight: 700;
+    letter-spacing: 4px;
+    margin-bottom: 8px;
+  }
+  .principle-tag-line {
+    font-family: 'KaiTi', serif;
+    font-size: 13px;
+    color: #4a3f35;
+    line-height: 1.5;
+  }
+  .principle-back {
+    background: linear-gradient(180deg, #6b4423 0%, #4a2f1a 100%);
+    color: #f0ead6;
+    transform: rotateY(180deg);
+    border: 1px solid #8b7355;
+  }
+  .principle-back-title {
+    font-family: 'Noto Serif SC', serif;
+    font-size: 16px;
+    color: #d4af6a;
+    margin-bottom: 10px;
+    letter-spacing: 2px;
+  }
+  .principle-back-desc {
+    font-family: 'KaiTi', serif;
+    font-size: 13px;
+    line-height: 1.6;
+    color: #f0ead6;
+  }
+
+  /* ========== 页脚 ========== */
+  .footer {
+    padding: 80px 24px 40px;
+    text-align: center;
+    border-top: 1px solid #c9b896;
+    margin-top: 60px;
+    background: rgba(232, 224, 200, 0.4);
+  }
+  .footer-disclaimer {
+    font-family: 'KaiTi', serif;
+    font-size: 15px;
+    color: #4a3f35;
+    max-width: 700px;
+    margin: 0 auto 24px;
+    line-height: 1.8;
+    letter-spacing: 1px;
+  }
+  .footer-copyright {
+    font-family: 'Noto Serif SC', serif;
+    font-size: 14px;
+    color: #6b4423;
+    letter-spacing: 4px;
+    margin-bottom: 24px;
+  }
+  .footer-seal {
+    display: inline-block;
+    width: 60px; height: 60px;
+    background: #c0392b;
+    color: #f0ead6;
+    line-height: 60px;
+    text-align: center;
+    font-family: 'Noto Serif SC', serif;
+    font-size: 12px;
+    font-weight: 700;
+    border-radius: 48% 52% 47% 53% / 51% 49% 51% 49%;
+    box-shadow: 0 0 0 2px #8b2500 inset;
+    letter-spacing: 1px;
+  }
+
+  /* ========== 通用动画 ========== */
+  @keyframes fadeIn { from { opacity: 0; } to { opacity: 1; } }
+  @keyframes fadeInUp {
+    from { opacity: 0; transform: translateY(20px); }
+    to { opacity: 1; transform: translateY(0); }
+  }
+  @keyframes fadeInDown {
+    from { opacity: 0; transform: translateY(-20px); }
+    to { opacity: 1; transform: translateY(0); }
+  }
+
+  /* ========== 响应式 ========== */
+  @media (max-width: 900px) {
+    .plaque-title { font-size: 48px; letter-spacing: 10px; padding-left: 10px; }
+    .plaque { padding: 28px 48px; }
+    .hall-row { flex-direction: column; gap: 20px; }
+    .hall-number {
+      flex: 0 0 auto;
+      font-size: 120px;
+      padding: 20px 0;
+    }
+    .hall-number::before { position: static; transform: none; margin-top: 8px; }
+    .scroll-card { padding: 32px 24px; }
+    .feature-grid { grid-template-columns: repeat(2, 1fr); }
+    .principles-grid { grid-template-columns: repeat(2, 1fr); }
+    .subtitle { font-size: 18px; }
+    .hall-title { font-size: 22px; }
+  }
+  @media (max-width: 600px) {
+    .plaque-title { font-size: 36px; letter-spacing: 6px; }
+    .plaque { padding: 24px 32px; }
+    .seal { width: 70px; height: 70px; font-size: 14px; right: -15px; bottom: -15px; }
+    .feature-grid { grid-template-columns: 1fr; }
+    .quality-list { grid-template-columns: 1fr; }
+    .principles-grid { grid-template-columns: 1fr; }
+    .principle-card { height: 140px; }
+    .principles-title { font-size: 26px; letter-spacing: 4px; }
+    .ornament { width: 60px; }
+    .entry-buttons { flex-direction: column; width: 100%; }
+    .btn { width: 100%; }
+  }
+
+  /* ========== 减少动画偏好 ========== */
+  @media (prefers-reduced-motion: reduce) {
+    *, *::before, *::after {
+      animation-duration: 0.01ms !important;
+      animation-iteration-count: 1 !important;
+      transition-duration: 0.01ms !important;
+      scroll-behavior: auto !important;
+    }
+    body { animation: none !important; }
+    .plaque-wrap { opacity: 1; transform: none; }
+    .subtitle .char { opacity: 1; transform: none; }
+    .seal { opacity: 0.92; transform: scale(1) rotate(-10deg); }
+    .entry-buttons, .gateway-footer-text, .scroll-hint { opacity: 1; }
+  }
+</style>
+</head>
+<body>
+
+<!-- ========== 山门 首屏 ========== -->
+<section class="gateway" id="gateway">
+  <!-- 顶部装饰纹样 -->
+  <div class="ornament-row">
+    <div class="ornament left"><span class="dot"></span></div>
+    <div class="ornament right"><span class="dot"></span></div>
+  </div>
+
+  <!-- 匾额 -->
+  <div class="plaque-wrap">
+    <span class="plaque-nail left"></span>
+    <span class="plaque-nail right"></span>
+    <div class="plaque">
+      <h1 class="plaque-title">奇门学馆</h1>
+    </div>
+    <!-- 印章 -->
+    <div class="seal">
+      <span class="seal-text">学馆<br>之印</span>
+    </div>
+  </div>
+
+  <!-- 副标题 -->
+  <p class="subtitle" id="subtitle"></p>
+
+  <!-- 入口按钮 -->
+  <div class="entry-buttons">
+    <a href="#hall-1" class="btn btn-primary">今日入门</a>
+    <a href="#hall-2" class="btn btn-secondary">直接起局</a>
+  </div>
+
+  <!-- 底部小字 -->
+  <p class="gateway-footer-text">时家奇门 · 择时起局 · 九宫读象</p>
+
+  <!-- 滚动提示 -->
+  <div class="scroll-hint">向下展开学馆 ▾</div>
+</section>
+
+<!-- ========== 第一进 · 入门堂 ========== -->
+<section class="hall-section" id="hall-1">
+  <div class="hall-row">
+    <div class="hall-number font-kai" data-label="第一进">一</div>
+    <div class="scroll-card">
+      <span class="scroll-cap-top"></span>
+      <span class="scroll-cap-top scroll-cap-right"></span>
+      <span class="scroll-cap-bottom"></span>
+      <span class="scroll-cap-bottom scroll-cap-right"></span>
+      <span class="ripple-line"></span>
+      <div class="scroll-inner">
+        <h2 class="hall-title">麦垛十课 · 从零基础到系统读盘</h2>
+        <p class="hall-desc">先建立星、门、神三层框架，再回到排盘页看每宫依据。每课专注一个主题，不贪多。</p>
+        <div class="course-tags">
+          <span class="course-tag"><span class="code">K01</span>九星旺衰</span>
+          <span class="course-tag"><span class="code">K02</span>八门人盘</span>
+          <span class="course-tag"><span class="code">K03</span>八神定性</span>
+          <span class="course-tag"><span class="code">K04</span>暗干转宫</span>
+          <span class="course-tag"><span class="code">K05</span>读象五行</span>
+          <span class="course-tag"><span class="code">K06</span>伏吟反吟</span>
+          <span class="course-tag"><span class="code">K07</span>九遁格局</span>
+          <span class="course-tag"><span class="code">K08</span>四步断卦</span>
+          <span class="course-tag"><span class="code">K09</span>逻辑推演</span>
+          <span class="course-tag"><span class="code">K10</span>专业水准</span>
+        </div>
+        <div class="learning-paths">
+          <div class="path-item">
+            <span class="path-name">入门读盘：</span>K01<span class="path-arrow">→</span>K02<span class="path-arrow">→</span>K03（先建立星门神三层框架）
+          </div>
+          <div class="path-item">
+            <span class="path-name">进阶断事：</span>K04<span class="path-arrow">→</span>K05<span class="path-arrow">→</span>K08（用暗干、读象和四步断卦法）
+          </div>
+          <div class="path-item">
+            <span class="path-name">高阶校准：</span>K06<span class="path-arrow">→</span>K07<span class="path-arrow">→</span>K09<span class="path-arrow">→</span>K10（处理伏吟反吟、九遁格和系统推演）
+          </div>
+        </div>
+        <a href="#" class="hall-btn">进入讲堂 →</a>
+      </div>
+    </div>
+  </div>
+</section>
+
+<!-- 分隔线 -->
+<div class="divider">
+  <span class="divider-line"></span>
+  <span class="divider-icon"></span>
+  <span class="divider-line"></span>
+</div>
+
+<!-- ========== 第二进 · 练习场 ========== -->
+<section class="hall-section" id="hall-2">
+  <div class="hall-row">
+    <div class="hall-number font-kai" data-label="第二进">二</div>
+    <div class="scroll-card">
+      <span class="scroll-cap-top"></span>
+      <span class="scroll-cap-top scroll-cap-right"></span>
+      <span class="scroll-cap-bottom"></span>
+      <span class="scroll-cap-bottom scroll-cap-right"></span>
+      <span class="ripple-line"></span>
+      <div class="scroll-inner">
+        <h2 class="hall-title">排盘工具 · 一边学一边练</h2>
+        <p class="hall-desc">以当前时间或指定时间起局，查看九宫盘、星门神和宫位依据。每次判断都保留为可复盘记录。</p>
+        <div class="feature-grid">
+          <div class="feature-cell">
+            <div class="ft-title">时辰选择</div>
+            <div class="ft-desc">十二时辰可视化选择</div>
+          </div>
+          <div class="feature-cell">
+            <div class="ft-title">历法支持</div>
+            <div class="ft-desc">公历/农历互转</div>
+          </div>
+          <div class="feature-cell">
+            <div class="ft-title">起局方法</div>
+            <div class="ft-desc">拆补法/茅山法</div>
+          </div>
+          <div class="feature-cell">
+            <div class="ft-title">决策卡</div>
+            <div class="ft-desc">主断·风险·应期·行动</div>
+          </div>
+          <div class="feature-cell">
+            <div class="ft-title">多宫联动</div>
+            <div class="ft-desc">核心矛盾与破局路径</div>
+          </div>
+          <div class="feature-cell">
+            <div class="ft-title">知识回链</div>
+            <div class="ft-desc">盘面符号直通知识页</div>
+          </div>
+        </div>
+        <div class="quality-check">
+          <div class="quality-title">问题质量评估预览</div>
+          <div class="quality-list">
+            <div class="quality-item"><span class="quality-badge ok">满足</span>一件事</div>
+            <div class="quality-item"><span class="quality-badge ok">满足</span>一个对象</div>
+            <div class="quality-item"><span class="quality-badge warn">待补</span>时间窗口</div>
+            <div class="quality-item"><span class="quality-badge ok">满足</span>可验证结果</div>
+          </div>
+        </div>
+        <a href="#" class="hall-btn">起局练习 →</a>
+      </div>
+    </div>
+  </div>
+</section>
+
+<!-- 分隔线 -->
+<div class="divider">
+  <span class="divider-line"></span>
+  <span class="divider-icon"></span>
+  <span class="divider-line"></span>
+</div>
+
+<!-- ========== 第三进 · 复盘阁 ========== -->
+<section class="hall-section" id="hall-3">
+  <div class="hall-row">
+    <div class="hall-number font-kai" data-label="第三进">三</div>
+    <div class="scroll-card">
+      <span class="scroll-cap-top"></span>
+      <span class="scroll-cap-top scroll-cap-right"></span>
+      <span class="scroll-cap-bottom"></span>
+      <span class="scroll-cap-bottom scroll-cap-right"></span>
+      <span class="ripple-line"></span>
+      <div class="scroll-inner">
+        <h2 class="hall-title">案例示范 + 本地复盘 + 校准统计</h2>
+        <p class="hall-desc">六个典型案例演示如何把问题拆成用神、宫位、风险、行动建议和复盘验证点。</p>
+        <div class="case-tags">
+          <span class="case-tag c-career">事业晋升</span>
+          <span class="case-tag c-money">财务投资</span>
+          <span class="case-tag c-love">感情修复</span>
+          <span class="case-tag c-health">健康调养</span>
+          <span class="case-tag c-study">考试学习</span>
+          <span class="case-tag c-trip">出行谈判</span>
+        </div>
+        <div class="review-list">
+          <div class="review-item">每条记录：问题、局数、重点宫、置信度、验证窗口</div>
+          <div class="review-item">命中率统计：命中·部分命中·未命中</div>
+          <div class="review-item">高置信样本单独统计（70%以上）</div>
+          <div class="review-item">CSV导出 + 知识库更新建议JSON</div>
+        </div>
+        <div class="calibration-note">
+          同类问题至少30个已复盘样本才判断方向，100盘以上再看长期命中率。
+        </div>
+        <a href="#" class="hall-btn">查看案例 →</a>
+      </div>
+    </div>
+  </div>
+</section>
+
+<!-- ========== 案头备览 - 原则标签墙 ========== -->
+<section class="principles-section">
+  <h2 class="principles-title">案头备览</h2>
+  <p class="principles-subtitle">判断核心原则 · 八则</p>
+  <div class="principles-grid" id="principles-grid">
+    <div class="principle-card">
+      <div class="principle-inner">
+        <div class="principle-front">
+          <div class="principle-num">第 一 则</div>
+          <div class="principle-name">一盘一问</div>
+          <div class="principle-tag-line">专注单一问题</div>
+        </div>
+        <div class="principle-back">
+          <div class="principle-back-title">一盘一问</div>
+          <div class="principle-back-desc">不把事业财运感情混在一盘里</div>
+        </div>
+      </div>
+    </div>
+    <div class="principle-card">
+      <div class="principle-inner">
+        <div class="principle-front">
+          <div class="principle-num">第 二 则</div>
+          <div class="principle-name">取用神</div>
+          <div class="principle-tag-line">择定核心符号</div>
+        </div>
+        <div class="principle-back">
+          <div class="principle-back-title">取用神</div>
+          <div class="principle-back-desc">按问题选择开门、生门、六合等核心符号</div>
+        </div>
+      </div>
+    </div>
+    <div class="principle-card">
+      <div class="principle-inner">
+        <div class="principle-front">
+          <div class="principle-num">第 三 则</div>
+          <div class="principle-name">四害降权</div>
+          <div class="principle-tag-line">凶象折减置信</div>
+        </div>
+        <div class="principle-back">
+          <div class="principle-back-title">四害降权</div>
+          <div class="principle-back-desc">空亡入墓减八成，击刑法减半</div>
+        </div>
+      </div>
+    </div>
+    <div class="principle-card">
+      <div class="principle-inner">
+        <div class="principle-front">
+          <div class="principle-num">第 四 则</div>
+          <div class="principle-name">可验证断语</div>
+          <div class="principle-tag-line">写出观察指标</div>
+        </div>
+        <div class="principle-back">
+          <div class="principle-back-title">可验证断语</div>
+          <div class="principle-back-desc">必须能写出3-5条观察指标</div>
+        </div>
+      </div>
+    </div>
+    <div class="principle-card">
+      <div class="principle-inner">
+        <div class="principle-front">
+          <div class="principle-num">第 五 则</div>
+          <div class="principle-name">70%法则</div>
+          <div class="principle-tag-line">盘内非现实</div>
+        </div>
+        <div class="principle-back">
+          <div class="principle-back-title">70%法则</div>
+          <div class="principle-back-desc">盘内信号集中且可验证，非承诺现实</div>
+        </div>
+      </div>
+    </div>
+    <div class="principle-card">
+      <div class="principle-inner">
+        <div class="principle-front">
+          <div class="principle-num">第 六 则</div>
+          <div class="principle-name">先看值符值使</div>
+          <div class="principle-tag-line">全局主导路径</div>
+        </div>
+        <div class="principle-back">
+          <div class="principle-back-title">先看值符值使</div>
+          <div class="principle-back-desc">全局主导与执行路径</div>
+        </div>
+      </div>
+    </div>
+    <div class="principle-card">
+      <div class="principle-inner">
+        <div class="principle-front">
+          <div class="principle-num">第 七 则</div>
+          <div class="principle-name">星门神同向</div>
+          <div class="principle-tag-line">同吉方提置信</div>
+        </div>
+        <div class="principle-back">
+          <div class="principle-back-title">星门神同向</div>
+          <div class="principle-back-desc">同吉时提高置信度，打架时谨慎</div>
+        </div>
+      </div>
+    </div>
+    <div class="principle-card">
+      <div class="principle-inner">
+        <div class="principle-front">
+          <div class="principle-num">第 八 则</div>
+          <div class="principle-name">现实信号验证</div>
+          <div class="principle-tag-line">事实优先于解释</div>
+        </div>
+        <div class="principle-back">
+          <div class="principle-back-title">现实信号验证</div>
+          <div class="principle-back-desc">不用事后解释替代事实</div>
+        </div>
+      </div>
+    </div>
+  </div>
+</section>
+
+<!-- ========== 页脚 ========== -->
+<footer class="footer">
+  <p class="footer-disclaimer">本站排盘和建议仅供学习观察与复盘参考，不作为医疗、法律、投资或重大决策依据。</p>
+  <p class="footer-copyright">奇门学馆 © 2024-2026</p>
+  <div class="footer-seal">学馆</div>
+</footer>
+
+<script>
+(function() {
+  'use strict';
+
+  // ========== 副标题逐字浮现 ==========
+  var subtitleText = '善学者，观象而识机；善断者，复盘而明理';
+  var subtitleEl = document.getElementById('subtitle');
+  var chars = subtitleText.split('');
+  var baseDelay = 1.8; // 匾额落定后开始
+  chars.forEach(function(ch, i) {
+    var span = document.createElement('span');
+    span.className = 'char';
+    span.textContent = ch === '，' || ch === '；' ? ch : ch;
+    span.style.animationDelay = (baseDelay + i * 0.08) + 's';
+    subtitleEl.appendChild(span);
+  });
+
+  // ========== IntersectionObserver - 学馆三进进入视口动画 ==========
+  if ('IntersectionObserver' in window) {
+    var hallObserver = new IntersectionObserver(function(entries) {
+      entries.forEach(function(entry) {
+        if (entry.isIntersecting) {
+          entry.target.classList.add('visible');
+        }
+      });
+    }, { threshold: 0.15 });
+
+    document.querySelectorAll('.hall-section').forEach(function(el) {
+      hallObserver.observe(el);
+    });
+
+    // ========== 原则卡片依次插入 ==========
+    var principleObserver = new IntersectionObserver(function(entries) {
+      entries.forEach(function(entry) {
+        if (entry.isIntersecting) {
+          var cards = entry.target.querySelectorAll('.principle-card');
+          cards.forEach(function(card, idx) {
+            setTimeout(function() {
+              card.classList.add('visible');
+            }, idx * 120);
+          });
+          principleObserver.unobserve(entry.target);
+        }
+      });
+    }, { threshold: 0.2 });
+
+    var grid = document.getElementById('principles-grid');
+    if (grid) principleObserver.observe(grid);
+  } else {
+    // 降级：直接显示
+    document.querySelectorAll('.hall-section').forEach(function(el) {
+      el.classList.add('visible');
+    });
+    document.querySelectorAll('.principle-card').forEach(function(el) {
+      el.classList.add('visible');
+    });
+  }
+
+  // ========== 滚动视差效果 ==========
+  var gateway = document.getElementById('gateway');
+  var ticking = false;
+  function updateParallax() {
+    if (!gateway) return;
+    var scrollY = window.scrollY;
+    if (scrollY < window.innerHeight) {
+      var plaqueWrap = document.querySelector('.plaque-wrap');
+      var subtitle = document.querySelector('.subtitle');
+      var entryBtns = document.querySelector('.entry-buttons');
+      if (plaqueWrap) plaqueWrap.style.transform = 'translateY(' + (scrollY * 0.3) + 'px)';
+      if (subtitle) subtitle.style.transform = 'translateY(' + (scrollY * 0.2) + 'px)';
+      if (entryBtns) entryBtns.style.transform = 'translateY(' + (scrollY * 0.15) + 'px)';
+    }
+    ticking = false;
+  }
+  window.addEventListener('scroll', function() {
+    if (!ticking) {
+      window.requestAnimationFrame(updateParallax);
+      ticking = true;
+    }
+  }, { passive: true });
+
+  // ========== 课程标签 / 案例标签 点击反馈 ==========
+  document.querySelectorAll('.course-tag, .case-tag').forEach(function(tag) {
+    tag.addEventListener('click', function(e) {
+      e.preventDefault();
+      tag.style.transform = 'scale(0.95)';
+      setTimeout(function() {
+        tag.style.transform = '';
+      }, 150);
+    });
+  });
+
+  // ========== 按钮点击涟漪 ==========
+  document.querySelectorAll('.btn, .hall-btn').forEach(function(btn) {
+    btn.addEventListener('click', function(e) {
+      // 阻止默认跳转，仅做演示
+      if (btn.getAttribute('href') === '#') {
+        e.preventDefault();
+      }
+    });
+  });
+
+  // ========== 大编号水印 视差微动 ==========
+  var numbers = document.querySelectorAll('.hall-number');
+  function updateNumberParallax() {
+    numbers.forEach(function(num) {
+      var rect = num.getBoundingClientRect();
+      var windowHeight = window.innerHeight;
+      if (rect.top < windowHeight && rect.bottom > 0) {
+        var progress = (windowHeight - rect.top) / (windowHeight + rect.height);
+        var offset = (progress - 0.5) * 20;
+        num.style.transform = 'translateY(' + offset + 'px)';
+      }
+    });
+    ticking = false;
+  }
+  window.addEventListener('scroll', function() {
+    if (!ticking) {
+      window.requestAnimationFrame(updateNumberParallax);
+      ticking = true;
+    }
+  }, { passive: true });
+
+})();
+</script>
+</body>
+</html>
+

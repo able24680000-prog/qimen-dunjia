@@ -1,0 +1,57 @@
+<!DOCTYPE html>
+<html lang="zh-CN">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>奇门遁甲 · 交互可视化原型</title>
+<link rel="stylesheet" href="style.css">
+</head>
+<body>
+<div class="app" data-theme="dark">
+
+  <header class="header">
+    <h1 class="title">奇门遁甲</h1>
+    <p class="subtitle">阳遁一局 · 视觉参考锚点</p>
+    <button class="theme-toggle" id="themeToggle">
+      <span class="toggle-label">暗色</span>
+    </button>
+  </header>
+
+  <main class="main">
+    <div class="bureau" id="bureau">
+      <!-- 9 宫位由 JS 动态生成 -->
+    </div>
+
+    <div class="legend">
+      <div class="legend-item">
+        <span class="legend-dot" style="--c: var(--wuxing-mu)"></span>
+        <span>木</span>
+      </div>
+      <div class="legend-item">
+        <span class="legend-dot" style="--c: var(--wuxing-huo)"></span>
+        <span>火</span>
+      </div>
+      <div class="legend-item">
+        <span class="legend-dot" style="--c: var(--wuxing-tu)"></span>
+        <span>土</span>
+      </div>
+      <div class="legend-item">
+        <span class="legend-dot" style="--c: var(--wuxing-jin)"></span>
+        <span>金</span>
+      </div>
+      <div class="legend-item">
+        <span class="legend-dot" style="--c: var(--wuxing-shui)"></span>
+        <span>水</span>
+      </div>
+    </div>
+  </main>
+
+  <div class="tooltip" id="tooltip"></div>
+
+</div>
+
+<script src="data.js"></script>
+<script src="script.js"></script>
+</body>
+</html>
+

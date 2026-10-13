@@ -1,0 +1,69 @@
+<svg xmlns="http://www.w3.org/2000/svg" width="1440" height="900" viewBox="0 0 1440 900">
+  <defs>
+    <linearGradient id="bg" x1="0" y1="0" x2="1" y2="1"><stop offset="0" stop-color="#06100e"/><stop offset="1" stop-color="#0b1a16"/></linearGradient>
+    <radialGradient id="halo" cx="22%" cy="22%" r="42%"><stop offset="0" stop-color="#7fd1bd" stop-opacity="0.20"/><stop offset="1" stop-color="#7fd1bd" stop-opacity="0"/></radialGradient>
+    <pattern id="grid" width="70" height="70" patternUnits="userSpaceOnUse"><path d="M70 0H0V70" fill="none" stroke="#7fd1bd" stroke-opacity="0.22"/></pattern>
+    <pattern id="stars" width="86" height="86" patternUnits="userSpaceOnUse"><circle cx="16" cy="19" r="1.3" fill="#fff" opacity="0"/><circle cx="62" cy="44" r="1" fill="#fff" opacity="0"/></pattern>
+    <filter id="shadow" x="-20%" y="-20%" width="140%" height="140%"><feDropShadow dx="0" dy="24" stdDeviation="22" flood-color="#000" flood-opacity="0.34"/></filter>
+  </defs>
+  <rect width="1440" height="900" fill="url(#bg)"/>
+  <rect width="1440" height="900" fill="url(#halo)"/>
+  <rect width="1440" height="900" fill="url(#grid)" opacity="0.72"/>
+  <rect width="1440" height="900" fill="url(#stars)"/>
+  <text x="72" y="86" fill="#78958b" font-size="18" font-weight="700">方向一：墨玉夜盘</text>
+  <text x="72" y="160" fill="#f5ead0" font-size="54" font-family="SimSun, Noto Serif SC, serif" font-weight="800">奇门遁甲在线排盘</text>
+  <text x="72" y="204" fill="#b6c6bd" font-size="22">专业排盘工作台，克制、准确、长期耐看</text>
+  <text x="72" y="257" fill="#b6c6bd" font-size="18">背景、盘面、按钮与信息色独立规划，不再只是暗底加金色。</text>
+  <rect x="72" y="305" width="182" height="48" fill="#d9b45f"/>
+  <text x="112" y="336" fill="#06100e" font-size="18" font-weight="800">进入当前排盘</text>
+  <rect x="274" y="305" width="168" height="48" fill="none" stroke="#7fd1bd"/>
+  <text x="309" y="336" fill="#7fd1bd" font-size="18" font-weight="700">查看起局依据</text>
+  <g transform="translate(72 410)"><rect width="520" height="96" fill="#0e211d" stroke="#31574d"/><text x="24" y="38" fill="#7fd1bd" font-size="18" font-weight="800">定位</text><text x="24" y="70" fill="#b6c6bd" font-size="18">最适合主站：可信、克制、工具感强。</text></g>
+  <g transform="translate(72 536)"><rect width="122" height="70" fill="#06100e" stroke="#31574d"/><text x="18" y="44" fill="#b6c6bd" font-size="16">背景</text><rect x="140" width="122" height="70" fill="#0e211d" stroke="#31574d"/><text x="158" y="44" fill="#b6c6bd" font-size="16">面板</text><rect x="280" width="122" height="70" fill="#7fd1bd" stroke="#31574d"/><text x="298" y="44" fill="#06100e" font-size="16" font-weight="800">信息</text><rect x="420" width="122" height="70" fill="#d9b45f" stroke="#31574d"/><text x="438" y="44" fill="#06100e" font-size="16" font-weight="800">强调</text></g>
+  <g filter="url(#shadow)"><rect x="700" y="92" width="620" height="674" fill="#0e211d" stroke="#31574d"/><rect x="700" y="92" width="620" height="64" fill="#06100e" opacity="0.78" stroke="#31574d"/><text x="730" y="132" fill="#d9b45f" font-size="24" font-family="SimSun, Noto Serif SC, serif" font-weight="800" letter-spacing="4">奇门遁甲</text><text x="1110" y="132" fill="#78958b" font-size="16">首页　排盘　知识</text><text x="730" y="210" fill="#f5ead0" font-size="30" font-family="SimSun, Noto Serif SC, serif" font-weight="800">时家奇门盘</text><text x="730" y="238" fill="#b6c6bd" font-size="17">当前时间 · 夏至 · 阴遁三局 · 拆补法</text><rect x="1134" y="196" width="136" height="34" fill="none" stroke="#7fd1bd"/><text x="1162" y="219" fill="#d9b45f" font-size="16">值符值使</text><rect x="760" y="252" width="150" height="128" fill="#0e211d" stroke="#31574d"/>
+<text x="774" y="277" fill="#78958b" font-size="16">巽四</text>
+<text x="864" y="277" fill="#78958b" font-size="15">九天</text>
+<text x="778" y="327" fill="#f5ead0" font-size="27" font-weight="800">天辅</text>
+<text x="780" y="356" fill="#d9b45f" font-size="17" font-weight="700">杜门</text>
+<rect x="910" y="252" width="150" height="128" fill="#0e211d" stroke="#31574d"/>
+<text x="924" y="277" fill="#78958b" font-size="16">离九</text>
+<text x="1014" y="277" fill="#78958b" font-size="15">值符</text>
+<text x="928" y="327" fill="#f5ead0" font-size="27" font-weight="800">天英</text>
+<text x="930" y="356" fill="#d9b45f" font-size="17" font-weight="700">景门</text>
+<rect x="1060" y="252" width="150" height="128" fill="#0e211d" stroke="#31574d"/>
+<text x="1074" y="277" fill="#78958b" font-size="16">坤二</text>
+<text x="1164" y="277" fill="#78958b" font-size="15">腾蛇</text>
+<text x="1078" y="327" fill="#f5ead0" font-size="27" font-weight="800">天芮</text>
+<text x="1080" y="356" fill="#d9b45f" font-size="17" font-weight="700">死门</text>
+<rect x="760" y="380" width="150" height="128" fill="#0e211d" stroke="#31574d"/>
+<text x="774" y="405" fill="#78958b" font-size="16">震三</text>
+<text x="864" y="405" fill="#78958b" font-size="15">六合</text>
+<text x="778" y="455" fill="#f5ead0" font-size="27" font-weight="800">天冲</text>
+<text x="780" y="484" fill="#d9b45f" font-size="17" font-weight="700">伤门</text>
+<rect x="910" y="380" width="150" height="128" fill="#102c25" stroke="#31574d"/>
+<text x="924" y="405" fill="#78958b" font-size="16">中五</text>
+<text x="1014" y="405" fill="#78958b" font-size="15">太阴</text>
+<text x="928" y="455" fill="#f5ead0" font-size="27" font-weight="800">寄宫</text>
+<text x="930" y="484" fill="#d9b45f" font-size="17" font-weight="700">中宫</text>
+<rect x="1060" y="380" width="150" height="128" fill="#0e211d" stroke="#31574d"/>
+<text x="1074" y="405" fill="#78958b" font-size="16">兑七</text>
+<text x="1164" y="405" fill="#78958b" font-size="15">白虎</text>
+<text x="1078" y="455" fill="#f5ead0" font-size="27" font-weight="800">天柱</text>
+<text x="1080" y="484" fill="#d9b45f" font-size="17" font-weight="700">惊门</text>
+<rect x="760" y="508" width="150" height="128" fill="#0e211d" stroke="#31574d"/>
+<text x="774" y="533" fill="#78958b" font-size="16">艮八</text>
+<text x="864" y="533" fill="#78958b" font-size="15">玄武</text>
+<text x="778" y="583" fill="#f5ead0" font-size="27" font-weight="800">天任</text>
+<text x="780" y="612" fill="#d9b45f" font-size="17" font-weight="700">生门</text>
+<rect x="910" y="508" width="150" height="128" fill="#0e211d" stroke="#31574d"/>
+<text x="924" y="533" fill="#78958b" font-size="16">坎一</text>
+<text x="1014" y="533" fill="#78958b" font-size="15">九地</text>
+<text x="928" y="583" fill="#f5ead0" font-size="27" font-weight="800">天蓬</text>
+<text x="930" y="612" fill="#d9b45f" font-size="17" font-weight="700">休门</text>
+<rect x="1060" y="508" width="150" height="128" fill="#0e211d" stroke="#31574d"/>
+<text x="1074" y="533" fill="#78958b" font-size="16">乾六</text>
+<text x="1164" y="533" fill="#78958b" font-size="15">太常</text>
+<text x="1078" y="583" fill="#f5ead0" font-size="27" font-weight="800">天心</text>
+<text x="1080" y="612" fill="#d9b45f" font-size="17" font-weight="700">开门</text><rect x="760" y="656" width="116" height="54" fill="#06100e" opacity="0.55" stroke="#31574d"/><text x="778" y="679" fill="#7fd1bd" font-size="15" font-weight="800">四柱</text><text x="778" y="701" fill="#b6c6bd" font-size="15">丙午 甲午</text><rect x="890" y="656" width="116" height="54" fill="#06100e" opacity="0.55" stroke="#31574d"/><text x="908" y="679" fill="#7fd1bd" font-size="15" font-weight="800">局数</text><text x="908" y="701" fill="#b6c6bd" font-size="15">阴遁三局</text><rect x="1020" y="656" width="116" height="54" fill="#06100e" opacity="0.55" stroke="#31574d"/><text x="1038" y="679" fill="#7fd1bd" font-size="15" font-weight="800">节气</text><text x="1038" y="701" fill="#b6c6bd" font-size="15">夏至</text><rect x="1150" y="656" width="116" height="54" fill="#06100e" opacity="0.55" stroke="#31574d"/><text x="1168" y="679" fill="#7fd1bd" font-size="15" font-weight="800">空亡</text><text x="1168" y="701" fill="#b6c6bd" font-size="15">寅卯</text></g>
+  <text x="1170" y="836" fill="#78958b" font-size="20" letter-spacing="8">墨玉夜盘</text>
+</svg>

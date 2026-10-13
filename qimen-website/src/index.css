@@ -1,0 +1,418 @@
+@import "tailwindcss";
+
+/* ========================================
+   Qi Men Dun Jia - Custom Styles
+   Dark theme with gold accents
+   ======================================== */
+
+/* Custom Fonts */
+@font-face {
+  font-family: 'Noto Serif SC';
+  font-style: normal;
+  font-weight: 400;
+  font-display: swap;
+  src: local('Noto Serif SC'), local('NotoSerifSC'), local('Source Han Serif SC'), local('Source Han Serif CN');
+}
+
+/* ========================================
+   Custom Animations
+   ======================================== */
+
+@keyframes fadeIn {
+  from {
+    opacity: 0;
+  }
+  to {
+    opacity: 1;
+  }
+}
+
+@keyframes slideUp {
+  from {
+    opacity: 0;
+    transform: translateY(20px);
+  }
+  to {
+    opacity: 1;
+    transform: translateY(0);
+  }
+}
+
+@keyframes slideDown {
+  from {
+    opacity: 0;
+    transform: translateY(-10px);
+  }
+  to {
+    opacity: 1;
+    transform: translateY(0);
+  }
+}
+
+@keyframes goldPulse {
+  0%, 100% {
+    box-shadow: 0 0 5px rgba(212, 175, 55, 0.1);
+  }
+  50% {
+    box-shadow: 0 0 20px rgba(212, 175, 55, 0.2);
+  }
+}
+
+@keyframes shimmer {
+  0% {
+    background-position: -200% center;
+  }
+  100% {
+    background-position: 200% center;
+  }
+}
+
+.animate-fadeIn {
+  animation: fadeIn 0.5s ease-out;
+}
+
+.animate-slideUp {
+  animation: slideUp 0.6s ease-out both;
+}
+
+.animate-slideDown {
+  animation: slideDown 0.3s ease-out;
+}
+
+/* ========================================
+   Gold Glow Hover Effects
+   ======================================== */
+
+.gold-glow {
+  position: relative;
+}
+
+.gold-glow:hover {
+  box-shadow:
+    0 0 15px rgba(212, 175, 55, 0.3),
+    0 0 30px rgba(212, 175, 55, 0.1);
+}
+
+.gold-glow::after {
+  content: '';
+  position: absolute;
+  inset: -1px;
+  border-radius: inherit;
+  background: linear-gradient(135deg, rgba(212, 175, 55, 0.2), transparent, rgba(212, 175, 55, 0.1));
+  opacity: 0;
+  transition: opacity 0.3s;
+  pointer-events: none;
+}
+
+.gold-glow:hover::after {
+  opacity: 1;
+}
+
+/* Feature card hover effect */
+.feature-card {
+  position: relative;
+  overflow: hidden;
+}
+
+.feature-card::before {
+  content: '';
+  position: absolute;
+  top: 0;
+  left: -100%;
+  width: 100%;
+  height: 100%;
+  background: linear-gradient(
+    90deg,
+    transparent,
+    rgba(212, 175, 55, 0.03),
+    transparent
+  );
+  transition: left 0.6s ease;
+}
+
+.feature-card:hover::before {
+  left: 100%;
+}
+
+/* ========================================
+   Palace Grid Specific Styles
+   ======================================== */
+
+.jiu-gong-grid {
+  aspect-ratio: 1;
+}
+
+.palace-cell {
+  position: relative;
+  min-height: 80px;
+  display: flex;
+  flex-direction: column;
+  justify-content: space-between;
+}
+
+@media (min-width: 768px) {
+  .palace-cell {
+    min-height: 110px;
+  }
+}
+
+.palace-cell::after {
+  content: '';
+  position: absolute;
+  inset: 0;
+  border-radius: inherit;
+  background: radial-gradient(circle at center, rgba(212, 175, 55, 0.05), transparent);
+  opacity: 0;
+  transition: opacity 0.3s;
+  pointer-events: none;
+}
+
+.palace-cell:hover::after {
+  opacity: 1;
+}
+
+/* Center palace (5) special styling */
+.palace-cell-center {
+  background: linear-gradient(135deg, var(--qm-surface), var(--qm-surface-3));
+}
+
+/* ========================================
+   Custom Scrollbar (Dark Theme)
+   ======================================== */
+
+::-webkit-scrollbar {
+  width: 8px;
+  height: 8px;
+}
+
+::-webkit-scrollbar-track {
+  background: var(--qm-bg);
+}
+
+::-webkit-scrollbar-thumb {
+  background: var(--qm-border);
+  border-radius: 4px;
+}
+
+::-webkit-scrollbar-thumb:hover {
+  background: var(--qm-secondary);
+}
+
+::-webkit-scrollbar-corner {
+  background: var(--qm-bg);
+}
+
+/* Firefox scrollbar */
+* {
+  scrollbar-width: thin;
+  scrollbar-color: var(--qm-border) var(--qm-bg);
+}
+
+/* ========================================
+   Selection Styling
+   ======================================== */
+
+::selection {
+  background: rgba(212, 175, 55, 0.3);
+  color: #fff;
+}
+
+/* ========================================
+   Focus Styles
+   ======================================== */
+
+input:focus,
+select:focus,
+textarea:focus {
+  outline: none;
+  border-color: var(--qm-primary) !important;
+  box-shadow: 0 0 0 2px rgba(212, 175, 55, 0.15);
+}
+
+/* ========================================
+   Utility Classes
+   ======================================== */
+
+/* Gold text gradient */
+.text-gold-gradient {
+  background: linear-gradient(135deg, var(--qm-primary), #c9a64d, var(--qm-primary));
+  -webkit-background-clip: text;
+  -webkit-text-fill-color: transparent;
+  background-clip: text;
+}
+
+/* Subtle gold border animation */
+.border-gold-animate {
+  background: linear-gradient(135deg, var(--qm-border), var(--qm-border)) padding-box,
+              linear-gradient(135deg, var(--qm-primary), transparent, var(--qm-primary)) border-box;
+  border: 1px solid transparent;
+}
+
+/* Glass morphism effect */
+.glass {
+  background: rgba(30, 41, 59, 0.8);
+  backdrop-filter: blur(10px);
+  -webkit-backdrop-filter: blur(10px);
+}
+
+/* ========================================
+   Responsive Adjustments
+   ======================================== */
+
+@media (max-width: 640px) {
+  .jiu-gong-grid {
+    gap: 2px;
+  }
+
+  .palace-cell {
+    min-height: 70px;
+    padding: 4px;
+  }
+}
+
+/* ========================================
+   Print Styles
+   ======================================== */
+
+@media print {
+  body {
+    background: white;
+    color: black;
+  }
+
+  nav, footer {
+    display: none;
+  }
+}
+
+
+
+/* Refined product skin */
+:root,
+[data-qimen-skin="jade"] {
+  --qm-bg: #eef5f0;
+  --qm-bg-top: #fbfcf6;
+  --qm-bg-mid: #f8f8ee;
+  --qm-bg-soft: #deeadf;
+  --qm-bg-bottom: #e7f0e8;
+  --qm-surface: #fffdf6;
+  --qm-surface-2: #f7f0df;
+  --qm-surface-3: #e8f0e7;
+  --qm-border: #8e7c5c;
+  --qm-border-soft: #d2bd91;
+  --qm-ink: #211b15;
+  --qm-ink-soft: #554a3f;
+  --qm-muted: #7b6f5f;
+  --qm-primary: #6b241f;
+  --qm-primary-hover: #7c302a;
+  --qm-secondary: #195f55;
+  --qm-shadow: 107 36 31;
+  --qm-nav-bg: rgba(238, 243, 239, 0.97);
+  --qm-side-wash: rgba(25, 95, 85, 0.052);
+  --qm-top-wash: rgba(107, 36, 31, 0.024);
+  --qm-grid-primary: rgba(107, 36, 31, 0.014);
+  --qm-grid-secondary: rgba(25, 95, 85, 0.02);
+  --qm-hero-wash: rgba(255, 253, 246, 0.72);
+}
+
+[data-qimen-skin="moon"] {
+  --qm-bg: #f2f5f4;
+  --qm-bg-top: #fbfcfa;
+  --qm-bg-mid: #fbfaf4;
+  --qm-bg-soft: #e1e8e6;
+  --qm-bg-bottom: #e9efee;
+  --qm-surface: #fffffb;
+  --qm-surface-2: #f1eadc;
+  --qm-surface-3: #e9eeee;
+  --qm-border: #8f7d61;
+  --qm-border-soft: #c8b690;
+  --qm-ink: #221d19;
+  --qm-ink-soft: #514943;
+  --qm-muted: #746a5e;
+  --qm-primary: #69231f;
+  --qm-primary-hover: #7b3029;
+  --qm-secondary: #275d62;
+  --qm-shadow: 105 35 31;
+  --qm-nav-bg: rgba(241, 244, 243, 0.97);
+  --qm-side-wash: rgba(39, 93, 98, 0.06);
+  --qm-top-wash: rgba(105, 35, 31, 0.026);
+  --qm-grid-primary: rgba(105, 35, 31, 0.016);
+  --qm-grid-secondary: rgba(39, 93, 98, 0.022);
+  --qm-hero-wash: rgba(255, 255, 251, 0.66);
+}
+
+[data-qimen-skin="paper"] {
+  --qm-bg: #efe6d4;
+  --qm-bg-top: #fff7e8;
+  --qm-bg-mid: #fff8ec;
+  --qm-bg-soft: #e3d3b4;
+  --qm-bg-bottom: #eadcc2;
+  --qm-surface: #fffaf0;
+  --qm-surface-2: #f3e3c8;
+  --qm-surface-3: #ead8b9;
+  --qm-border: #98734b;
+  --qm-border-soft: #ceb183;
+  --qm-ink: #261d15;
+  --qm-ink-soft: #5b4a38;
+  --qm-muted: #806b52;
+  --qm-primary: #763024;
+  --qm-primary-hover: #873c2f;
+  --qm-secondary: #2d6253;
+  --qm-shadow: 118 48 36;
+  --qm-nav-bg: rgba(239, 230, 212, 0.97);
+  --qm-side-wash: rgba(45, 98, 83, 0.065);
+  --qm-top-wash: rgba(118, 48, 36, 0.03);
+  --qm-grid-primary: rgba(118, 48, 36, 0.02);
+  --qm-grid-secondary: rgba(45, 98, 83, 0.024);
+  --qm-hero-wash: rgba(255, 250, 240, 0.6);
+}
+
+html {
+  background: var(--qm-bg);
+}
+
+body {
+  background:
+    linear-gradient(90deg, var(--qm-side-wash) 0%, transparent 18%, transparent 78%, var(--qm-top-wash) 100%),
+    linear-gradient(180deg, var(--qm-bg-top) 0%, var(--qm-bg-mid) 34%, var(--qm-bg) 62%, var(--qm-bg-bottom) 100%);
+  color: var(--qm-ink);
+}
+
+h1, h2, h3 {
+  text-wrap: balance;
+}
+
+p {
+  text-wrap: pretty;
+}
+
+.gold-glow:hover {
+  box-shadow: none;
+}
+
+.gold-glow::after,
+.feature-card::before {
+  display: none;
+}
+
+.text-gold-gradient {
+  background: none;
+  -webkit-text-fill-color: currentColor;
+  color: var(--qm-primary);
+}
+
+.glass {
+  background: var(--qm-surface);
+  backdrop-filter: none;
+  -webkit-backdrop-filter: none;
+}
+
+@media (prefers-reduced-motion: reduce) {
+  *, *::before, *::after {
+    animation-duration: 0.01ms !important;
+    animation-iteration-count: 1 !important;
+    scroll-behavior: auto !important;
+    transition-duration: 0.01ms !important;
+  }
+}
+

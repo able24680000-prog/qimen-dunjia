@@ -1,0 +1,866 @@
+/* ========================================
+   Qimen Digital Museum Concept
+   ======================================== */
+
+@keyframes conceptFloat {
+  0%, 100% { transform: translate3d(0, -5px, 0) scale(1); }
+  50% { transform: translate3d(0, 11px, 0) scale(1.025); }
+}
+
+@keyframes conceptParticle {
+  0%, 100% { opacity: 0.28; transform: translate3d(0, -7px, 0) scale(var(--particle-scale, 1)); }
+  50% { opacity: 0.92; transform: translate3d(8px, 8px, 0) scale(calc(var(--particle-scale, 1) + 0.18)); }
+}
+
+@keyframes conceptRipple {
+  0% { opacity: 0.72; transform: translate(-50%, -50%) scale(0.72); }
+  100% { opacity: 0; transform: translate(-50%, -50%) scale(1.32); }
+}
+
+@keyframes conceptMatrix {
+  0%, 100% { opacity: 0.34; transform: translateY(0) scaleX(0.92); }
+  50% { opacity: 0.76; transform: translateY(-8px) scaleX(1); }
+}
+
+.concept-home {
+  --concept-bg: #f6f4ef;
+  --concept-ink: #2a2926;
+  --concept-red: #b4362d;
+  position: relative;
+  min-height: 100dvh;
+  overflow: hidden;
+  isolation: isolate;
+  background:
+    radial-gradient(circle at 50% 6%, rgba(255, 255, 255, 0.98) 0 8%, rgba(246, 244, 239, 0.86) 17%, transparent 30%),
+    linear-gradient(90deg, rgba(255, 255, 255, 0.7) 0%, rgba(246, 244, 239, 0.95) 36%, rgba(68, 65, 59, 0.18) 100%),
+    var(--concept-bg);
+  color: var(--concept-ink);
+  font-family: "Inter", "Helvetica Neue", system-ui, "Microsoft YaHei", sans-serif;
+}
+
+.concept-home::before,
+.concept-home::after {
+  content: '';
+  position: absolute;
+  inset: 0;
+  pointer-events: none;
+}
+
+.concept-home::before {
+  z-index: -3;
+  background:
+    linear-gradient(90deg, transparent 0 23%, rgba(98, 73, 62, 0.11) 23.15%, transparent 23.3% 57%, rgba(98, 73, 62, 0.1) 57.15%, transparent 57.3%),
+    linear-gradient(180deg, rgba(255, 255, 255, 0.22), transparent 48%);
+}
+
+.concept-home::after {
+  z-index: -2;
+  background:
+    radial-gradient(ellipse at 43% 90%, rgba(255, 255, 255, 0.62) 0 15%, rgba(255, 255, 255, 0.26) 31%, transparent 52%),
+    linear-gradient(90deg, rgba(255, 255, 255, 0.34) 0%, transparent 43%, rgba(0, 0, 0, 0.48) 100%);
+  mix-blend-mode: multiply;
+  opacity: 0.82;
+}
+
+.concept-room { position: absolute; inset: 0; z-index: -1; pointer-events: none; }
+
+.concept-room__oculus {
+  position: absolute;
+  top: -13vw;
+  left: 50%;
+  width: min(46vw, 680px);
+  aspect-ratio: 2.9 / 1;
+  border-radius: 50%;
+  transform: translateX(-50%);
+  background: radial-gradient(ellipse at center, rgba(255,255,255,0.98) 0 38%, rgba(222,215,200,0.78) 42%, rgba(162,153,137,0.28) 55%, transparent 70%);
+}
+
+.concept-room__left-shadow {
+  position: absolute;
+  left: -8vw;
+  top: 15%;
+  width: 35vw;
+  height: 42vh;
+  background: radial-gradient(ellipse at 45% 40%, rgba(128, 118, 98, 0.14), transparent 62%);
+  filter: blur(9px);
+  opacity: 0.78;
+}
+
+.concept-room__right-shadow {
+  position: absolute;
+  top: 0;
+  right: 0;
+  width: 34vw;
+  height: 100%;
+  background: linear-gradient(90deg, transparent, rgba(0, 0, 0, 0.42));
+}
+
+.concept-room__horizon {
+  position: absolute;
+  left: 0;
+  right: 0;
+  top: 66%;
+  height: 1px;
+  background: linear-gradient(90deg, transparent, rgba(255,255,255,0.82), rgba(45,43,39,0.18), transparent);
+}
+
+.concept-nav {
+  position: absolute;
+  z-index: 20;
+  top: clamp(24px, 3vw, 54px);
+  left: clamp(24px, 4vw, 76px);
+  right: clamp(24px, 3vw, 60px);
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+  gap: 28px;
+}
+
+.concept-brand { display: inline-flex; align-items: center; gap: 12px; color: var(--concept-ink); text-decoration: none; }
+
+.concept-brand__seal {
+  display: grid;
+  width: 42px;
+  aspect-ratio: 1;
+  place-items: center;
+  border: 1px solid rgba(42, 41, 38, 0.44);
+  border-radius: 999px;
+}
+
+.concept-brand__seal span {
+  width: 23px;
+  aspect-ratio: 1;
+  border: 1px solid rgba(42, 41, 38, 0.48);
+  border-radius: 50%;
+  background:
+    radial-gradient(circle at 36% 36%, var(--concept-red) 0 2px, transparent 2.5px),
+    radial-gradient(circle at 62% 62%, rgba(42,41,38,0.62) 0 1.6px, transparent 2px);
+}
+
+.concept-brand strong {
+  display: block;
+  font-family: "Noto Serif SC", "SimSun", "STSong", serif;
+  font-size: 17px;
+  font-weight: 500;
+  letter-spacing: 0.13em;
+}
+
+.concept-brand small { display: block; margin-top: 2px; font-size: 9px; letter-spacing: 0.22em; color: rgba(42,41,38,0.58); }
+
+.concept-nav__links { display: flex; align-items: center; gap: clamp(20px, 2.6vw, 46px); }
+
+.concept-nav__links a {
+  color: rgba(255,255,255,0.88);
+  font-family: "Noto Serif SC", "SimSun", "STSong", serif;
+  font-size: 14px;
+  letter-spacing: 0.18em;
+  text-decoration: none;
+  text-shadow: 0 1px 14px rgba(0,0,0,0.32);
+  transition: color 220ms ease;
+}
+
+.concept-nav__links a:hover { color: #fff; }
+
+.concept-menu { display: inline-grid; width: 32px; height: 32px; place-items: center; border: 0; background: transparent; cursor: pointer; }
+.concept-menu span { display: block; width: 22px; height: 1px; background: rgba(255,255,255,0.86); }
+.concept-menu span + span { margin-top: -9px; }
+
+.concept-left-copy {
+  position: absolute;
+  z-index: 10;
+  left: clamp(48px, 7vw, 132px);
+  top: 30%;
+  display: flex;
+  align-items: center;
+  gap: 28px;
+}
+
+.concept-left-copy h1,
+.concept-left-copy p {
+  writing-mode: vertical-rl;
+  margin: 0;
+  font-family: "Noto Serif SC", "SimSun", "STSong", serif;
+}
+
+.concept-left-copy h1 { font-size: clamp(32px, 2.8vw, 52px); font-weight: 400; line-height: 1.9; letter-spacing: 0.12em; }
+.concept-left-copy h1::first-letter { color: var(--concept-red); }
+.concept-left-copy p { max-height: 210px; font-size: 14px; line-height: 1.8; letter-spacing: 0.22em; color: rgba(42,41,38,0.62); }
+
+.concept-center { position: relative; display: grid; min-height: 100dvh; place-items: center; padding: 100px 24px 120px; }
+.concept-energy { position: relative; width: min(42vw, 720px); min-width: 520px; height: min(72vh, 760px); min-height: 560px; }
+
+.concept-sphere {
+  position: absolute;
+  z-index: 8;
+  top: 25%;
+  left: 50%;
+  width: clamp(104px, 9vw, 158px);
+  aspect-ratio: 1;
+  transform: translateX(-50%);
+  border-radius: 50%;
+  background:
+    radial-gradient(circle at 38% 27%, rgba(255,255,255,0.92) 0 10%, rgba(255,226,214,0.5) 11%, transparent 24%),
+    radial-gradient(circle at 58% 58%, rgba(255,106,82,0.92) 0 8%, rgba(136,16,12,0.96) 42%, rgba(75,8,6,0.98) 76%),
+    var(--concept-red);
+  box-shadow: inset -22px -28px 36px rgba(42,0,0,0.42), inset 18px 15px 34px rgba(255,181,157,0.32), 0 20px 34px rgba(91,16,13,0.28), 0 0 44px rgba(180,54,45,0.24);
+  animation: conceptFloat 7.6s cubic-bezier(0.22, 1, 0.36, 1) infinite;
+}
+
+.concept-sphere::before,
+.concept-sphere::after {
+  content: '';
+  position: absolute;
+  inset: 12%;
+  border-radius: 50%;
+  border: 1px solid rgba(255,231,220,0.28);
+  transform: rotate(-21deg);
+}
+
+.concept-sphere::after { inset: 23%; border-color: rgba(255,255,255,0.18); transform: rotate(43deg); }
+
+.concept-sphere span {
+  position: absolute;
+  inset: 16%;
+  border-radius: 50%;
+  background:
+    radial-gradient(circle at 22% 36%, rgba(255,255,255,0.32) 0 1px, transparent 2px),
+    radial-gradient(circle at 58% 31%, rgba(255,255,255,0.24) 0 1px, transparent 2px),
+    radial-gradient(circle at 66% 70%, rgba(255,210,190,0.26) 0 1px, transparent 2px);
+  opacity: 0.88;
+}
+
+.concept-particles { position: absolute; z-index: 7; top: 4%; left: 50%; width: 200px; height: 63%; transform: translateX(-50%); }
+.concept-particles span { --particle-scale: 1; position: absolute; width: 4px; aspect-ratio: 1; border-radius: 50%; background: rgba(180,54,45,0.92); box-shadow: 0 0 9px rgba(180,54,45,0.35); animation: conceptParticle 6.8s cubic-bezier(0.22, 1, 0.36, 1) infinite; }
+.concept-particles span:nth-child(3n) { width: 2px; background: rgba(255,255,255,0.86); }
+.concept-particles span:nth-child(5n) { --particle-scale: 0.7; }
+
+.concept-matrix { position: absolute; z-index: 5; top: 47%; left: 50%; width: 210px; height: 150px; transform: translateX(-50%); }
+.concept-matrix::before,
+.concept-matrix::after,
+.concept-matrix i { content: ''; position: absolute; left: 50%; width: 190px; height: 52px; border: 1px solid rgba(255,255,255,0.48); border-radius: 50%; transform: translateX(-50%) rotateX(64deg); animation: conceptMatrix 6.4s cubic-bezier(0.22, 1, 0.36, 1) infinite; }
+.concept-matrix::before { top: 8px; }
+.concept-matrix::after { top: 50px; width: 150px; animation-delay: -1.5s; }
+.concept-matrix i { top: 88px; width: 112px; animation-delay: -3s; }
+
+.concept-disc {
+  position: absolute;
+  z-index: 6;
+  left: 50%;
+  bottom: 12%;
+  width: clamp(210px, 22vw, 360px);
+  aspect-ratio: 3.7 / 1;
+  transform: translateX(-50%);
+  border-radius: 50%;
+  background: radial-gradient(ellipse at center, rgba(255,255,255,0.96) 0 33%, rgba(221,213,198,0.78) 57%, rgba(119,111,95,0.38) 100%);
+  box-shadow: 0 14px 24px rgba(56,50,43,0.28), inset 0 2px 7px rgba(255,255,255,0.96);
+}
+
+.concept-disc__face { position: absolute; left: 50%; top: 42%; width: 50%; aspect-ratio: 1; border: 1px solid rgba(42,41,38,0.28); border-radius: 50%; transform: translate(-50%, -50%) rotateX(58deg); }
+.concept-disc__face span { position: absolute; left: 50%; top: 4px; width: 1px; height: 8px; background: rgba(42,41,38,0.26); transform-origin: 0 calc(50% + 38px); }
+.concept-disc__face b { position: absolute; inset: 37%; border: 1px solid rgba(180,54,45,0.62); border-radius: 50%; }
+
+.concept-water {
+  position: absolute;
+  z-index: 1;
+  left: 50%;
+  bottom: 0;
+  width: min(58vw, 880px);
+  aspect-ratio: 3.6 / 1;
+  transform: translateX(-50%);
+  border-radius: 50%;
+  background: radial-gradient(ellipse at center, rgba(255,255,255,0.62) 0 7%, rgba(255,255,255,0.22) 20%, transparent 56%), repeating-radial-gradient(ellipse at center, rgba(255,255,255,0.34) 0 1px, transparent 2px 16px);
+  filter: blur(0.2px);
+}
+
+.concept-water span { position: absolute; left: 50%; top: 48%; width: 32%; aspect-ratio: 2.7 / 1; border: 1px solid rgba(255,255,255,0.48); border-radius: 50%; animation: conceptRipple 5.8s cubic-bezier(0.22, 1, 0.36, 1) infinite; }
+.concept-water span:nth-child(2) { animation-delay: -1.8s; }
+.concept-water span:nth-child(3) { animation-delay: -3.5s; }
+
+.concept-stages { position: absolute; z-index: 12; top: 24%; right: clamp(26px, 4vw, 78px); display: grid; gap: clamp(24px, 4vh, 52px); color: rgba(255,255,255,0.78); }
+.concept-stage { position: relative; display: grid; grid-template-columns: 1fr 64px; align-items: center; gap: 18px; min-width: 142px; padding-left: 34px; }
+.concept-stage::before { content: ''; position: absolute; left: 7px; top: -28px; bottom: -28px; width: 1px; background: linear-gradient(180deg, transparent, rgba(255,255,255,0.28), transparent); }
+.concept-stage__pin { position: absolute; left: 4px; top: 50%; width: 7px; aspect-ratio: 1; border-radius: 50%; background: rgba(255,255,255,0.86); transform: translateY(-50%); }
+.concept-stage strong { display: block; font-family: "Noto Serif SC", "SimSun", "STSong", serif; font-size: 17px; font-weight: 500; letter-spacing: 0.16em; }
+.concept-stage small { display: block; margin-top: 3px; font-size: 8px; letter-spacing: 0.24em; color: rgba(255,255,255,0.58); }
+.concept-stage svg { width: 64px; height: 64px; fill: none; stroke: currentColor; stroke-width: 1.2; opacity: 0.7; }
+.concept-stage svg path { fill: none; }
+
+.concept-enter {
+  position: absolute;
+  z-index: 18;
+  left: 50%;
+  bottom: clamp(28px, 6vh, 66px);
+  display: grid;
+  min-width: 142px;
+  justify-items: center;
+  gap: 8px;
+  transform: translateX(-50%);
+  color: rgba(255,255,255,0.94);
+  text-align: center;
+  text-decoration: none;
+  text-shadow: 0 2px 18px rgba(0,0,0,0.36);
+}
+
+.concept-enter span { font-family: "Noto Serif SC", "SimSun", "STSong", serif; font-size: clamp(18px, 1.6vw, 28px); letter-spacing: 0.22em; }
+.concept-enter small { font-size: 10px; letter-spacing: 0.34em; }
+.concept-enter i { width: 15px; aspect-ratio: 1; border: 1px solid rgba(180,54,45,0.98); border-radius: 999px; box-shadow: 0 0 16px rgba(180,54,45,0.42); }
+
+@media (max-width: 1120px) {
+  .concept-energy { min-width: 460px; }
+  .concept-stages { right: 24px; }
+  .concept-stage { grid-template-columns: 1fr 52px; min-width: 116px; gap: 12px; }
+  .concept-stage svg { width: 52px; height: 52px; }
+}
+
+@media (max-width: 860px) {
+  .concept-home { min-height: 100svh; }
+  .concept-nav { position: relative; top: auto; left: auto; right: auto; padding: 22px 18px 0; }
+  .concept-nav__links { gap: 14px; }
+  .concept-nav__links a { display: none; }
+  .concept-nav__links a:nth-child(2) { display: inline; color: rgba(42,41,38,0.76); text-shadow: none; }
+  .concept-menu span { background: rgba(42,41,38,0.78); }
+  .concept-left-copy { left: 22px; top: 22%; gap: 14px; }
+  .concept-left-copy h1 { font-size: 28px; }
+  .concept-left-copy p { display: none; }
+  .concept-center { min-height: calc(100svh - 82px); padding: 20px 14px 112px; }
+  .concept-energy { width: 100%; min-width: 0; max-width: 430px; height: 64svh; min-height: 480px; }
+  .concept-stages { top: auto; right: auto; left: 18px; bottom: 92px; grid-template-columns: repeat(4, minmax(0, 1fr)); width: calc(100% - 36px); gap: 8px; color: rgba(42,41,38,0.72); }
+  .concept-stage { display: block; min-width: 0; padding-left: 0; text-align: center; }
+  .concept-stage::before, .concept-stage__pin, .concept-stage svg, .concept-stage small { display: none; }
+  .concept-stage strong { font-size: 12px; letter-spacing: 0.12em; }
+  .concept-enter { bottom: 24px; color: rgba(42,41,38,0.86); text-shadow: none; }
+}
+
+@media (max-width: 520px) {
+  .concept-brand strong { font-size: 15px; }
+  .concept-brand small { display: none; }
+  .concept-brand__seal { width: 36px; }
+  .concept-left-copy { display: none; }
+  .concept-sphere { top: 24%; width: 112px; }
+  .concept-particles { width: 152px; }
+  .concept-disc { width: 220px; bottom: 16%; }
+  .concept-water { width: 116vw; }
+}
+
+/* Concept v2: refine central ritual object */
+.concept-home {
+  background:
+    radial-gradient(circle at 50% 4%, rgba(255,255,255,1) 0 9%, rgba(246,244,239,0.9) 18%, transparent 34%),
+    linear-gradient(90deg, rgba(255,255,255,0.72) 0%, rgba(246,244,239,0.94) 34%, rgba(61,58,53,0.26) 100%),
+    var(--concept-bg);
+}
+
+.concept-home::after {
+  background:
+    radial-gradient(ellipse at 48% 83%, rgba(255,255,255,0.58) 0 12%, rgba(255,255,255,0.18) 31%, transparent 54%),
+    linear-gradient(90deg, rgba(255,255,255,0.28) 0%, transparent 43%, rgba(0,0,0,0.55) 100%);
+  opacity: 0.88;
+}
+
+.concept-room__oculus {
+  top: -11vw;
+  width: min(54vw, 820px);
+  filter: drop-shadow(0 18px 34px rgba(82, 76, 66, 0.16));
+}
+
+.concept-center {
+  padding-bottom: 100px;
+}
+
+.concept-energy {
+  width: min(50vw, 820px);
+  min-width: 620px;
+  height: min(78vh, 820px);
+  min-height: 650px;
+  contain: layout paint;
+}
+
+.concept-energy::before {
+  content: '';
+  position: absolute;
+  z-index: 2;
+  left: 50%;
+  top: 2%;
+  width: 2px;
+  height: 80%;
+  transform: translateX(-50%);
+  background: linear-gradient(180deg, transparent, rgba(180,54,45,0.26) 19%, rgba(255,255,255,0.68) 46%, rgba(180,54,45,0.24) 72%, transparent);
+  box-shadow: 0 0 30px rgba(255,255,255,0.45), 0 0 42px rgba(180,54,45,0.18);
+  opacity: 0.72;
+}
+
+.concept-energy::after {
+  content: '';
+  position: absolute;
+  z-index: 1;
+  left: 50%;
+  top: 13%;
+  width: min(20vw, 280px);
+  height: 62%;
+  transform: translateX(-50%);
+  background: radial-gradient(ellipse at center, rgba(255,255,255,0.42), transparent 62%);
+  filter: blur(18px);
+  opacity: 0.78;
+}
+
+.concept-sphere {
+  top: 21%;
+  width: clamp(142px, 11.6vw, 206px);
+  background:
+    radial-gradient(circle at 34% 26%, rgba(255,255,255,0.95) 0 8%, rgba(255,235,226,0.56) 9%, transparent 22%),
+    radial-gradient(circle at 60% 62%, rgba(255,116,88,0.86) 0 10%, rgba(171,33,25,0.93) 38%, rgba(73,8,7,0.96) 74%),
+    conic-gradient(from 210deg, rgba(255,255,255,0.18), rgba(139,22,18,0.74), rgba(255,125,93,0.28), rgba(74,8,8,0.9), rgba(255,255,255,0.14));
+  box-shadow:
+    inset -28px -34px 42px rgba(38,0,0,0.5),
+    inset 20px 18px 42px rgba(255,188,162,0.34),
+    0 26px 46px rgba(91,16,13,0.3),
+    0 0 64px rgba(180,54,45,0.28);
+  will-change: transform;
+}
+
+.concept-sphere::before {
+  inset: 10%;
+  border-color: rgba(255,235,225,0.34);
+  box-shadow: inset 0 0 22px rgba(255,255,255,0.08);
+}
+
+.concept-sphere::after {
+  inset: -9%;
+  border: 1px solid rgba(255,255,255,0.18);
+  border-left-color: rgba(180,54,45,0.22);
+  border-right-color: rgba(180,54,45,0.18);
+  transform: rotate(18deg) scaleY(0.68);
+}
+
+.concept-sphere span {
+  inset: 13%;
+  background:
+    radial-gradient(circle at 25% 30%, rgba(255,255,255,0.34) 0 1px, transparent 2px),
+    radial-gradient(circle at 54% 34%, rgba(255,255,255,0.22) 0 1px, transparent 2px),
+    radial-gradient(circle at 70% 67%, rgba(255,218,198,0.3) 0 1px, transparent 2px),
+    repeating-radial-gradient(circle at 53% 52%, transparent 0 18px, rgba(255,219,203,0.1) 19px 20px);
+}
+
+.concept-particles {
+  top: 0;
+  height: 70%;
+  width: 250px;
+}
+
+.concept-particles::before,
+.concept-particles::after {
+  content: '';
+  position: absolute;
+  left: 50%;
+  border-radius: 50%;
+  transform: translateX(-50%);
+  pointer-events: none;
+}
+
+.concept-particles::before {
+  top: 12%;
+  width: 72%;
+  height: 62%;
+  background:
+    radial-gradient(circle at 45% 18%, rgba(180,54,45,0.18), transparent 3px),
+    radial-gradient(circle at 58% 36%, rgba(255,255,255,0.28), transparent 2px),
+    radial-gradient(circle at 41% 56%, rgba(180,54,45,0.2), transparent 3px),
+    radial-gradient(circle at 53% 78%, rgba(255,255,255,0.28), transparent 2px);
+  border-left: 1px solid rgba(255,255,255,0.2);
+  border-right: 1px solid rgba(180,54,45,0.16);
+  filter: blur(0.1px);
+  opacity: 0.9;
+}
+
+.concept-particles::after {
+  top: 8%;
+  width: 4px;
+  height: 73%;
+  background: linear-gradient(180deg, transparent, rgba(180,54,45,0.28), rgba(255,255,255,0.72), rgba(180,54,45,0.24), transparent);
+  box-shadow: 0 0 20px rgba(255,255,255,0.35);
+}
+
+.concept-particles span {
+  width: 5px;
+  background: radial-gradient(circle, rgba(255,228,218,0.98), rgba(180,54,45,0.94) 58%, rgba(180,54,45,0) 72%);
+  box-shadow: 0 0 10px rgba(180,54,45,0.42);
+}
+
+.concept-particles span:nth-child(2n) {
+  margin-left: 16px;
+}
+
+.concept-particles span:nth-child(3n) {
+  width: 3px;
+  margin-left: -20px;
+  background: rgba(255,255,255,0.9);
+}
+
+.concept-matrix {
+  top: 43%;
+  width: 300px;
+  height: 210px;
+}
+
+.concept-matrix::before,
+.concept-matrix::after,
+.concept-matrix i {
+  width: 278px;
+  height: 72px;
+  border-color: rgba(255,255,255,0.58);
+  box-shadow: 0 0 18px rgba(255,255,255,0.16);
+}
+
+.concept-matrix::after {
+  top: 62px;
+  width: 218px;
+}
+
+.concept-matrix i {
+  top: 118px;
+  width: 148px;
+}
+
+.concept-disc {
+  bottom: 11%;
+  width: clamp(280px, 27vw, 430px);
+  aspect-ratio: 4.2 / 1;
+  background:
+    radial-gradient(ellipse at 47% 38%, rgba(255,255,255,1) 0 26%, rgba(236,231,219,0.9) 49%, rgba(160,151,133,0.42) 100%);
+  box-shadow:
+    0 18px 30px rgba(54,48,40,0.26),
+    0 32px 58px rgba(54,48,40,0.16),
+    inset 0 3px 9px rgba(255,255,255,0.98);
+}
+
+.concept-disc::before {
+  content: '';
+  position: absolute;
+  left: 50%;
+  top: 34%;
+  width: 42%;
+  aspect-ratio: 1;
+  transform: translate(-50%, -50%) rotateX(58deg);
+  border-radius: 50%;
+  border: 1px solid rgba(180,54,45,0.22);
+  box-shadow: inset 0 0 0 9px rgba(255,255,255,0.18), 0 0 22px rgba(180,54,45,0.1);
+}
+
+.concept-water {
+  bottom: 0;
+  width: min(72vw, 1080px);
+  background:
+    radial-gradient(ellipse at 50% 48%, rgba(255,255,255,0.7) 0 6%, rgba(255,255,255,0.24) 20%, transparent 56%),
+    repeating-radial-gradient(ellipse at center, rgba(255,255,255,0.46) 0 1px, transparent 2px 18px);
+  opacity: 0.88;
+}
+
+.concept-enter {
+  color: rgba(42,41,38,0.78);
+  text-shadow: 0 1px 18px rgba(255,255,255,0.72);
+  transition: transform 220ms cubic-bezier(0.22, 1, 0.36, 1), color 220ms ease;
+}
+
+.concept-enter:hover {
+  color: var(--concept-red);
+  transform: translateX(-50%) translateY(-2px);
+}
+
+.concept-enter i {
+  background: rgba(255,255,255,0.38);
+}
+
+@media (max-width: 1120px) {
+  .concept-energy {
+    min-width: 500px;
+  }
+}
+
+@media (max-width: 860px) {
+  .concept-energy {
+    min-width: 0;
+    max-width: 460px;
+    min-height: 520px;
+  }
+
+  .concept-sphere {
+    width: 138px;
+  }
+
+  .concept-matrix {
+    width: 230px;
+  }
+
+  .concept-matrix::before,
+  .concept-matrix::after,
+  .concept-matrix i {
+    width: 220px;
+  }
+
+  .concept-disc {
+    width: 280px;
+  }
+}
+
+@media (max-width: 520px) {
+  .concept-sphere {
+    width: 124px;
+  }
+
+  .concept-particles {
+    width: 180px;
+  }
+
+  .concept-disc {
+    width: 250px;
+  }
+}
+
+/* Concept polish: restrained flagship motion */
+@keyframes conceptRevealSoft {
+  from {
+    opacity: 0;
+    transform: translate3d(0, 14px, 0);
+    filter: blur(10px);
+  }
+  to {
+    opacity: 1;
+    transform: translate3d(0, 0, 0);
+    filter: blur(0);
+  }
+}
+
+@keyframes conceptRevealStill {
+  from {
+    opacity: 0;
+    filter: blur(14px);
+  }
+  to {
+    opacity: 1;
+    filter: blur(0);
+  }
+}
+
+@keyframes conceptAuraBreath {
+  0%, 100% {
+    opacity: 0.36;
+    transform: translate(-50%, -50%) scale(0.92);
+  }
+  50% {
+    opacity: 0.66;
+    transform: translate(-50%, -50%) scale(1.08);
+  }
+}
+
+@keyframes conceptDiscWake {
+  from {
+    opacity: 0;
+    transform: translateX(-50%) translateY(18px) scale(0.94);
+    filter: blur(8px);
+  }
+  to {
+    opacity: 1;
+    transform: translateX(-50%) translateY(0) scale(1);
+    filter: blur(0);
+  }
+}
+
+@keyframes conceptWaterDrift {
+  0%, 100% {
+    opacity: 0.74;
+    transform: translateX(calc(-50% + var(--concept-water-shift, 0px))) scaleX(0.98);
+  }
+  50% {
+    opacity: 0.95;
+    transform: translateX(calc(-50% + var(--concept-water-shift, 0px))) scaleX(1.035);
+  }
+}
+
+@keyframes conceptAxisPulse {
+  0%, 100% {
+    opacity: 0.48;
+    filter: blur(0);
+  }
+  50% {
+    opacity: 0.82;
+    filter: blur(0.4px);
+  }
+}
+
+.concept-home {
+  --concept-parallax-x: 0;
+  --concept-parallax-y: 0;
+}
+
+.concept-room__oculus {
+  transform: translateX(calc(-50% + (var(--concept-parallax-x) * -10px))) translateY(calc(var(--concept-parallax-y) * -5px));
+  transition: transform 500ms cubic-bezier(0.22, 1, 0.36, 1);
+}
+
+.concept-nav,
+.concept-left-copy,
+.concept-stages,
+.concept-enter {
+  animation: conceptRevealSoft 860ms cubic-bezier(0.22, 1, 0.36, 1) both;
+}
+
+.concept-left-copy {
+  animation-delay: 120ms;
+}
+
+.concept-stages {
+  animation-delay: 220ms;
+}
+
+.concept-enter {
+  animation-delay: 360ms;
+}
+
+.concept-energy {
+  transform: translate3d(calc(var(--concept-parallax-x) * 10px), calc(var(--concept-parallax-y) * 7px), 0);
+  transition: transform 420ms cubic-bezier(0.22, 1, 0.36, 1);
+}
+
+.concept-energy::before {
+  animation: conceptAxisPulse 6.8s cubic-bezier(0.22, 1, 0.36, 1) infinite;
+}
+
+.concept-energy::after {
+  animation: conceptAuraBreath 7.4s cubic-bezier(0.22, 1, 0.36, 1) infinite;
+  transform: translateX(calc(-50% + var(--concept-parallax-x) * 8px));
+}
+
+.concept-sphere {
+  transform: translateX(-50%);
+  animation: conceptFloat 8.8s cubic-bezier(0.22, 1, 0.36, 1) infinite, conceptRevealStill 920ms cubic-bezier(0.22, 1, 0.36, 1) both;
+  animation-delay: 0ms, 160ms;
+}
+
+.concept-sphere:hover {
+  box-shadow:
+    inset -28px -34px 42px rgba(38,0,0,0.5),
+    inset 20px 18px 42px rgba(255,188,162,0.36),
+    0 30px 52px rgba(91,16,13,0.34),
+    0 0 78px rgba(180,54,45,0.34);
+}
+
+.concept-particles {
+  transform: translateX(calc(-50% + var(--concept-parallax-x) * 18px));
+  animation: conceptRevealStill 980ms cubic-bezier(0.22, 1, 0.36, 1) 120ms both;
+}
+
+.concept-matrix {
+  transform: translateX(calc(-50% + var(--concept-parallax-x) * 12px));
+  animation: conceptRevealSoft 980ms cubic-bezier(0.22, 1, 0.36, 1) 240ms both;
+}
+
+.concept-disc {
+  animation: conceptDiscWake 980ms cubic-bezier(0.22, 1, 0.36, 1) 260ms both;
+}
+
+.concept-water {
+  --concept-water-shift: calc(var(--concept-parallax-x) * -12px);
+  animation: conceptWaterDrift 9s cubic-bezier(0.22, 1, 0.36, 1) infinite, conceptRevealStill 1100ms cubic-bezier(0.22, 1, 0.36, 1) 320ms both;
+}
+
+.concept-brand,
+.concept-nav__links a,
+.concept-menu,
+.concept-enter {
+  outline: none;
+}
+
+.concept-brand:focus-visible,
+.concept-nav__links a:focus-visible,
+.concept-menu:focus-visible,
+.concept-enter:focus-visible {
+  outline: 1px solid rgba(180,54,45,0.78);
+  outline-offset: 6px;
+}
+
+.concept-nav__links a {
+  position: relative;
+}
+
+.concept-nav__links a::after {
+  content: '';
+  position: absolute;
+  left: 50%;
+  bottom: -9px;
+  width: 4px;
+  height: 4px;
+  border-radius: 50%;
+  background: rgba(180,54,45,0.86);
+  opacity: 0;
+  transform: translateX(-50%) scale(0.4);
+  transition: opacity 220ms ease, transform 220ms cubic-bezier(0.22, 1, 0.36, 1);
+}
+
+.concept-nav__links a:hover::after,
+.concept-nav__links a:focus-visible::after {
+  opacity: 1;
+  transform: translateX(-50%) scale(1);
+}
+
+.concept-menu {
+  transition: transform 180ms cubic-bezier(0.22, 1, 0.36, 1);
+}
+
+.concept-menu:hover {
+  transform: translateY(-1px);
+}
+
+.concept-menu:active,
+.concept-enter:active {
+  transform: translateX(-50%) translateY(0) scale(0.98);
+}
+
+.concept-menu:active {
+  transform: scale(0.96);
+}
+
+@media (prefers-reduced-motion: reduce) {
+  .concept-room__oculus,
+  .concept-energy,
+  .concept-energy::before,
+  .concept-energy::after,
+  .concept-nav,
+  .concept-left-copy,
+  .concept-stages,
+  .concept-enter,
+  .concept-sphere,
+  .concept-particles,
+  .concept-matrix,
+  .concept-disc,
+  .concept-water {
+    animation: none !important;
+    transition: none !important;
+    transform: none !important;
+    filter: none !important;
+  }
+
+  .concept-sphere,
+  .concept-disc,
+  .concept-water,
+  .concept-particles,
+  .concept-matrix {
+    opacity: 1 !important;
+  }
+}
+
+/* Concept polish fix: keep the floating sphere optically centered */
+@keyframes conceptFloat {
+  0%, 100% {
+    transform: translateX(-50%) translate3d(0, -5px, 0) scale(1);
+  }
+  50% {
+    transform: translateX(-50%) translate3d(0, 11px, 0) scale(1.025);
+  }
+}
+
+@media (max-width: 860px) {
+  .concept-energy {
+    transform: none;
+  }
+}
+

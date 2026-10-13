@@ -1,0 +1,348 @@
+<!doctype html>
+<html lang="zh-CN">
+<head>
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+  <title>奇门遁甲视觉方向重推</title>
+  <style>
+    * { box-sizing: border-box; }
+    body {
+      margin: 0;
+      background: #111;
+      color: #f4f1e9;
+      font-family: system-ui, "Microsoft YaHei", "PingFang SC", sans-serif;
+    }
+    .intro {
+      padding: 34px 44px 20px;
+      background: #111;
+      border-bottom: 1px solid #262626;
+    }
+    .intro h1 { margin: 0 0 10px; font-size: 30px; font-weight: 700; }
+    .intro p { margin: 0; color: #b8b8b8; line-height: 1.7; }
+    .stack { display: grid; gap: 0; }
+    .direction {
+      position: relative;
+      min-height: 780px;
+      overflow: hidden;
+      border-bottom: 1px solid rgba(255,255,255,.12);
+      background: var(--bg);
+      color: var(--text);
+    }
+    .direction::before,
+    .direction::after {
+      content: "";
+      position: absolute;
+      inset: 0;
+      pointer-events: none;
+    }
+    .direction::before { background: var(--atmosphere); }
+    .direction::after { background: var(--texture); opacity: var(--texture-opacity); }
+    .content {
+      position: relative;
+      z-index: 1;
+      max-width: 1260px;
+      margin: 0 auto;
+      padding: 42px 34px;
+      display: grid;
+      grid-template-columns: .88fr 1.12fr;
+      gap: 38px;
+      align-items: center;
+    }
+    .label {
+      display: inline-flex;
+      border: 1px solid var(--line-strong);
+      background: var(--label-bg);
+      color: var(--accent);
+      padding: 6px 10px;
+      font-size: 13px;
+      font-weight: 650;
+    }
+    .copy h2 {
+      margin: 20px 0 14px;
+      font-family: "Noto Serif SC", SimSun, serif;
+      color: var(--heading);
+      font-size: 46px;
+      line-height: 1.12;
+      font-weight: 700;
+      letter-spacing: .01em;
+    }
+    .copy p {
+      max-width: 56ch;
+      margin: 0;
+      color: var(--muted);
+      font-size: 16px;
+      line-height: 1.9;
+    }
+    .palette { margin-top: 26px; display: flex; flex-wrap: wrap; gap: 10px; }
+    .swatch {
+      display: flex;
+      align-items: center;
+      gap: 8px;
+      color: var(--muted);
+      font-size: 12px;
+      border: 1px solid var(--line);
+      background: var(--surface-soft);
+      padding: 7px 9px;
+    }
+    .dot { width: 16px; height: 16px; background: var(--c); border: 1px solid rgba(255,255,255,.22); }
+    .actions { margin-top: 30px; display: flex; gap: 12px; }
+    .primary, .secondary {
+      height: 42px;
+      padding: 0 18px;
+      display: inline-flex;
+      align-items: center;
+      justify-content: center;
+      font-size: 14px;
+      font-weight: 700;
+    }
+    .primary { background: var(--primary); color: var(--primary-text); box-shadow: var(--button-shadow); }
+    .secondary { color: var(--accent); border: 1px solid var(--line-strong); background: var(--surface-soft); }
+    .mock {
+      border: 1px solid var(--line);
+      background: var(--surface);
+      box-shadow: var(--shadow);
+      min-height: 640px;
+      position: relative;
+      overflow: hidden;
+    }
+    .mock::before {
+      content: "";
+      position: absolute;
+      inset: 0;
+      background: var(--mock-glow);
+      pointer-events: none;
+    }
+    .mock-inner { position: relative; z-index: 1; }
+    .nav {
+      height: 56px;
+      display: flex;
+      align-items: center;
+      justify-content: space-between;
+      border-bottom: 1px solid var(--line);
+      padding: 0 18px;
+      background: var(--nav);
+    }
+    .brand { font-family: "Noto Serif SC", SimSun, serif; color: var(--brand); letter-spacing: .14em; font-weight: 800; }
+    .navlinks { display: flex; gap: 8px; color: var(--dim); font-size: 13px; }
+    .navlinks span.active { color: var(--active-text); background: var(--active-bg); padding: 5px 9px; }
+    .panel-head { padding: 22px 22px 10px; display: flex; justify-content: space-between; gap: 16px; align-items: flex-start; }
+    .panel-title { color: var(--heading); font-size: 24px; font-family: "Noto Serif SC", SimSun, serif; font-weight: 700; }
+    .panel-sub { margin-top: 6px; color: var(--muted); font-size: 13px; }
+    .pill { border: 1px solid var(--line-strong); color: var(--gold); padding: 5px 8px; font-size: 12px; background: var(--label-bg); }
+    .grid-wrap { margin: 12px 22px 0; border: 1px solid var(--line); background: var(--grid-bg); padding: 12px; }
+    .grid { display: grid; grid-template-columns: repeat(3, 1fr); border: 1px solid var(--line); }
+    .cell { min-height: 108px; padding: 10px; border-right: 1px solid var(--line); border-bottom: 1px solid var(--line); background: var(--cell); }
+    .cell:nth-child(3n) { border-right: 0; }
+    .cell:nth-child(n+7) { border-bottom: 0; }
+    .cell.center { background: var(--center); }
+    .top { display: flex; justify-content: space-between; gap: 8px; color: var(--dim); font-size: 12px; }
+    .star { margin-top: 22px; color: var(--heading); font-size: 18px; font-weight: 800; }
+    .door { color: var(--gold); font-size: 13px; margin-top: 4px; }
+    .info { margin: 16px 22px 0; display: grid; grid-template-columns: repeat(4, 1fr); gap: 10px; }
+    .info div { border: 1px solid var(--line); background: var(--surface-soft); padding: 11px; }
+    .info b { display: block; color: var(--accent); font-size: 12px; margin-bottom: 5px; }
+    .info span { color: var(--muted); font-size: 13px; }
+    .analysis { margin: 16px 22px 22px; border: 1px solid var(--line); background: var(--surface-soft); padding: 16px; }
+    .analysis h3 { margin: 0 0 8px; color: var(--heading); font-size: 17px; }
+    .analysis p { margin: 0; color: var(--muted); line-height: 1.7; font-size: 13px; }
+    .stamp {
+      position: absolute;
+      right: 26px;
+      bottom: 22px;
+      color: var(--stamp);
+      font-size: 13px;
+      letter-spacing: .12em;
+    }
+
+    .ink-jade {
+      --bg: #06100e;
+      --text: #eaf0e6;
+      --heading: #f5ead0;
+      --muted: #b6c6bd;
+      --dim: #78958b;
+      --brand: #e2c677;
+      --accent: #7fd1bd;
+      --gold: #d9b45f;
+      --line: rgba(117, 170, 154, .30);
+      --line-strong: rgba(127, 209, 189, .48);
+      --surface: rgba(12, 28, 24, .86);
+      --surface-soft: rgba(10, 24, 21, .72);
+      --label-bg: rgba(9, 33, 28, .74);
+      --primary: #d9b45f;
+      --primary-text: #06100e;
+      --nav: rgba(8, 20, 18, .86);
+      --active-bg: #d9b45f;
+      --active-text: #06100e;
+      --grid-bg: rgba(5, 15, 13, .5);
+      --cell: rgba(14, 35, 30, .76);
+      --center: rgba(22, 59, 49, .86);
+      --shadow: 0 28px 80px rgba(0,0,0,.32);
+      --button-shadow: 0 10px 26px rgba(217,180,95,.22);
+      --mock-glow: radial-gradient(circle at 78% 18%, rgba(127,209,189,.13), transparent 34%);
+      --stamp: rgba(127,209,189,.42);
+      --atmosphere: radial-gradient(circle at 18% 15%, rgba(127,209,189,.18), transparent 24%), radial-gradient(circle at 72% 52%, rgba(217,180,95,.10), transparent 28%), linear-gradient(135deg, #06100e 0%, #0a1713 46%, #07100f 100%);
+      --texture: linear-gradient(90deg, rgba(127,209,189,.07) 1px, transparent 1px), linear-gradient(180deg, rgba(127,209,189,.045) 1px, transparent 1px);
+      --texture-opacity: .78;
+      background-size: auto, auto, auto, 72px 72px, 72px 72px;
+    }
+    .paper-copper {
+      --bg: #d9d5c6;
+      --text: #211b15;
+      --heading: #1c1712;
+      --muted: #554a3f;
+      --dim: #7f725f;
+      --brand: #6b241f;
+      --accent: #1f6157;
+      --gold: #9b6b2d;
+      --line: rgba(78, 64, 47, .28);
+      --line-strong: rgba(107, 36, 31, .38);
+      --surface: rgba(236, 232, 218, .86);
+      --surface-soft: rgba(247, 243, 230, .65);
+      --label-bg: rgba(255,255,255,.28);
+      --primary: #6b241f;
+      --primary-text: #f8f2e4;
+      --nav: rgba(238, 233, 218, .72);
+      --active-bg: #1f6157;
+      --active-text: #f5f1e5;
+      --grid-bg: rgba(255,255,255,.32);
+      --cell: rgba(246,242,229,.62);
+      --center: rgba(228, 219, 196, .82);
+      --shadow: 0 24px 70px rgba(52, 37, 20, .20);
+      --button-shadow: 0 9px 24px rgba(107,36,31,.24);
+      --mock-glow: radial-gradient(circle at 74% 20%, rgba(155,107,45,.12), transparent 30%);
+      --stamp: rgba(107,36,31,.38);
+      --atmosphere: radial-gradient(circle at 12% 20%, rgba(31,97,87,.16), transparent 24%), linear-gradient(135deg, #d9d5c6 0%, #ece6d4 48%, #cfc6ad 100%);
+      --texture: linear-gradient(90deg, rgba(63,49,33,.055) 1px, transparent 1px), linear-gradient(180deg, rgba(63,49,33,.045) 1px, transparent 1px), radial-gradient(circle at 35% 28%, rgba(107,36,31,.08), transparent 18%);
+      --texture-opacity: .82;
+    }
+    .ziwei-blue {
+      --bg: #050814;
+      --text: #edf5fb;
+      --heading: #f5fbff;
+      --muted: #aec0d0;
+      --dim: #768aa0;
+      --brand: #d4b166;
+      --accent: #78c8e8;
+      --gold: #d4b166;
+      --line: rgba(92, 132, 174, .34);
+      --line-strong: rgba(120, 200, 232, .44);
+      --surface: rgba(11, 20, 38, .88);
+      --surface-soft: rgba(9, 18, 34, .70);
+      --label-bg: rgba(11, 28, 52, .74);
+      --primary: #d4b166;
+      --primary-text: #050814;
+      --nav: rgba(7, 12, 26, .86);
+      --active-bg: #78c8e8;
+      --active-text: #04101d;
+      --grid-bg: rgba(5, 12, 25, .58);
+      --cell: rgba(13, 28, 50, .78);
+      --center: rgba(20, 44, 77, .86);
+      --shadow: 0 28px 88px rgba(0,0,0,.36);
+      --button-shadow: 0 12px 30px rgba(212,177,102,.22);
+      --mock-glow: radial-gradient(circle at 76% 18%, rgba(120,200,232,.18), transparent 30%);
+      --stamp: rgba(120,200,232,.40);
+      --atmosphere: radial-gradient(circle at 22% 18%, rgba(120,200,232,.18), transparent 21%), radial-gradient(circle at 86% 18%, rgba(212,177,102,.11), transparent 28%), linear-gradient(145deg, #050814 0%, #091329 58%, #07101f 100%);
+      --texture: radial-gradient(circle, rgba(245,251,255,.35) 1px, transparent 1.8px), linear-gradient(90deg, rgba(120,200,232,.055) 1px, transparent 1px), linear-gradient(180deg, rgba(120,200,232,.04) 1px, transparent 1px);
+      --texture-opacity: .72;
+      background-size: auto, auto, auto, 86px 86px, 70px 70px, 70px 70px;
+    }
+    @media (max-width: 960px) {
+      .intro { padding: 24px 18px 16px; }
+      .content { grid-template-columns: 1fr; padding: 28px 18px; }
+      .copy h2 { font-size: 34px; }
+      .info { grid-template-columns: repeat(2, 1fr); }
+      .direction { min-height: auto; }
+    }
+  </style>
+</head>
+<body>
+  <header class="intro">
+    <h1>奇门遁甲视觉方向重推</h1>
+    <p>这次重点看背景与颜色关系，不只是换按钮颜色。三版分别对应：专业工具、古籍学习、星象推演。</p>
+  </header>
+
+  <main class="stack">
+    <section class="direction ink-jade">
+      <div class="content">
+        <div class="copy">
+          <div class="label">方向一 · 墨玉夜盘</div>
+          <h2>克制、准确、适合长期使用的排盘工作台</h2>
+          <p>背景用接近黑的墨绿，辅以青玉色网格，金色只用于当前状态与主要动作。它的重点是可信、稳定、可读，不会把奇门做成过度玄幻的装饰页。</p>
+          <div class="palette">
+            <div class="swatch"><i class="dot" style="--c:#06100e"></i>玄墨底</div>
+            <div class="swatch"><i class="dot" style="--c:#7fd1bd"></i>青玉交互</div>
+            <div class="swatch"><i class="dot" style="--c:#d9b45f"></i>旧金强调</div>
+            <div class="swatch"><i class="dot" style="--c:#f5ead0"></i>米白文字</div>
+          </div>
+          <div class="actions"><div class="primary">进入当前排盘</div><div class="secondary">查看起局依据</div></div>
+        </div>
+        <div class="mock"><div class="mock-inner">
+          <div class="nav"><div class="brand">奇门遁甲</div><div class="navlinks"><span>首页</span><span class="active">排盘</span><span>知识</span></div></div>
+          <div class="panel-head"><div><div class="panel-title">时家奇门盘</div><div class="panel-sub">当前时间 · 夏至 · 阴遁三局</div></div><div class="pill">拆补法</div></div>
+          <div class="grid-wrap"><div class="grid">__CELLS__</div></div>
+          <div class="info"><div><b>四柱</b><span>丙午 甲午</span></div><div><b>值符</b><span>天英落乾</span></div><div><b>值使</b><span>景门入乾</span></div><div><b>空亡</b><span>寅卯</span></div></div>
+          <div class="analysis"><h3>先看依据，再看宫位</h3><p>青玉负责辅助阅读，金色只标出主动作和关键状态，适合做长期使用的专业工具。</p></div>
+        </div><div class="stamp">墨玉夜盘</div></div>
+      </div>
+    </section>
+
+    <section class="direction paper-copper">
+      <div class="content">
+        <div class="copy">
+          <div class="label">方向二 · 月白铜墨</div>
+          <h2>像翻开一册术数笔记，适合知识库与案例学习</h2>
+          <p>这版不用暗黑，而是用偏冷的月白纸色做背景，铜墨色承接传统感，青绿用于理性标注。它更亲和，适合做学习资料、案例、起局说明。</p>
+          <div class="palette">
+            <div class="swatch"><i class="dot" style="--c:#d9d5c6"></i>月白背景</div>
+            <div class="swatch"><i class="dot" style="--c:#6b241f"></i>铜朱主色</div>
+            <div class="swatch"><i class="dot" style="--c:#1f6157"></i>墨青辅助</div>
+            <div class="swatch"><i class="dot" style="--c:#211b15"></i>墨色文字</div>
+          </div>
+          <div class="actions"><div class="primary">进入当前排盘</div><div class="secondary">查看知识库</div></div>
+        </div>
+        <div class="mock"><div class="mock-inner">
+          <div class="nav"><div class="brand">奇门遁甲</div><div class="navlinks"><span>首页</span><span class="active">排盘</span><span>知识</span></div></div>
+          <div class="panel-head"><div><div class="panel-title">时家奇门盘</div><div class="panel-sub">当前时间 · 夏至 · 阴遁三局</div></div><div class="pill">拆补法</div></div>
+          <div class="grid-wrap"><div class="grid">__CELLS__</div></div>
+          <div class="info"><div><b>四柱</b><span>丙午 甲午</span></div><div><b>值符</b><span>天英落乾</span></div><div><b>值使</b><span>景门入乾</span></div><div><b>空亡</b><span>寅卯</span></div></div>
+          <div class="analysis"><h3>古籍感，但不做旧</h3><p>背景更亮，长文和知识页会更舒服，排盘页也能保持清晰，不会压抑。</p></div>
+        </div><div class="stamp">月白铜墨</div></div>
+      </div>
+    </section>
+
+    <section class="direction ziwei-blue">
+      <div class="content">
+        <div class="copy">
+          <div class="label">方向三 · 紫微星野</div>
+          <h2>强调天文、历法与时间模型的现代推演感</h2>
+          <p>深蓝背景更接近夜空和星图，适合突出节气、四柱、时间边界这些“可计算”的部分。传统味弱一点，但现代工具感最强。</p>
+          <div class="palette">
+            <div class="swatch"><i class="dot" style="--c:#050814"></i>星夜底</div>
+            <div class="swatch"><i class="dot" style="--c:#78c8e8"></i>天青信息</div>
+            <div class="swatch"><i class="dot" style="--c:#d4b166"></i>星铜强调</div>
+            <div class="swatch"><i class="dot" style="--c:#edf5fb"></i>冷白文字</div>
+          </div>
+          <div class="actions"><div class="primary">进入当前排盘</div><div class="secondary">查看节气边界</div></div>
+        </div>
+        <div class="mock"><div class="mock-inner">
+          <div class="nav"><div class="brand">奇门遁甲</div><div class="navlinks"><span>首页</span><span class="active">排盘</span><span>知识</span></div></div>
+          <div class="panel-head"><div><div class="panel-title">时家奇门盘</div><div class="panel-sub">当前时间 · 夏至 · 阴遁三局</div></div><div class="pill">拆补法</div></div>
+          <div class="grid-wrap"><div class="grid">__CELLS__</div></div>
+          <div class="info"><div><b>四柱</b><span>丙午 甲午</span></div><div><b>值符</b><span>天英落乾</span></div><div><b>值使</b><span>景门入乾</span></div><div><b>空亡</b><span>寅卯</span></div></div>
+          <div class="analysis"><h3>时间推演更突出</h3><p>适合后续加入节气时间轴、四柱校验、盘面导出等偏工具化功能。</p></div>
+        </div><div class="stamp">紫微星野</div></div>
+      </div>
+    </section>
+  </main>
+  <script>
+    const cells = [
+      ['巽四','九天','天辅','杜门'], ['离九','值符','天英','景门'], ['坤二','腾蛇','天芮','死门'],
+      ['震三','六合','天冲','伤门'], ['中五','太阴','寄宫','中宫'], ['兑七','白虎','天柱','惊门'],
+      ['艮八','玄武','天任','生门'], ['坎一','九地','天蓬','休门'], ['乾六','太常','天心','开门']
+    ];
+    const html = cells.map(([palace,god,star,door]) => `<div class="cell ${palace==='中五'?'center':''}"><div class="top"><span>${palace}</span><span>${god}</span></div><div class="star">${star}</div><div class="door">${door}</div></div>`).join('');
+    document.body.innerHTML = document.body.innerHTML.replaceAll('__CELLS__', html);
+  </script>
+</body>
+</html>
+

@@ -1,0 +1,283 @@
+{
+  "generatedAt": "2026-07-08",
+  "inputCsv": "C:\\Users\\了\\Desktop\\qimen_case_seed_v2.csv",
+  "totalCases": 73,
+  "reviewedCases": 36,
+  "inferredHitRate": 90,
+  "categoryStats": [
+    {
+      "category": "姻缘/感情",
+      "count": 13,
+      "reviewedCount": 7,
+      "hitRate": 86
+    },
+    {
+      "category": "风水",
+      "count": 12,
+      "reviewedCount": 3,
+      "hitRate": 100
+    },
+    {
+      "category": "求财/生意",
+      "count": 11,
+      "reviewedCount": 8,
+      "hitRate": 100
+    },
+    {
+      "category": "健康/疾病",
+      "count": 9,
+      "reviewedCount": 3,
+      "hitRate": 83
+    },
+    {
+      "category": "官讼/官司",
+      "count": 6,
+      "reviewedCount": 4,
+      "hitRate": 88
+    },
+    {
+      "category": "失物/寻人",
+      "count": 5,
+      "reviewedCount": 4,
+      "hitRate": 88
+    },
+    {
+      "category": "竞争",
+      "count": 4,
+      "reviewedCount": 0,
+      "hitRate": null
+    },
+    {
+      "category": "气象/灾害",
+      "count": 4,
+      "reviewedCount": 4,
+      "hitRate": 88
+    },
+    {
+      "category": "事业/工作",
+      "count": 4,
+      "reviewedCount": 2,
+      "hitRate": 75
+    },
+    {
+      "category": "终身运",
+      "count": 4,
+      "reviewedCount": 1,
+      "hitRate": 100
+    },
+    {
+      "category": "体育竞赛",
+      "count": 1,
+      "reviewedCount": 0,
+      "hitRate": null
+    }
+  ],
+  "sourceStats": [
+    {
+      "source": "张志春高级班笔记整理版",
+      "count": 15
+    },
+    {
+      "source": "张志春《奇门应用实例评析第2集》",
+      "count": 14
+    },
+    {
+      "source": "杜新会《奇门遁甲现代实例精解》",
+      "count": 12
+    },
+    {
+      "source": "高俊波《民间奇门预测实例》",
+      "count": 12
+    },
+    {
+      "source": "奇门遁甲高级研修班讲义",
+      "count": 9
+    },
+    {
+      "source": "奇门启悟",
+      "count": 6
+    },
+    {
+      "source": "刘广斌《奇门预测学》",
+      "count": 5
+    }
+  ],
+  "factorStats": [
+    {
+      "id": "door_si",
+      "label": "死门",
+      "category": "八门",
+      "sampleCount": 28,
+      "reviewedCount": 9,
+      "hitRate": 100,
+      "scenes": {
+        "风水": 10,
+        "健康/疾病": 5,
+        "姻缘/感情": 4,
+        "竞争": 3,
+        "求财/生意": 3
+      }
+    },
+    {
+      "id": "yingqi_candidate",
+      "label": "应期候选",
+      "category": "应期",
+      "sampleCount": 17,
+      "reviewedCount": 14,
+      "hitRate": 96,
+      "scenes": {
+        "气象/灾害": 4,
+        "官讼/官司": 3,
+        "求财/生意": 3,
+        "健康/疾病": 2,
+        "失物/寻人": 2
+      }
+    },
+    {
+      "id": "door_kai",
+      "label": "开门",
+      "category": "八门",
+      "sampleCount": 16,
+      "reviewedCount": 8,
+      "hitRate": 94,
+      "scenes": {
+        "风水": 3,
+        "官讼/官司": 3,
+        "健康/疾病": 2,
+        "求财/生意": 2,
+        "姻缘/感情": 2
+      }
+    },
+    {
+      "id": "door_sheng",
+      "label": "生门",
+      "category": "八门",
+      "sampleCount": 15,
+      "reviewedCount": 4,
+      "hitRate": 100,
+      "scenes": {
+        "风水": 6,
+        "求财/生意": 4,
+        "终身运": 2,
+        "官讼/官司": 1,
+        "健康/疾病": 1
+      }
+    },
+    {
+      "id": "stem_geng",
+      "label": "庚",
+      "category": "十干克应",
+      "sampleCount": 11,
+      "reviewedCount": 2,
+      "hitRate": 100,
+      "scenes": {
+        "风水": 4,
+        "姻缘/感情": 3,
+        "竞争": 2,
+        "失物/寻人": 1,
+        "终身运": 1
+      }
+    },
+    {
+      "id": "four_harms_rumu",
+      "label": "入墓",
+      "category": "四害",
+      "sampleCount": 10,
+      "reviewedCount": 4,
+      "hitRate": 100,
+      "scenes": {
+        "风水": 3,
+        "求财/生意": 2,
+        "失物/寻人": 2,
+        "健康/疾病": 1,
+        "竞争": 1
+      }
+    },
+    {
+      "id": "four_harms_kongwang",
+      "label": "空亡",
+      "category": "四害",
+      "sampleCount": 8,
+      "reviewedCount": 4,
+      "hitRate": 100,
+      "scenes": {
+        "求财/生意": 3,
+        "风水": 1,
+        "健康/疾病": 1,
+        "竞争": 1,
+        "气象/灾害": 1
+      }
+    },
+    {
+      "id": "pattern_fanyin",
+      "label": "反吟",
+      "category": "盘局形态",
+      "sampleCount": 5,
+      "reviewedCount": 1,
+      "hitRate": 100,
+      "scenes": {
+        "终身运": 2,
+        "风水": 1,
+        "失物/寻人": 1,
+        "姻缘/感情": 1
+      }
+    },
+    {
+      "id": "pattern_fuyin",
+      "label": "伏吟",
+      "category": "盘局形态",
+      "sampleCount": 4,
+      "reviewedCount": 1,
+      "hitRate": 100,
+      "scenes": {
+        "风水": 1,
+        "求财/生意": 1,
+        "失物/寻人": 1,
+        "姻缘/感情": 1
+      }
+    },
+    {
+      "id": "role_zhishi",
+      "label": "值使",
+      "category": "值符值使",
+      "sampleCount": 4,
+      "reviewedCount": 2,
+      "hitRate": 100,
+      "scenes": {
+        "健康/疾病": 2,
+        "求财/生意": 1,
+        "失物/寻人": 1
+      }
+    },
+    {
+      "id": "role_zhifu",
+      "label": "值符",
+      "category": "值符值使",
+      "sampleCount": 3,
+      "reviewedCount": 2,
+      "hitRate": 100,
+      "scenes": {
+        "求财/生意": 2,
+        "终身运": 1
+      }
+    },
+    {
+      "id": "host_guest_relation",
+      "label": "主客生克",
+      "category": "主客",
+      "sampleCount": 1,
+      "reviewedCount": 0,
+      "hitRate": null,
+      "scenes": {
+        "求财/生意": 1
+      }
+    }
+  ],
+  "calibrationNotes": [
+    "这份种子库适合先校准通用因子、八门、四害、主客、应期候选等基础层。",
+    "事业/工作样本只有 4 条，不足以支撑事业/项目推进的 30 条专项校准。",
+    "hitRate 来自反馈文本自动推断，只能用于样本分层和候选权重提示，不能直接写成正式命中率。",
+    "后续应补充事前预测原文、验证窗口、实际最先反馈类型和人工 outcome 标注。"
+  ]
+}
+

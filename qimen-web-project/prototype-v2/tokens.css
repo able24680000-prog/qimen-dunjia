@@ -1,0 +1,49 @@
+:root {
+  /* Surface */
+  --paper: #f6f1e8;
+  --paper-surface: rgba(255, 252, 245, 0.58);
+  --paper-deep: #e7dfd1;
+  --paper-edge: rgba(70, 62, 50, 0.12);
+  --paper-grain: rgba(65, 52, 36, 0.10);
+
+  /* Ink */
+  --ink: #29241d;
+  --ink-soft: rgba(41, 36, 29, 0.62);
+  --ink-muted: rgba(41, 36, 29, 0.42);
+  --ink-faint: rgba(41, 36, 29, 0.18);
+
+  /* Lines */
+  --line: rgba(70, 62, 50, 0.16);
+  --line-soft: rgba(70, 62, 50, 0.10);
+  --line-medium: rgba(70, 62, 50, 0.22);
+  --line-strong: rgba(70, 62, 50, 0.32);
+
+  /* Accent */
+  --cinnabar: #a93a31;
+  --cinnabar-soft: rgba(169, 58, 49, 0.26);
+  --cinnabar-faint: rgba(169, 58, 49, 0.08);
+
+  /* Light and shadow */
+  --light: rgba(255, 255, 255, 0.46);
+  --light-strong: rgba(255, 255, 255, 0.72);
+  --shadow: rgba(70, 62, 50, 0.14);
+  --shadow-soft: rgba(88, 79, 64, 0.10);
+  --plate-shadow: rgba(70, 62, 50, 0.18);
+
+  /* Layout */
+  --grid-size: clamp(205px, 29vw, 360px);
+  --folio-size: clamp(460px, 58vw, 780px);
+
+  /* Motion */
+  --luoshu-cycle: 24s;
+  --luoshu-step: 3000ms;
+  --needle-cycle: 36s;
+  --sun-cycle: 22s;
+  --palace-breath: 6s;
+  --ease-quiet: cubic-bezier(0.25, 1, 0.5, 1);
+
+  /* Type */
+  --font-song: "Songti SC", "SimSun", "STSong", serif;
+  --font-kai: "STKaiti", "KaiTi", "Songti SC", serif;
+  --font-sans: -apple-system, BlinkMacSystemFont, "PingFang SC", "Microsoft YaHei", sans-serif;
+}

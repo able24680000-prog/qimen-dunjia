@@ -1,0 +1,242 @@
+[
+  {
+    "id": "four_harms_kongwang",
+    "scene": [
+      "通用"
+    ],
+    "label": "空亡",
+    "category": "四害",
+    "keywords": [
+      "空亡",
+      "落空",
+      "填实",
+      "冲空"
+    ],
+    "defaultWeight": -2,
+    "tendency": "多表现为落空、延后、信息不实或条件未到。",
+    "reviewQuestion": "实际结果是否先出现承诺落空、进展延后、信息缺口或等待填实？",
+    "status": "候选",
+    "reviewCount": 0,
+    "hitRate": null
+  },
+  {
+    "id": "four_harms_rumu",
+    "scene": [
+      "通用"
+    ],
+    "label": "入墓",
+    "category": "四害",
+    "keywords": [
+      "入墓",
+      "墓"
+    ],
+    "defaultWeight": -2,
+    "tendency": "多表现为受困、闭塞、暂时打不开局面。",
+    "reviewQuestion": "实际结果是否出现受困、被卡住、条件封闭或需冲墓后才动？",
+    "status": "候选",
+    "reviewCount": 0,
+    "hitRate": null
+  },
+  {
+    "id": "pattern_fanyin",
+    "scene": [
+      "通用"
+    ],
+    "label": "反吟",
+    "category": "盘局形态",
+    "keywords": [
+      "反吟"
+    ],
+    "defaultWeight": -1,
+    "tendency": "多表现为快、反复、变动、来回折返。",
+    "reviewQuestion": "实际最早反馈是否体现快速变化、反复、回头或方向反转？",
+    "status": "候选",
+    "reviewCount": 0,
+    "hitRate": null
+  },
+  {
+    "id": "pattern_fuyin",
+    "scene": [
+      "通用"
+    ],
+    "label": "伏吟",
+    "category": "盘局形态",
+    "keywords": [
+      "伏吟"
+    ],
+    "defaultWeight": -1,
+    "tendency": "多表现为慢、停滞、重复、内部消耗。",
+    "reviewQuestion": "实际结果是否体现推进缓慢、原地反复或内部消耗？",
+    "status": "候选",
+    "reviewCount": 0,
+    "hitRate": null
+  },
+  {
+    "id": "stem_geng",
+    "scene": [
+      "通用",
+      "事业/工作",
+      "求财/生意",
+      "官讼/官司"
+    ],
+    "label": "庚",
+    "category": "十干克应",
+    "keywords": [
+      "庚"
+    ],
+    "defaultWeight": -1,
+    "tendency": "多指规则、阻力、对手、转折点或硬约束。",
+    "reviewQuestion": "实际反馈中是否出现规则、对手、审查、合同、阻力或转折？",
+    "status": "候选",
+    "reviewCount": 0,
+    "hitRate": null
+  },
+  {
+    "id": "role_zhishi",
+    "scene": [
+      "通用"
+    ],
+    "label": "值使",
+    "category": "值符值使",
+    "keywords": [
+      "值使"
+    ],
+    "defaultWeight": 2,
+    "tendency": "用于观察执行入口、过程节点和事情如何落地。",
+    "reviewQuestion": "实际最先反馈是否对应执行流程、入口、审批、沟通或节点变化？",
+    "status": "候选",
+    "reviewCount": 0,
+    "hitRate": null
+  },
+  {
+    "id": "role_zhifu",
+    "scene": [
+      "通用"
+    ],
+    "label": "值符",
+    "category": "值符值使",
+    "keywords": [
+      "值符"
+    ],
+    "defaultWeight": 2,
+    "tendency": "用于观察主导者、背景资源、贵人和总体气势。",
+    "reviewQuestion": "实际反馈是否出现主导方、关键人、资源背景或高层因素？",
+    "status": "候选",
+    "reviewCount": 0,
+    "hitRate": null
+  },
+  {
+    "id": "door_sheng",
+    "scene": [
+      "求财/生意",
+      "事业/工作",
+      "通用"
+    ],
+    "label": "生门",
+    "category": "八门",
+    "keywords": [
+      "生门"
+    ],
+    "defaultWeight": 2,
+    "tendency": "多关联收益、生发、增长、经营入口。",
+    "reviewQuestion": "实际反馈是否体现收入、机会、增长、可经营性或生发空间？",
+    "status": "候选",
+    "reviewCount": 0,
+    "hitRate": null
+  },
+  {
+    "id": "door_kai",
+    "scene": [
+      "事业/工作",
+      "求财/生意",
+      "官讼/官司",
+      "通用"
+    ],
+    "label": "开门",
+    "category": "八门",
+    "keywords": [
+      "开门"
+    ],
+    "defaultWeight": 2,
+    "tendency": "多关联公开事务、工作职位、机构、开通入口。",
+    "reviewQuestion": "实际反馈是否体现岗位、机构、公开流程、开启或通达？",
+    "status": "候选",
+    "reviewCount": 0,
+    "hitRate": null
+  },
+  {
+    "id": "door_si",
+    "scene": [
+      "健康/疾病",
+      "官讼/官司",
+      "通用"
+    ],
+    "label": "死门",
+    "category": "八门",
+    "keywords": [
+      "死门"
+    ],
+    "defaultWeight": -2,
+    "tendency": "多关联结束、停滞、病象、压力或不宜启动。",
+    "reviewQuestion": "实际反馈是否体现结束、停顿、病象加重、失败或不宜推进？",
+    "status": "候选",
+    "reviewCount": 0,
+    "hitRate": null
+  },
+  {
+    "id": "host_guest_relation",
+    "scene": [
+      "通用",
+      "求财/生意",
+      "事业/工作",
+      "竞争"
+    ],
+    "label": "主客生克",
+    "category": "主客",
+    "keywords": [
+      "主客",
+      "主方",
+      "客方",
+      "客得",
+      "主得",
+      "利主",
+      "利客",
+      "主克客",
+      "客克主",
+      "主生客",
+      "客生主"
+    ],
+    "defaultWeight": 2,
+    "tendency": "用于判断主动方、被动方、资源流向和谁压制谁。",
+    "reviewQuestion": "实际反馈是否体现主动/被动、受制/得助、谁得利谁受损？",
+    "status": "候选",
+    "reviewCount": 0,
+    "hitRate": null
+  },
+  {
+    "id": "yingqi_candidate",
+    "scene": [
+      "通用"
+    ],
+    "label": "应期候选",
+    "category": "应期",
+    "keywords": [
+      "应期",
+      "应验",
+      "最迟",
+      "三小时",
+      "一周",
+      "半月",
+      "旬空填实",
+      "冲墓",
+      "填实"
+    ],
+    "defaultWeight": 0,
+    "tendency": "只作为候选触发窗口，不直接写成确定日期。",
+    "reviewQuestion": "实际最先反馈是否落在断语给出的候选窗口或触发类型内？",
+    "status": "候选",
+    "reviewCount": 0,
+    "hitRate": null
+  }
+]
+

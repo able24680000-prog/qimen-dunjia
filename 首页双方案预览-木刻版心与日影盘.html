@@ -1,0 +1,925 @@
+<!doctype html>
+<html lang="zh-CN">
+<head>
+  <meta charset="utf-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1">
+  <title>奇门遁甲首页双方案预览</title>
+  <style>
+    :root {
+      --font-serif: "Noto Serif SC", "Source Han Serif SC", "Songti SC", "SimSun", serif;
+      --font-sans: system-ui, -apple-system, BlinkMacSystemFont, "Segoe UI", "Microsoft YaHei", sans-serif;
+      --ease: cubic-bezier(0.22, 1, 0.36, 1);
+      --red: #a43a31;
+    }
+
+    * {
+      box-sizing: border-box;
+    }
+
+    html,
+    body {
+      margin: 0;
+      min-height: 100%;
+      font-family: var(--font-sans);
+    }
+
+    body {
+      overflow-x: hidden;
+    }
+
+    button,
+    a {
+      font: inherit;
+    }
+
+    a {
+      color: inherit;
+      text-decoration: none;
+    }
+
+    .preview {
+      position: relative;
+      min-height: 100dvh;
+      overflow: hidden;
+      isolation: isolate;
+      color: var(--ink);
+      background: var(--bg);
+      transition: background 520ms var(--ease), color 520ms var(--ease);
+    }
+
+    .preview[data-mode="woodblock"] {
+      --bg: #f7f6f1;
+      --bg-soft: #efeee7;
+      --ink: #171511;
+      --muted: rgba(23, 21, 17, 0.58);
+      --hairline: rgba(23, 21, 17, 0.14);
+      --field: #161410;
+      --field-2: #211d17;
+      --paper-texture: rgba(60, 51, 38, 0.035);
+      --accent: #9d342d;
+    }
+
+    .preview[data-mode="sundial"] {
+      --bg: #dadbd4;
+      --bg-soft: #cfd1ca;
+      --ink: #161a1a;
+      --muted: rgba(22, 26, 26, 0.56);
+      --hairline: rgba(22, 26, 26, 0.16);
+      --field: #bfc2bb;
+      --field-2: #aeb2aa;
+      --paper-texture: rgba(20, 24, 24, 0.04);
+      --accent: #8f342d;
+    }
+
+    .grain {
+      position: absolute;
+      inset: 0;
+      z-index: -3;
+      pointer-events: none;
+      background:
+        radial-gradient(circle at 18% 21%, var(--paper-texture) 0 1px, transparent 1.4px),
+        radial-gradient(circle at 76% 34%, var(--paper-texture) 0 1px, transparent 1.4px),
+        radial-gradient(circle at 42% 78%, var(--paper-texture) 0 1px, transparent 1.4px);
+      background-size: 34px 34px, 41px 41px, 52px 52px;
+      opacity: 0.85;
+    }
+
+    .ambient {
+      position: absolute;
+      inset: 0;
+      z-index: -2;
+      pointer-events: none;
+      transition: opacity 520ms var(--ease), background 520ms var(--ease);
+    }
+
+    [data-mode="woodblock"] .ambient {
+      background:
+        radial-gradient(ellipse at 48% 12%, rgba(255, 255, 255, 0.86), transparent 42%),
+        linear-gradient(90deg, rgba(255,255,255,0.7), transparent 32%, rgba(22,20,16,0.03) 72%, rgba(22,20,16,0.07));
+    }
+
+    [data-mode="sundial"] .ambient {
+      background:
+        radial-gradient(circle at 68% 20%, rgba(255,255,255,0.48), transparent 26%),
+        linear-gradient(135deg, rgba(255,255,255,0.28), transparent 45%, rgba(17,24,24,0.12));
+    }
+
+    .topbar {
+      position: relative;
+      z-index: 20;
+      display: flex;
+      align-items: center;
+      justify-content: space-between;
+      gap: 24px;
+      padding: clamp(22px, 3vw, 44px) clamp(20px, 4vw, 70px) 0;
+    }
+
+    .brand {
+      display: inline-flex;
+      align-items: center;
+      gap: 12px;
+      min-width: 0;
+    }
+
+    .brand-mark {
+      position: relative;
+      width: 34px;
+      aspect-ratio: 1;
+      border: 1px solid var(--hairline);
+      border-radius: 50%;
+    }
+
+    .brand-mark::before,
+    .brand-mark::after {
+      content: "";
+      position: absolute;
+      border-radius: 50%;
+    }
+
+    .brand-mark::before {
+      inset: 8px;
+      border: 1px solid color-mix(in srgb, var(--ink) 35%, transparent);
+    }
+
+    .brand-mark::after {
+      width: 4px;
+      aspect-ratio: 1;
+      left: 50%;
+      top: 50%;
+      background: var(--accent);
+      transform: translate(-50%, -50%);
+    }
+
+    .brand strong {
+      display: block;
+      font-family: var(--font-serif);
+      font-size: 17px;
+      font-weight: 500;
+      letter-spacing: 0.15em;
+      white-space: nowrap;
+    }
+
+    .brand small {
+      display: block;
+      margin-top: 2px;
+      color: var(--muted);
+      font-size: 9px;
+      letter-spacing: 0.22em;
+      white-space: nowrap;
+    }
+
+    .switcher {
+      display: flex;
+      align-items: center;
+      gap: 6px;
+      padding: 4px;
+      border: 1px solid var(--hairline);
+      background: color-mix(in srgb, var(--bg) 72%, transparent);
+    }
+
+    .switcher button {
+      min-height: 34px;
+      border: 0;
+      padding: 0 14px;
+      background: transparent;
+      color: var(--muted);
+      cursor: pointer;
+      font-family: var(--font-serif);
+      font-size: 13px;
+      letter-spacing: 0.1em;
+      transition: background 220ms var(--ease), color 220ms var(--ease);
+    }
+
+    .switcher button[aria-pressed="true"] {
+      background: var(--ink);
+      color: var(--bg);
+    }
+
+    .nav {
+      display: flex;
+      align-items: center;
+      gap: clamp(16px, 2.6vw, 42px);
+      color: var(--muted);
+      font-family: var(--font-serif);
+      font-size: 14px;
+      letter-spacing: 0.16em;
+    }
+
+    .nav a {
+      position: relative;
+      padding: 8px 0;
+    }
+
+    .nav a::after {
+      content: "";
+      position: absolute;
+      left: 50%;
+      bottom: 0;
+      width: 4px;
+      height: 4px;
+      border-radius: 50%;
+      background: var(--accent);
+      opacity: 0;
+      transform: translateX(-50%) scale(0.4);
+      transition: opacity 180ms ease, transform 180ms var(--ease);
+    }
+
+    .nav a:hover::after,
+    .nav a:focus-visible::after {
+      opacity: 1;
+      transform: translateX(-50%) scale(1);
+    }
+
+    .hero {
+      position: relative;
+      z-index: 5;
+      min-height: calc(100dvh - 86px);
+      display: grid;
+      grid-template-columns: minmax(150px, 0.42fr) minmax(420px, 1fr) minmax(230px, 0.48fr);
+      align-items: center;
+      gap: clamp(28px, 4vw, 76px);
+      padding: 0 clamp(22px, 4vw, 70px) clamp(32px, 5vh, 70px);
+    }
+
+    .title {
+      align-self: stretch;
+      display: flex;
+      align-items: center;
+      justify-content: center;
+      gap: 22px;
+      padding-top: 5vh;
+    }
+
+    .title h1,
+    .title p {
+      margin: 0;
+      writing-mode: vertical-rl;
+      font-family: var(--font-serif);
+    }
+
+    .title h1 {
+      color: color-mix(in srgb, var(--ink) 92%, transparent);
+      font-size: clamp(34px, 3.3vw, 58px);
+      font-weight: 400;
+      line-height: 1.85;
+      letter-spacing: 0.16em;
+    }
+
+    .title h1 span {
+      color: var(--accent);
+    }
+
+    .title p {
+      max-height: 260px;
+      color: var(--muted);
+      font-size: 14px;
+      line-height: 1.9;
+      letter-spacing: 0.22em;
+    }
+
+    .stage {
+      position: relative;
+      min-height: min(72vh, 740px);
+      display: grid;
+      place-items: center;
+    }
+
+    .woodblock-plate,
+    .sundial-plate {
+      position: absolute;
+      inset: 0;
+      display: grid;
+      place-items: center;
+      opacity: 0;
+      pointer-events: none;
+      transform: translateY(12px) scale(0.985);
+      transition: opacity 520ms var(--ease), transform 520ms var(--ease);
+    }
+
+    [data-mode="woodblock"] .woodblock-plate,
+    [data-mode="sundial"] .sundial-plate {
+      opacity: 1;
+      pointer-events: auto;
+      transform: translateY(0) scale(1);
+    }
+
+    .woodblock {
+      position: relative;
+      width: min(52vw, 680px);
+      min-width: 430px;
+      aspect-ratio: 0.82;
+      background:
+        radial-gradient(circle at 22% 18%, rgba(255,255,255,0.04), transparent 16%),
+        linear-gradient(135deg, var(--field), var(--field-2));
+      color: var(--bg);
+      box-shadow:
+        0 34px 80px rgba(31, 26, 19, 0.16),
+        inset 0 0 0 1px rgba(255,255,255,0.07);
+      overflow: hidden;
+    }
+
+    .woodblock::before {
+      content: "";
+      position: absolute;
+      inset: 24px;
+      border: 1px solid rgba(247,246,241,0.2);
+      pointer-events: none;
+    }
+
+    .woodblock::after {
+      content: "";
+      position: absolute;
+      inset: 0;
+      background:
+        radial-gradient(circle at 15% 25%, rgba(255,255,255,0.04) 0 1px, transparent 1.2px),
+        radial-gradient(circle at 72% 58%, rgba(255,255,255,0.035) 0 1px, transparent 1.2px);
+      background-size: 17px 21px, 23px 19px;
+      opacity: 0.8;
+      mix-blend-mode: screen;
+      pointer-events: none;
+    }
+
+    .wood-grid {
+      position: absolute;
+      inset: 16% 18%;
+      display: grid;
+      grid-template-columns: repeat(3, 1fr);
+      grid-template-rows: repeat(3, 1fr);
+      border: 1px solid rgba(247,246,241,0.56);
+    }
+
+    .wood-grid span {
+      position: relative;
+      border-right: 1px solid rgba(247,246,241,0.36);
+      border-bottom: 1px solid rgba(247,246,241,0.36);
+    }
+
+    .wood-grid span:nth-child(3n) {
+      border-right: 0;
+    }
+
+    .wood-grid span:nth-child(n + 7) {
+      border-bottom: 0;
+    }
+
+    .wood-grid span::before {
+      content: attr(data-mark);
+      position: absolute;
+      inset: 0;
+      display: grid;
+      place-items: center;
+      color: rgba(247,246,241,0.4);
+      font-family: var(--font-serif);
+      font-size: clamp(18px, 2.1vw, 30px);
+      font-weight: 400;
+      letter-spacing: 0.16em;
+    }
+
+    .wood-grid span:nth-child(5)::before {
+      color: rgba(247,246,241,0.82);
+      transform: scale(1.12);
+    }
+
+    .wood-seal {
+      position: absolute;
+      right: 13%;
+      bottom: 10%;
+      width: 34px;
+      aspect-ratio: 1;
+      border: 1px solid rgba(164,58,49,0.9);
+      background:
+        linear-gradient(90deg, transparent 46%, rgba(164,58,49,0.35) 47% 53%, transparent 54%),
+        linear-gradient(0deg, transparent 46%, rgba(164,58,49,0.35) 47% 53%, transparent 54%);
+      opacity: 0.86;
+    }
+
+    .wood-margin {
+      position: absolute;
+      top: 9%;
+      bottom: 9%;
+      left: 9%;
+      width: 10px;
+      background: repeating-linear-gradient(180deg, rgba(247,246,241,0.42) 0 16px, transparent 16px 24px);
+      opacity: 0.42;
+    }
+
+    .entry-line {
+      position: absolute;
+      left: 50%;
+      bottom: 7.5%;
+      display: grid;
+      justify-items: center;
+      gap: 8px;
+      transform: translateX(-50%);
+      color: color-mix(in srgb, var(--ink) 78%, transparent);
+      font-family: var(--font-serif);
+      letter-spacing: 0.18em;
+    }
+
+    [data-mode="woodblock"] .entry-line {
+      color: rgba(247,246,241,0.76);
+    }
+
+    .entry-line strong {
+      font-size: 17px;
+      font-weight: 500;
+    }
+
+    .entry-line i {
+      width: 7px;
+      aspect-ratio: 1;
+      border-radius: 50%;
+      background: var(--accent);
+    }
+
+    .sundial {
+      position: relative;
+      width: min(58vw, 760px);
+      min-width: 480px;
+      aspect-ratio: 1.22;
+      border-radius: 50%;
+      background:
+        radial-gradient(circle at 50% 50%, rgba(255,255,255,0.26) 0 7%, transparent 8%),
+        radial-gradient(circle at 52% 48%, transparent 0 25%, rgba(255,255,255,0.16) 26%, transparent 27%),
+        radial-gradient(circle at 50% 50%, transparent 0 43%, rgba(22,26,26,0.14) 44%, transparent 45%),
+        radial-gradient(ellipse at center, var(--field), var(--field-2));
+      box-shadow:
+        0 30px 76px rgba(26, 30, 30, 0.18),
+        inset 0 2px 0 rgba(255,255,255,0.32),
+        inset 0 -22px 44px rgba(22,26,26,0.08);
+      transform: rotateX(58deg) rotateZ(-10deg);
+    }
+
+    .sundial::before,
+    .sundial::after {
+      content: "";
+      position: absolute;
+      inset: 8%;
+      border: 1px solid rgba(22,26,26,0.22);
+      border-radius: 50%;
+    }
+
+    .sundial::after {
+      inset: 19%;
+      border-color: rgba(22,26,26,0.16);
+    }
+
+    .dial-ticks {
+      position: absolute;
+      inset: 7%;
+      border-radius: 50%;
+    }
+
+    .dial-ticks i {
+      position: absolute;
+      left: 50%;
+      top: 0;
+      width: 1px;
+      height: 16px;
+      background: rgba(22,26,26,0.26);
+      transform-origin: 0 calc(min(58vw, 760px) * 0.43);
+    }
+
+    .dial-ticks i:nth-child(3n) {
+      height: 24px;
+      background: rgba(22,26,26,0.36);
+    }
+
+    .gnomon {
+      position: absolute;
+      left: 50%;
+      top: 50%;
+      width: 13%;
+      height: 34%;
+      transform-origin: 50% 100%;
+      transform: translate(-50%, -100%) rotate(-22deg);
+      background: linear-gradient(90deg, transparent 0 44%, rgba(36,38,34,0.78) 45% 54%, transparent 55%);
+      clip-path: polygon(50% 0, 58% 100%, 42% 100%);
+      filter: drop-shadow(36px 34px 12px rgba(22,26,26,0.23));
+    }
+
+    .shadow-line {
+      position: absolute;
+      left: 50%;
+      top: 50%;
+      width: 42%;
+      height: 1px;
+      transform-origin: left center;
+      transform: rotate(28deg);
+      background: linear-gradient(90deg, rgba(22,26,26,0.42), transparent);
+    }
+
+    .dial-grid {
+      position: absolute;
+      left: 50%;
+      top: 50%;
+      width: 24%;
+      aspect-ratio: 1;
+      display: grid;
+      grid-template-columns: repeat(3, 1fr);
+      transform: translate(-50%, -50%);
+      border: 1px solid rgba(22,26,26,0.2);
+    }
+
+    .dial-grid span {
+      border-right: 1px solid rgba(22,26,26,0.14);
+      border-bottom: 1px solid rgba(22,26,26,0.14);
+    }
+
+    .dial-grid span:nth-child(3n) {
+      border-right: 0;
+    }
+
+    .dial-grid span:nth-child(n + 7) {
+      border-bottom: 0;
+    }
+
+    .red-point {
+      position: absolute;
+      left: 69%;
+      top: 40%;
+      width: 8px;
+      aspect-ratio: 1;
+      border-radius: 50%;
+      background: var(--accent);
+      box-shadow: 0 0 0 5px rgba(143,52,45,0.12);
+    }
+
+    .side-notes {
+      justify-self: end;
+      max-width: 270px;
+      color: var(--muted);
+    }
+
+    .side-notes p {
+      margin: 0 0 clamp(26px, 5vh, 54px);
+      font-family: var(--font-serif);
+      font-size: 15px;
+      line-height: 2;
+      letter-spacing: 0.1em;
+    }
+
+    .note-list {
+      display: grid;
+      gap: 18px;
+      padding-left: 0;
+      margin: 0;
+      list-style: none;
+    }
+
+    .note-list li {
+      position: relative;
+      display: grid;
+      grid-template-columns: 12px 1fr;
+      gap: 14px;
+      align-items: start;
+      font-family: var(--font-serif);
+      font-size: 14px;
+      letter-spacing: 0.08em;
+      line-height: 1.8;
+    }
+
+    .note-list li::before {
+      content: "";
+      width: 6px;
+      aspect-ratio: 1;
+      margin-top: 10px;
+      border-radius: 50%;
+      background: var(--accent);
+      opacity: 0.78;
+    }
+
+    .note-list strong {
+      display: block;
+      color: color-mix(in srgb, var(--ink) 84%, transparent);
+      font-weight: 500;
+    }
+
+    .note-list span {
+      display: block;
+      color: var(--muted);
+      font-size: 12px;
+      letter-spacing: 0.06em;
+    }
+
+    .mobile-summary {
+      display: none;
+    }
+
+    .preview.ready .title,
+    .preview.ready .stage,
+    .preview.ready .side-notes {
+      animation: reveal 740ms var(--ease) both;
+    }
+
+    .preview.ready .stage {
+      animation-delay: 80ms;
+    }
+
+    .preview.ready .side-notes {
+      animation-delay: 140ms;
+    }
+
+    @keyframes reveal {
+      from {
+        opacity: 0;
+        filter: blur(10px);
+        transform: translateY(14px);
+      }
+      to {
+        opacity: 1;
+        filter: blur(0);
+        transform: translateY(0);
+      }
+    }
+
+    @media (max-width: 1120px) {
+      .hero {
+        grid-template-columns: minmax(120px, 0.32fr) minmax(380px, 1fr) minmax(190px, 0.42fr);
+        gap: 24px;
+      }
+
+      .woodblock {
+        min-width: 380px;
+      }
+
+      .sundial {
+        min-width: 420px;
+      }
+    }
+
+    @media (max-width: 880px) {
+      .topbar {
+        align-items: flex-start;
+        padding: 18px 18px 0;
+      }
+
+      .nav {
+        display: none;
+      }
+
+      .switcher {
+        margin-left: auto;
+      }
+
+      .switcher button {
+        min-height: 32px;
+        padding: 0 10px;
+        font-size: 12px;
+      }
+
+      .hero {
+        min-height: calc(100dvh - 64px);
+        grid-template-columns: 1fr;
+        gap: 10px;
+        padding: 20px 18px 28px;
+      }
+
+      .title {
+        display: block;
+        align-self: auto;
+        padding-top: 0;
+      }
+
+      .title h1,
+      .title p {
+        writing-mode: horizontal-tb;
+      }
+
+      .title h1 {
+        font-size: clamp(30px, 8vw, 44px);
+        line-height: 1.28;
+        letter-spacing: 0.08em;
+      }
+
+      .title p {
+        margin-top: 10px;
+        font-size: 13px;
+        line-height: 1.7;
+        letter-spacing: 0.08em;
+      }
+
+      .stage {
+        min-height: 54dvh;
+      }
+
+      .woodblock {
+        width: min(86vw, 420px);
+        min-width: 0;
+      }
+
+      .sundial {
+        width: min(98vw, 500px);
+        min-width: 0;
+      }
+
+      .side-notes {
+        display: none;
+      }
+
+      .mobile-summary {
+        display: grid;
+        gap: 8px;
+        justify-self: stretch;
+        padding-top: 12px;
+        border-top: 1px solid var(--hairline);
+        color: var(--muted);
+        font-family: var(--font-serif);
+        font-size: 13px;
+        letter-spacing: 0.08em;
+        line-height: 1.8;
+      }
+    }
+
+    @media (max-width: 520px) {
+      .brand strong {
+        font-size: 15px;
+      }
+
+      .brand small {
+        display: none;
+      }
+
+      .brand-mark {
+        width: 30px;
+      }
+
+      .switcher {
+        gap: 2px;
+      }
+
+      .switcher button {
+        padding: 0 8px;
+        letter-spacing: 0.04em;
+      }
+
+      .stage {
+        min-height: 50dvh;
+      }
+
+      .entry-line {
+        bottom: 4%;
+      }
+    }
+
+    @media (prefers-reduced-motion: reduce) {
+      *,
+      *::before,
+      *::after {
+        animation-duration: 0.01ms !important;
+        animation-iteration-count: 1 !important;
+        scroll-behavior: auto !important;
+        transition-duration: 0.01ms !important;
+      }
+    }
+  </style>
+</head>
+<body>
+  <div class="preview" data-mode="woodblock" id="preview">
+    <div class="grain" aria-hidden="true"></div>
+    <div class="ambient" aria-hidden="true"></div>
+
+    <header class="topbar">
+      <a class="brand" href="#" aria-label="奇门遁甲首页">
+        <span class="brand-mark" aria-hidden="true"></span>
+        <span>
+          <strong>奇门遁甲</strong>
+          <small>QIMEN DUNJIA</small>
+        </span>
+      </a>
+
+      <div class="switcher" role="group" aria-label="切换首页方案">
+        <button type="button" data-set-mode="woodblock" aria-pressed="true">木刻版心</button>
+        <button type="button" data-set-mode="sundial" aria-pressed="false">日影盘</button>
+      </div>
+
+      <nav class="nav" aria-label="主导航">
+        <a href="#">排盘</a>
+        <a href="#">知识</a>
+        <a href="#">案例</a>
+        <a href="#">关于</a>
+      </nav>
+    </header>
+
+    <main class="hero">
+      <section class="title" aria-label="首页标题">
+        <h1><span>心</span>起，则局生</h1>
+        <p>择时入局，观象知微</p>
+      </section>
+
+      <section class="stage" aria-label="方案主视觉">
+        <div class="woodblock-plate">
+          <a class="woodblock" href="#" aria-label="进入木刻版心排盘">
+            <span class="wood-margin" aria-hidden="true"></span>
+            <span class="wood-grid" aria-hidden="true">
+              <span data-mark="巽"></span>
+              <span data-mark="离"></span>
+              <span data-mark="坤"></span>
+              <span data-mark="震"></span>
+              <span data-mark="中"></span>
+              <span data-mark="兑"></span>
+              <span data-mark="艮"></span>
+              <span data-mark="坎"></span>
+              <span data-mark="乾"></span>
+            </span>
+            <span class="wood-seal" aria-hidden="true"></span>
+            <span class="entry-line">
+              <strong>入版心</strong>
+              <i aria-hidden="true"></i>
+            </span>
+          </a>
+        </div>
+
+        <div class="sundial-plate">
+          <a class="sundial" href="#" aria-label="进入日影盘排盘">
+            <span class="dial-ticks" aria-hidden="true" id="ticks"></span>
+            <span class="shadow-line" aria-hidden="true"></span>
+            <span class="gnomon" aria-hidden="true"></span>
+            <span class="dial-grid" aria-hidden="true">
+              <span></span><span></span><span></span>
+              <span></span><span></span><span></span>
+              <span></span><span></span><span></span>
+            </span>
+            <span class="red-point" aria-hidden="true"></span>
+          </a>
+          <span class="entry-line">
+            <strong>循影入局</strong>
+            <i aria-hidden="true"></i>
+          </span>
+        </div>
+      </section>
+
+      <aside class="side-notes" aria-label="方案说明">
+        <p id="modeIntro">像一页宋版术数书，版心就是入口。用户不是点击按钮，而是进入一套被刻好的秩序。</p>
+        <ul class="note-list" id="modeNotes">
+          <li><span><strong>版心</strong><span>九宫成为页面骨架</span></span></li>
+          <li><span><strong>墨色</strong><span>用黑白关系制造庄重</span></span></li>
+          <li><span><strong>朱点</strong><span>只留一个起局信号</span></span></li>
+        </ul>
+      </aside>
+
+      <section class="mobile-summary" id="mobileSummary" aria-label="移动端方案说明">
+        像一页宋版术数书，版心就是入口。九宫成为页面骨架，只留一个朱点作为起局信号。
+      </section>
+    </main>
+  </div>
+
+  <script>
+    const preview = document.getElementById('preview');
+    const buttons = document.querySelectorAll('[data-set-mode]');
+    const intro = document.getElementById('modeIntro');
+    const notes = document.getElementById('modeNotes');
+    const mobileSummary = document.getElementById('mobileSummary');
+    const ticks = document.getElementById('ticks');
+
+    const copy = {
+      woodblock: {
+        intro: '像一页宋版术数书，版心就是入口。用户不是点击按钮，而是进入一套被刻好的秩序。',
+        mobile: '像一页宋版术数书，版心就是入口。九宫成为页面骨架，只留一个朱点作为起局信号。',
+        notes: [
+          ['版心', '九宫成为页面骨架'],
+          ['墨色', '用黑白关系制造庄重'],
+          ['朱点', '只留一个起局信号']
+        ]
+      },
+      sundial: {
+        intro: '像观象台上的日影盘，时间不是背景信息，而是页面本身的主角。影针所指，即为入局之处。',
+        mobile: '像观象台上的日影盘，时间成为主角。影针所指，即为入局之处。',
+        notes: [
+          ['日影', '把择时变成可见结构'],
+          ['刻度', '用精密感建立可信度'],
+          ['九宫', '藏在仪器核心，不外露炫技']
+        ]
+      }
+    };
+
+    for (let index = 0; index < 48; index += 1) {
+      const tick = document.createElement('i');
+      tick.style.transform = `rotate(${index * 7.5}deg)`;
+      ticks.appendChild(tick);
+    }
+
+    function setMode(mode) {
+      preview.dataset.mode = mode;
+      buttons.forEach((button) => {
+        button.setAttribute('aria-pressed', String(button.dataset.setMode === mode));
+      });
+
+      intro.textContent = copy[mode].intro;
+      mobileSummary.textContent = copy[mode].mobile;
+      notes.innerHTML = copy[mode].notes
+        .map(([title, text]) => `<li><span><strong>${title}</strong><span>${text}</span></span></li>`)
+        .join('');
+    }
+
+    buttons.forEach((button) => {
+      button.addEventListener('click', () => setMode(button.dataset.setMode));
+    });
+
+    window.addEventListener('load', () => {
+      preview.classList.add('ready');
+    });
+  </script>
+</body>
+</html>
+

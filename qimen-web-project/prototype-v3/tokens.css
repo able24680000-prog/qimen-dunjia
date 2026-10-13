@@ -1,0 +1,41 @@
+:root {
+  --paper: #f2efe7;
+  --paper-bright: #f9f7f0;
+  --paper-deep: #dedbd2;
+  --paper-overlay: rgba(242, 239, 231, 0.76);
+  --folio-surface: rgba(249, 247, 240, 0.8);
+  --light-sweep: rgba(255, 255, 255, 0.24);
+  --ink: #252925;
+  --ink-mid: #64685f;
+  --ink-soft: rgba(37, 41, 37, 0.5);
+  --ink-faint: rgba(37, 41, 37, 0.18);
+  --rule: rgba(37, 41, 37, 0.26);
+  --rule-soft: rgba(37, 41, 37, 0.13);
+  --celadon: #8e9d93;
+  --celadon-soft: rgba(142, 157, 147, 0.2);
+  --celadon-ring: rgba(142, 157, 147, 0.48);
+  --celadon-hover: rgba(142, 157, 147, 0.09);
+  --cinnabar: #96382f;
+  --cinnabar-soft: rgba(150, 56, 47, 0.12);
+  --cinnabar-halo: rgba(150, 56, 47, 0.08);
+  --shadow: rgba(37, 41, 37, 0.1);
+
+  --font-song: "Source Han Serif SC", "Noto Serif CJK SC", "Songti SC", "STSong", serif;
+  --font-kai: "LXGW WenKai", "STKaiti", "KaiTi", serif;
+  --font-latin: "Times New Roman", serif;
+
+  --content-max: 1540px;
+  --folio-max: 760px;
+  --plate-size: clamp(360px, 34vw, 500px);
+  --ease-ink: cubic-bezier(0.22, 0.72, 0.22, 1);
+  --ease-settle: cubic-bezier(0.16, 1, 0.3, 1);
+  --ease-calibrate: cubic-bezier(0.37, 0, 0.2, 1);
+
+  --stage-paper: 800ms;
+  --stage-frame: 1000ms;
+  --stage-ground: 1400ms;
+  --stage-sky: 1600ms;
+  --stage-dial: 1400ms;
+  --stage-seal: 1000ms;
+}
+

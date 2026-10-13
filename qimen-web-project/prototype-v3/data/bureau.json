@@ -1,0 +1,27 @@
+{
+  "meta": {
+    "date": "2026-07-13",
+    "time": "午时",
+    "solarTerm": "小暑",
+    "dun": "阳遁",
+    "ju": 7,
+    "cycle": "夏至下元",
+    "dutyPalace": 6,
+    "dutyStar": "天心星",
+    "dutyDoor": "开门",
+    "headline": ["先定其势", "再择其门"],
+    "summary": "值符天心，值使开门。事有明路，仍须审时而行。"
+  },
+  "palaces": [
+    {"number": 4, "trigram": "巽", "door": "杜门", "star": "天辅", "deity": "六合", "stem": "辛", "note": "巽四宫：风行入木，宜梳理关系与传播路径。"},
+    {"number": 9, "trigram": "离", "door": "景门", "star": "天英", "deity": "九天", "stem": "乙", "note": "离九宫：火明于上，宜呈现成果，不宜虚张声势。"},
+    {"number": 2, "trigram": "坤", "door": "死门", "star": "天芮", "deity": "玄武", "stem": "己", "note": "坤二宫：地势厚重，宜止损整顿，先处理旧事。"},
+    {"number": 3, "trigram": "震", "door": "伤门", "star": "天冲", "deity": "白虎", "stem": "癸", "note": "震三宫：雷动而急，行动之前须留出回旋余地。"},
+    {"number": 5, "trigram": "中", "door": "中宫", "star": "天禽", "deity": "中正", "stem": "戊", "note": "中五宫：诸气会聚，先辨主次，再定用神。"},
+    {"number": 7, "trigram": "兑", "door": "惊门", "star": "天柱", "deity": "腾蛇", "stem": "丁", "note": "兑七宫：金声外显，宜辨明消息，慎防口舌与误判。"},
+    {"number": 8, "trigram": "艮", "door": "生门", "star": "天任", "deity": "九地", "stem": "丙", "note": "艮八宫：山止而成，宜守住基础，稳步增益。"},
+    {"number": 1, "trigram": "坎", "door": "休门", "star": "天蓬", "deity": "太阴", "stem": "壬", "note": "坎一宫：水行于隐，宜蓄势、研究与修整。"},
+    {"number": 6, "trigram": "乾", "door": "开门", "star": "天心", "deity": "值符", "stem": "庚", "note": "乾六宫：天心临开门，宜先定边界，再开新局。", "duty": true}
+  ]
+}
+

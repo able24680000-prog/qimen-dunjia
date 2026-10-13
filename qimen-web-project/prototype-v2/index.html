@@ -1,0 +1,101 @@
+<!DOCTYPE html>
+<html lang="zh-CN">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>奇门遁甲 · 宣纸日影盘</title>
+  <link rel="stylesheet" href="tokens.css">
+  <link rel="stylesheet" href="style.css">
+</head>
+<body>
+  <main class="page" aria-label="奇门遁甲宣纸日影盘首页原型">
+    <header class="brand" aria-label="奇门遁甲">
+      <div class="brand__mark" aria-hidden="true">
+        <span></span>
+      </div>
+      <div>
+        <strong>奇门遁甲</strong>
+        <small>QIMEN DUNJIA</small>
+      </div>
+    </header>
+
+    <nav class="nav" aria-label="主导航">
+      <a href="#">排盘</a>
+      <a href="#">知识</a>
+      <a href="#">案例</a>
+      <a href="#">关于</a>
+    </nav>
+
+    <section class="hero" aria-label="首页主视觉">
+      <aside class="hero-title">
+        <p class="hero-title__main"><span>心</span><span>起</span><span>则</span><span>局</span><span>生</span></p>
+        <p class="hero-title__note">以日影定时，以九宫成局</p>
+      </aside>
+
+      <article class="folio" aria-label="九宫日影盘">
+        <span class="folio__grain" aria-hidden="true"></span>
+        <span class="folio__sun" aria-hidden="true"></span>
+        <span class="folio__seal" aria-hidden="true">田</span>
+        <div class="instrument" id="instrument">
+          <span class="instrument__plate" aria-hidden="true"></span>
+          <span class="instrument__outer" aria-hidden="true"></span>
+          <span class="instrument__middle" aria-hidden="true"></span>
+          <span class="instrument__inner" aria-hidden="true"></span>
+          <span class="instrument__ticks" aria-hidden="true"></span>
+          <span class="instrument__bearing instrument__bearing--south" aria-hidden="true">南</span>
+          <span class="instrument__bearing instrument__bearing--west" aria-hidden="true">西</span>
+          <span class="instrument__bearing instrument__bearing--north" aria-hidden="true">北</span>
+          <span class="instrument__bearing instrument__bearing--east" aria-hidden="true">东</span>
+          <span class="instrument__point instrument__point--one" aria-hidden="true"></span>
+          <span class="instrument__point instrument__point--two" aria-hidden="true"></span>
+          <span class="instrument__point instrument__point--three" aria-hidden="true"></span>
+          <span class="instrument__point instrument__point--four" aria-hidden="true"></span>
+          <span class="instrument__axis" aria-hidden="true"></span>
+          <span class="instrument__needle" aria-hidden="true"></span>
+          <span class="instrument__shadow" aria-hidden="true"></span>
+          <span class="instrument__red-dot" aria-hidden="true"></span>
+          <div class="qimen-grid" id="qimenGrid" aria-label="洛书九宫">
+            <span class="qimen-grid__cell" data-palace="4"><b>4</b><i>巽</i></span>
+            <span class="qimen-grid__cell" data-palace="9"><b>9</b><i>离</i></span>
+            <span class="qimen-grid__cell" data-palace="2"><b>2</b><i>坤</i></span>
+            <span class="qimen-grid__cell" data-palace="3"><b>3</b><i>震</i></span>
+            <span class="qimen-grid__cell qimen-grid__cell--center" data-palace="5"><b>5</b><i>中</i></span>
+            <span class="qimen-grid__cell" data-palace="7"><b>7</b><i>兑</i></span>
+            <span class="qimen-grid__cell" data-palace="8"><b>8</b><i>艮</i></span>
+            <span class="qimen-grid__cell" data-palace="1"><b>1</b><i>坎</i></span>
+            <span class="qimen-grid__cell" data-palace="6"><b>6</b><i>乾</i></span>
+            <span class="qimen-grid__aura" aria-hidden="true"></span>
+            <span class="qimen-grid__dot" aria-hidden="true"></span>
+          </div>
+        </div>
+
+        <footer class="folio__caption">
+          <strong>循影入局</strong>
+          <span>ENTER</span>
+        </footer>
+      </article>
+
+      <aside class="annotations" aria-label="设计注记">
+        <p>书页承载秩序，日影指向当下。九宫不外露炫技，只在版心中等候被进入。</p>
+        <dl>
+          <div>
+            <dt>洛书</dt>
+            <dd>光点沿 4→9→2→7→6→1→8→3 缓行</dd>
+          </div>
+          <div>
+            <dt>日影</dt>
+            <dd>指针与落宫高光同步，不做满盘旋转</dd>
+          </div>
+          <div>
+            <dt>纸光</dt>
+            <dd>自然斜光扫过盘面，像阳光照纸</dd>
+          </div>
+        </dl>
+      </aside>
+    </section>
+  </main>
+
+  <script src="script.js"></script>
+</body>
+</html>
+
