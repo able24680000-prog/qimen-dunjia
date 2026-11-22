@@ -3,12 +3,12 @@ import { Link, useParams } from 'react-router-dom'
 import { useSearchParams } from 'react-router-dom'
 import courses from '../knowledge/maidu-summary.json'
 import externalLearning from '../knowledge/external-learning-notes.json'
+import judgementSentenceTable from '../knowledge/judgement-sentence-table.json'
 
 const learningItems = externalLearning.items.map((item) => ({
   ...item, id: `external-${item.id}`, desc: item.summary, focus: `补充学习 · ${item.category}`,
 }))
 const allCourses = [...courses, ...learningItems]
-import judgementSentenceTable from '../knowledge/judgement-sentence-table.json'
 
 const COURSE_TEXTS = import.meta.glob('../knowledge/maidu-c*.txt', {
   eager: true,
