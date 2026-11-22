@@ -9,11 +9,23 @@ const judgementTablePath = path.join(root, 'src', 'knowledge', 'judgement-senten
 const updateScriptPath = path.join(root, 'scripts', 'update-judgement-table.mjs')
 const courses = JSON.parse(fs.readFileSync(summaryPath, 'utf8'))
 const judgementTable = JSON.parse(fs.readFileSync(judgementTablePath, 'utf8'))
+const externalLearning = JSON.parse(fs.readFileSync(path.join(root, 'src', 'knowledge', 'external-learning-notes.json'), 'utf8'))
 const failures = []
 
 function fail(message) {
   failures.push(message)
 }
+
+const externalIds = new Set()
+for (const item of externalLearning.items || []) {
+  if (!item.id || externalIds.has(item.id)) fail(`duplicate or missing external id: ${item.id}`)
+  externalIds.add(item.id)
+  for (const key of ['title', 'summary', 'category', 'status']) {
+    if (!item[key]) fail(`external ${item.id} missing ${key}`)
+  }
+  if (!Array.isArray(item.source) || item.source.length === 0 || item.source.some((url) => !url.startsWith('https://'))) fail(`external ${item.id} missing sources`)
+}
+if (!externalIds.size) fail('external learning items must not be empty')
 
 if (!Array.isArray(courses)) fail('maidu-summary.json must export an array')
 if (courses.length !== 10) fail(`expected 10 courses, got ${courses.length}`)
@@ -61,6 +73,7 @@ for (const course of courses) {
 const pageSource = fs.readFileSync(knowledgePagePath, 'utf8')
 for (const required of [
   "import courses from '../knowledge/maidu-summary.json'",
+  "import externalLearning from '../knowledge/external-learning-notes.json'",
   "import judgementSentenceTable from '../knowledge/judgement-sentence-table.json'",
   "import { useSearchParams } from 'react-router-dom'",
   "searchParams.get('q')",
