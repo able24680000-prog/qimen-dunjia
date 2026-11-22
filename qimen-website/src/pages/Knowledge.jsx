@@ -1,8 +1,33 @@
-import { useMemo, useState } from 'react'
+import { useEffect, useMemo, useState } from 'react'
 import { Link, useParams } from 'react-router-dom'
 import { useSearchParams } from 'react-router-dom'
 import courses from '../knowledge/maidu-summary.json'
+import externalLearning from '../knowledge/external-learning-notes.json'
+import externalCatalog from '../knowledge/external-source-catalog.json'
 import judgementSentenceTable from '../knowledge/judgement-sentence-table.json'
+
+const learningItems = externalLearning.items.map((item) => ({
+  ...item, id: `external-${item.id}`, desc: item.summary, focus: `补充学习 · ${item.category}`,
+}))
+const [bookCatalog, classicsCatalog] = externalCatalog.sources
+const sourceItems = [
+  ...bookCatalog.chapters.map((chapter) => ({
+    id: `book-${chapter.id}`, title: chapter.title, category: bookCatalog.name,
+    desc: '原始资料章节 · 在线读取 · 尚未逐条校对',
+    focus: '外部资料 · 时家转盘', sourceUrl: chapter.reference,
+    rawUrl: 'https://raw.githubusercontent.com/c0ng-Alex/qimen-dunjia/main/qimen-dunjia.html',
+    sectionId: chapter.sourceSection,
+    caution: bookCatalog.caution,
+  })),
+  ...classicsCatalog.works.flatMap((work, workIndex) => work.chapters.map((chapter, chapterIndex) => ({
+    id: `classic-${workIndex}-${chapterIndex}`, title: chapter.title, category: work.title,
+    desc: `${work.title} · 原始资料章节 · 在线读取 · 尚未逐条校对`,
+    focus: `外部资料 · ${work.title}`, sourceUrl: chapter.url,
+    rawUrl: chapter.url.replace('https://github.com/', 'https://raw.githubusercontent.com/').replace('/blob/main/', '/main/'),
+    caution: classicsCatalog.caution,
+  }))),
+]
+const allCourses = [...courses, ...learningItems, ...sourceItems]
 
 const COURSE_TEXTS = import.meta.glob('../knowledge/maidu-c*.txt', {
   eager: true,
@@ -114,6 +139,12 @@ const REFERENCES = [
 ]
 
 const SOURCE_LINKS = [
+  ['时家转盘：七步排盘示例', 'https://github.com/c0ng-Alex/qimen-dunjia/blob/main/qimen-dunjia.html#ch4-8', '按阴阳遁与局数、地盘、旬首与符使、天盘、八门、八神梳理排盘顺序；示例未提供完整公历时间，不能作为定局与节气校验基准。'],
+  ['门迫与门制：传统说法', 'https://github.com/c0ng-Alex/qimen-dunjia/blob/main/qimen-dunjia.html#ch5-4', '该资料采用门克宫为迫、宫克门为制的口径。阅读时记录流派，不将单一信号直接转为现实结论。'],
+  ['教学案例：合伙、求职与寻物', 'https://github.com/c0ng-Alex/qimen-dunjia/blob/main/qimen-dunjia.html#ch5-10', '原文说明三个都是教学演示，无可验证反馈；求职与寻物示例的日干、时干组合和常用五鼠遁不符，不能用作准确排盘基准或真实案例。'],
+  ['补充阅读：定局与三元', 'https://github.com/youngzs/xuanxue/blob/main/docs/奇门遁甲专业知识/001第一讲%20定局概说.md', '用于对照节气、阴阳遁与上中下元。此转载文本前后存在局数表述冲突，不能直接作为排盘基准。'],
+  ['补充阅读：九宫与三奇六仪', 'https://github.com/youngzs/xuanxue/blob/main/docs/奇门遁甲专业知识/003第三讲%20九宫、六仪、三奇.md', '用于学习六甲遁仪与排布顺序；原文把兑七宫写为西北，本站按兑七正西、乾六西北核对。'],
+  ['补充阅读：主客与动静', 'https://github.com/youngzs/xuanxue/blob/main/docs/奇门遁甲专业知识/010第十讲%20主客.md', '用于学习动静、先后和天地盘主客的传统说法。具体取法随场景及流派变化；绝对化断语不作为事实或行动保证。'],
   ['《烟波钓叟歌》公开文本', 'https://zh.wikisource.org/wiki/煙波釣叟歌', '用于校验“阴阳顺逆、值符值使、九星八门”等基础术语。'],
   ['奇门遁甲基础条目', 'https://zh.wikipedia.org/wiki/奇门遁甲', '用于核对九宫、八门、九星、八神等基本结构。'],
   ['《奇门遁甲统宗》检索', 'https://ctext.org/searchbooks.pl?if=gb&searchu=%E5%A5%87%E9%96%80%E9%81%81%E7%94%B2%E7%B5%B1%E5%AE%97', '用于继续查找传统断法、格局与门星神组合的原始语境。'],
@@ -170,7 +201,7 @@ const QUICK_NAV = [
 ]
 
 const SECTION_META = {
-  courses: ['课程', '麦垛十课', '按学习阶段选择课程，每次只进入一课，专注理解一个主题。'],
+  courses: ['课程', '麦垛十课', '选择原有课程、补充提要或外部资料章节；外部正文需要联网。'],
   'core-terms': ['基础', '核心术语与四层盘', '先补齐盘面语言，再理解地盘、人盘、天盘和神盘各自负责什么。'],
   'reading-flow': ['流程', '从起局到建议', '把读盘拆成可重复的步骤，避免只凭单一符号下结论。'],
   'judgement-basis': ['依据', '判断线索与断语规则', '查看值符、值使、星、门、神等线索如何共同形成判断。'],
@@ -428,12 +459,61 @@ function SectionContent({ sectionId, filteredCourses, query, setQuery }) {
   )
 }
 
+function SourceReader({ course }) {
+  const [result, setResult] = useState({ text: '', error: '', loading: true })
+
+  useEffect(() => {
+    const controller = new AbortController()
+    setResult({ text: '', error: '', loading: true })
+    async function readSource() {
+      try {
+        const response = await fetch(course.rawUrl, { signal: controller.signal })
+        if (!response.ok) throw new Error('来源暂时无法访问')
+        let text = await response.text()
+        if (course.sectionId) {
+          const document = new DOMParser().parseFromString(text, 'text/html')
+          document.querySelectorAll('script, style, svg').forEach((node) => node.remove())
+          const heading = document.getElementById(course.sectionId)
+          if (!heading) throw new Error('来源目录已变化，未找到章节')
+          const pieces = [heading.textContent]
+          let node = heading.nextElementSibling
+          while (node && !(/^H[1-3]$/.test(node.tagName) && Number(node.tagName.slice(1)) <= Number(heading.tagName.slice(1)))) {
+            pieces.push(node.innerText || node.textContent || '')
+            node = node.nextElementSibling
+          }
+          text = pieces.join('\n\n')
+        }
+        if (!text.trim()) throw new Error('该章节没有可显示的正文')
+        setResult({ text, error: '', loading: false })
+      } catch (error) {
+        if (error.name !== 'AbortError') setResult({ text: '', error: error.message, loading: false })
+      }
+    }
+    readSource()
+    return () => controller.abort()
+  }, [course.rawUrl, course.sectionId])
+
+  return (
+    <article className="mx-auto max-w-4xl">
+      <PageHeading eyebrow={course.focus} title={course.title} description={course.desc} backTo="/knowledge/courses" backLabel="返回课程索引" />
+      <p className="mb-5 text-sm leading-7 text-[#7a4a25]">{course.caution}</p>
+      <a href={course.sourceUrl} target="_blank" rel="noreferrer" className="mb-5 block break-all text-sm underline">查看原始来源</a>
+      <div className="border border-[var(--qm-border)] bg-[var(--qm-surface)] p-5">
+        {result.loading && <p>正在从原资料读取内容…</p>}
+        {result.error && <p role="alert">读取失败：{result.error}。请使用上方链接打开原资料。</p>}
+        {!result.loading && !result.error && <div className="whitespace-pre-wrap break-words text-[15px] leading-8">{result.text}</div>}
+      </div>
+      <p className="mt-4 text-sm leading-7">正文由原来源实时提供，可能更新或暂时无法访问；目录和内容尚未全面校勘。</p>
+    </article>
+  )
+}
+
 function normalizeText(value) {
   return String(value || '').trim().toLowerCase()
 }
 
 function getCourseKeywords(course) {
-  return COURSE_KEYWORDS[course.id] || []
+  return COURSE_KEYWORDS[course.id] || (course.category ? [course.category, course.title] : [])
 }
 
 export default function Knowledge() {
@@ -442,14 +522,14 @@ export default function Knowledge() {
   const [query, setQuery] = useState(() => searchParams.get('q') || '')
   const normalizedQuery = normalizeText(query)
   const filteredCourses = useMemo(() => {
-    if (!normalizedQuery) return courses
-    return courses.filter((course) => {
+    if (!normalizedQuery) return allCourses
+    return allCourses.filter((course) => {
       const keywords = getCourseKeywords(course)
       return [course.title, course.desc, course.focus, ...keywords]
         .some((item) => normalizeText(item).includes(normalizedQuery))
     })
   }, [normalizedQuery])
-  const courseById = useMemo(() => Object.fromEntries(courses.map((course) => [course.id, course])), [])
+  const courseById = useMemo(() => Object.fromEntries(allCourses.map((course) => [course.id, course])), [])
 
   if (courseId) {
     const course = courseById[courseId]
@@ -463,10 +543,18 @@ export default function Knowledge() {
       )
     }
 
-    const courseIndex = courses.findIndex((item) => item.id === course.id)
-    const previousCourse = courses[courseIndex - 1]
-    const nextCourse = courses[courseIndex + 1]
-    const rawText = COURSE_TEXTS[`../knowledge/${course.file}`]
+    if (course.rawUrl) {
+      return (
+        <div className="min-h-[80vh] px-4 py-10 text-[var(--qm-ink)] md:py-14">
+          <SourceReader course={course} />
+        </div>
+      )
+    }
+
+    const courseIndex = allCourses.findIndex((item) => item.id === course.id)
+    const previousCourse = allCourses[courseIndex - 1]
+    const nextCourse = allCourses[courseIndex + 1]
+    const rawText = course.summary || COURSE_TEXTS[`../knowledge/${course.file}`]
     const paragraphs = splitCourseText(rawText, course.title)
 
     return (
@@ -488,8 +576,8 @@ export default function Knowledge() {
 
           <div className="border border-[var(--qm-border)] bg-[var(--qm-surface)] px-5 py-6 md:px-8 md:py-8">
             <div className="mb-6 border-b border-[var(--qm-border-soft)] pb-4">
-              <div className="text-xs font-bold text-[var(--qm-secondary)]">课程正文</div>
-              <p className="mt-2 text-sm leading-7 text-[var(--qm-ink-soft)]">按自然段整理原始课程内容，阅读时可先抓住本课主题，再回到排盘页对照。</p>
+              <div className="text-xs font-bold text-[var(--qm-secondary)]">{course.summary ? '补充学习提要' : '课程正文'}</div>
+              <p className="mt-2 text-sm leading-7 text-[var(--qm-ink-soft)]">{course.summary ? course.status : '按自然段整理原始课程内容，阅读时可先抓住本课主题，再回到排盘页对照。'}</p>
             </div>
             <div className="space-y-5">
               {paragraphs.map((paragraph, index) => (
@@ -497,6 +585,16 @@ export default function Knowledge() {
               ))}
             </div>
           </div>
+
+          {course.source?.length > 0 && (
+            <section className="mt-6 border border-[var(--qm-border)] bg-[var(--qm-surface)] p-5">
+              <h2 className="text-lg font-semibold text-[var(--qm-primary)]">参考来源</h2>
+              <p className="mt-2 text-sm leading-7">以下为相关资料入口，提要尚未逐条校对，不表示全部原文已导入。</p>
+              {course.source.map((url) => (
+                <a key={url} href={url} target="_blank" rel="noreferrer" className="mt-2 block break-all text-sm underline">{url}</a>
+              ))}
+            </section>
+          )}
 
           <nav aria-label="课程翻页" className="mt-6 grid gap-3 sm:grid-cols-2">
             {previousCourse ? (
@@ -922,4 +1020,5 @@ export default function Knowledge() {
     </div>
   )
 }
+
 
