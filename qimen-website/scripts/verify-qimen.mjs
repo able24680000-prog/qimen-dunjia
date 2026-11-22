@@ -32,7 +32,7 @@ const cases = [
     date: new Date(2024, 1, 4, 0, 0, 0),
     options: { method: '时家', qijuMethod: '拆补法', purpose: '综合' },
     expected: {
-      siZhu: { year: '甲辰', month: '乙丑', day: '戊戌', time: '壬子' },
+      siZhu: { year: '癸卯', month: '乙丑', day: '戊戌', time: '壬子' },
       juShu: { jieQiName: '大寒', type: 'yang', number: '3', yuan: '上元', fullName: '阳遁3局 (上元)' },
       xunShou: '壬',
       kongWangZhi: ['寅', '卯'],
@@ -207,6 +207,14 @@ function verifyCase(testCase) {
 }
 
 const allFailures = []
+// 香港天文台 2024 年年历给出立春为香港时间 2 月 4 日 16:27（分钟精度）。
+// 以 Asia/Shanghai 运行：取前后各一分钟，避开公布值的秒级精度限制。
+for (const [hour, minute, year, month] of [[16, 26, '癸卯', '乙丑'], [16, 28, '甲辰', '丙寅']]) {
+  const label = `2024-02-04 ${hour}:${minute} 立春边界`
+  const result = calculate(new Date(2024, 1, 4, hour, minute), { method: '时家', qijuMethod: '拆补法' })
+  assertDeepEqual(result.siZhu?.year, year, `${label} 年柱`, allFailures)
+  assertDeepEqual(result.siZhu?.month, month, `${label} 月柱`, allFailures)
+}
 for (const testCase of cases) {
   const failures = verifyCase(testCase)
   if (failures.length) {
