@@ -1,14 +1,33 @@
-import { useMemo, useState } from 'react'
+import { useEffect, useMemo, useState } from 'react'
 import { Link, useParams } from 'react-router-dom'
 import { useSearchParams } from 'react-router-dom'
 import courses from '../knowledge/maidu-summary.json'
 import externalLearning from '../knowledge/external-learning-notes.json'
+import externalCatalog from '../knowledge/external-source-catalog.json'
 import judgementSentenceTable from '../knowledge/judgement-sentence-table.json'
 
 const learningItems = externalLearning.items.map((item) => ({
   ...item, id: `external-${item.id}`, desc: item.summary, focus: `补充学习 · ${item.category}`,
 }))
-const allCourses = [...courses, ...learningItems]
+const [bookCatalog, classicsCatalog] = externalCatalog.sources
+const sourceItems = [
+  ...bookCatalog.chapters.map((chapter) => ({
+    id: `book-${chapter.id}`, title: chapter.title, category: bookCatalog.name,
+    desc: '原始资料章节 · 在线读取 · 尚未逐条校对',
+    focus: '外部资料 · 时家转盘', sourceUrl: chapter.reference,
+    rawUrl: 'https://raw.githubusercontent.com/c0ng-Alex/qimen-dunjia/main/qimen-dunjia.html',
+    sectionId: chapter.sourceSection,
+    caution: bookCatalog.caution,
+  })),
+  ...classicsCatalog.works.flatMap((work, workIndex) => work.chapters.map((chapter, chapterIndex) => ({
+    id: `classic-${workIndex}-${chapterIndex}`, title: chapter.title, category: work.title,
+    desc: `${work.title} · 原始资料章节 · 在线读取 · 尚未逐条校对`,
+    focus: `外部资料 · ${work.title}`, sourceUrl: chapter.url,
+    rawUrl: chapter.url.replace('https://github.com/', 'https://raw.githubusercontent.com/').replace('/blob/main/', '/main/'),
+    caution: classicsCatalog.caution,
+  }))),
+]
+const allCourses = [...courses, ...learningItems, ...sourceItems]
 
 const COURSE_TEXTS = import.meta.glob('../knowledge/maidu-c*.txt', {
   eager: true,
@@ -182,7 +201,7 @@ const QUICK_NAV = [
 ]
 
 const SECTION_META = {
-  courses: ['课程', '麦垛十课', '按学习阶段选择课程，每次只进入一课，专注理解一个主题。'],
+  courses: ['课程', '麦垛十课', '选择原有课程、补充提要或外部资料章节；外部正文需要联网。'],
   'core-terms': ['基础', '核心术语与四层盘', '先补齐盘面语言，再理解地盘、人盘、天盘和神盘各自负责什么。'],
   'reading-flow': ['流程', '从起局到建议', '把读盘拆成可重复的步骤，避免只凭单一符号下结论。'],
   'judgement-basis': ['依据', '判断线索与断语规则', '查看值符、值使、星、门、神等线索如何共同形成判断。'],
@@ -440,6 +459,55 @@ function SectionContent({ sectionId, filteredCourses, query, setQuery }) {
   )
 }
 
+function SourceReader({ course }) {
+  const [result, setResult] = useState({ text: '', error: '', loading: true })
+
+  useEffect(() => {
+    const controller = new AbortController()
+    setResult({ text: '', error: '', loading: true })
+    async function readSource() {
+      try {
+        const response = await fetch(course.rawUrl, { signal: controller.signal })
+        if (!response.ok) throw new Error('来源暂时无法访问')
+        let text = await response.text()
+        if (course.sectionId) {
+          const document = new DOMParser().parseFromString(text, 'text/html')
+          document.querySelectorAll('script, style, svg').forEach((node) => node.remove())
+          const heading = document.getElementById(course.sectionId)
+          if (!heading) throw new Error('来源目录已变化，未找到章节')
+          const pieces = [heading.textContent]
+          let node = heading.nextElementSibling
+          while (node && !(/^H[1-3]$/.test(node.tagName) && Number(node.tagName.slice(1)) <= Number(heading.tagName.slice(1)))) {
+            pieces.push(node.innerText || node.textContent || '')
+            node = node.nextElementSibling
+          }
+          text = pieces.join('\n\n')
+        }
+        if (!text.trim()) throw new Error('该章节没有可显示的正文')
+        setResult({ text, error: '', loading: false })
+      } catch (error) {
+        if (error.name !== 'AbortError') setResult({ text: '', error: error.message, loading: false })
+      }
+    }
+    readSource()
+    return () => controller.abort()
+  }, [course.rawUrl, course.sectionId])
+
+  return (
+    <article className="mx-auto max-w-4xl">
+      <PageHeading eyebrow={course.focus} title={course.title} description={course.desc} backTo="/knowledge/courses" backLabel="返回课程索引" />
+      <p className="mb-5 text-sm leading-7 text-[#7a4a25]">{course.caution}</p>
+      <a href={course.sourceUrl} target="_blank" rel="noreferrer" className="mb-5 block break-all text-sm underline">查看原始来源</a>
+      <div className="border border-[var(--qm-border)] bg-[var(--qm-surface)] p-5">
+        {result.loading && <p>正在从原资料读取内容…</p>}
+        {result.error && <p role="alert">读取失败：{result.error}。请使用上方链接打开原资料。</p>}
+        {!result.loading && !result.error && <div className="whitespace-pre-wrap break-words text-[15px] leading-8">{result.text}</div>}
+      </div>
+      <p className="mt-4 text-sm leading-7">正文由原来源实时提供，可能更新或暂时无法访问；目录和内容尚未全面校勘。</p>
+    </article>
+  )
+}
+
 function normalizeText(value) {
   return String(value || '').trim().toLowerCase()
 }
@@ -471,6 +539,14 @@ export default function Knowledge() {
           <div className="mx-auto max-w-4xl">
             <PageHeading title="没有找到这节课程" description="课程编号可能已经调整，请返回课程索引重新选择。" backTo="/knowledge/courses" backLabel="返回课程索引" />
           </div>
+        </div>
+      )
+    }
+
+    if (course.rawUrl) {
+      return (
+        <div className="min-h-[80vh] px-4 py-10 text-[var(--qm-ink)] md:py-14">
+          <SourceReader course={course} />
         </div>
       )
     }
