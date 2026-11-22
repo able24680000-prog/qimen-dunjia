@@ -1750,7 +1750,8 @@ export function calculate(date, options = {}) {
     const timeGanZhi = getTimeGanZhi(date);
 
     const siZhu = {
-      year: lunar.getYearInGanZhiByLiChun ? lunar.getYearInGanZhiByLiChun() : (lunar.getYearInGanZhiExact ? lunar.getYearInGanZhiExact() : lunar.getYearInGanZhi()),
+      // 年柱和月柱均按真实交节时刻切换；ByLiChun 按日期切换，会在立春当日提前换年。
+      year: lunar.getYearInGanZhiExact ? lunar.getYearInGanZhiExact() : (lunar.getYearInGanZhiByLiChun ? lunar.getYearInGanZhiByLiChun() : lunar.getYearInGanZhi()),
       month: lunar.getMonthInGanZhiExact ? lunar.getMonthInGanZhiExact() : lunar.getMonthInGanZhi(),
       day: lunar.getDayInGanZhiExact ? lunar.getDayInGanZhiExact() : lunar.getDayInGanZhi(),
       time: timeGanZhi
