@@ -114,6 +114,9 @@ const REFERENCES = [
 ]
 
 const SOURCE_LINKS = [
+  ['补充阅读：定局与三元', 'https://github.com/youngzs/xuanxue/blob/main/docs/奇门遁甲专业知识/001第一讲%20定局概说.md', '用于对照节气、阴阳遁与上中下元。此转载文本前后存在局数表述冲突，不能直接作为排盘基准。'],
+  ['补充阅读：九宫与三奇六仪', 'https://github.com/youngzs/xuanxue/blob/main/docs/奇门遁甲专业知识/003第三讲%20九宫、六仪、三奇.md', '用于学习六甲遁仪与排布顺序；原文把兑七宫写为西北，本站按兑七正西、乾六西北核对。'],
+  ['补充阅读：主客与动静', 'https://github.com/youngzs/xuanxue/blob/main/docs/奇门遁甲专业知识/010第十讲%20主客.md', '用于学习动静、先后和天地盘主客的传统说法。具体取法随场景及流派变化；绝对化断语不作为事实或行动保证。'],
   ['《烟波钓叟歌》公开文本', 'https://zh.wikisource.org/wiki/煙波釣叟歌', '用于校验“阴阳顺逆、值符值使、九星八门”等基础术语。'],
   ['奇门遁甲基础条目', 'https://zh.wikipedia.org/wiki/奇门遁甲', '用于核对九宫、八门、九星、八神等基本结构。'],
   ['《奇门遁甲统宗》检索', 'https://ctext.org/searchbooks.pl?if=gb&searchu=%E5%A5%87%E9%96%80%E9%81%81%E7%94%B2%E7%B5%B1%E5%AE%97', '用于继续查找传统断法、格局与门星神组合的原始语境。'],
