@@ -114,6 +114,9 @@ const REFERENCES = [
 ]
 
 const SOURCE_LINKS = [
+  ['时家转盘：七步排盘示例', 'https://github.com/c0ng-Alex/qimen-dunjia/blob/main/qimen-dunjia.html#ch4-8', '按阴阳遁与局数、地盘、旬首与符使、天盘、八门、八神梳理排盘顺序；示例未提供完整公历时间，不能作为定局与节气校验基准。'],
+  ['门迫与门制：传统说法', 'https://github.com/c0ng-Alex/qimen-dunjia/blob/main/qimen-dunjia.html#ch5-4', '该资料采用门克宫为迫、宫克门为制的口径。阅读时记录流派，不将单一信号直接转为现实结论。'],
+  ['教学案例：合伙、求职与寻物', 'https://github.com/c0ng-Alex/qimen-dunjia/blob/main/qimen-dunjia.html#ch5-10', '原文说明三个都是教学演示，无可验证反馈；求职与寻物示例的日干、时干组合和常用五鼠遁不符，不能用作准确排盘基准或真实案例。'],
   ['补充阅读：定局与三元', 'https://github.com/youngzs/xuanxue/blob/main/docs/奇门遁甲专业知识/001第一讲%20定局概说.md', '用于对照节气、阴阳遁与上中下元。此转载文本前后存在局数表述冲突，不能直接作为排盘基准。'],
   ['补充阅读：九宫与三奇六仪', 'https://github.com/youngzs/xuanxue/blob/main/docs/奇门遁甲专业知识/003第三讲%20九宫、六仪、三奇.md', '用于学习六甲遁仪与排布顺序；原文把兑七宫写为西北，本站按兑七正西、乾六西北核对。'],
   ['补充阅读：主客与动静', 'https://github.com/youngzs/xuanxue/blob/main/docs/奇门遁甲专业知识/010第十讲%20主客.md', '用于学习动静、先后和天地盘主客的传统说法。具体取法随场景及流派变化；绝对化断语不作为事实或行动保证。'],
