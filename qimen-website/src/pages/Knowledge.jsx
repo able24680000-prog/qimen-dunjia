@@ -2,6 +2,12 @@ import { useMemo, useState } from 'react'
 import { Link, useParams } from 'react-router-dom'
 import { useSearchParams } from 'react-router-dom'
 import courses from '../knowledge/maidu-summary.json'
+import externalLearning from '../knowledge/external-learning-notes.json'
+
+const learningItems = externalLearning.items.map((item) => ({
+  ...item, id: `external-${item.id}`, desc: item.summary, focus: `补充学习 · ${item.category}`,
+}))
+const allCourses = [...courses, ...learningItems]
 import judgementSentenceTable from '../knowledge/judgement-sentence-table.json'
 
 const COURSE_TEXTS = import.meta.glob('../knowledge/maidu-c*.txt', {
@@ -439,7 +445,7 @@ function normalizeText(value) {
 }
 
 function getCourseKeywords(course) {
-  return COURSE_KEYWORDS[course.id] || []
+  return COURSE_KEYWORDS[course.id] || (course.category ? [course.category, course.title] : [])
 }
 
 export default function Knowledge() {
@@ -448,14 +454,14 @@ export default function Knowledge() {
   const [query, setQuery] = useState(() => searchParams.get('q') || '')
   const normalizedQuery = normalizeText(query)
   const filteredCourses = useMemo(() => {
-    if (!normalizedQuery) return courses
-    return courses.filter((course) => {
+    if (!normalizedQuery) return allCourses
+    return allCourses.filter((course) => {
       const keywords = getCourseKeywords(course)
       return [course.title, course.desc, course.focus, ...keywords]
         .some((item) => normalizeText(item).includes(normalizedQuery))
     })
   }, [normalizedQuery])
-  const courseById = useMemo(() => Object.fromEntries(courses.map((course) => [course.id, course])), [])
+  const courseById = useMemo(() => Object.fromEntries(allCourses.map((course) => [course.id, course])), [])
 
   if (courseId) {
     const course = courseById[courseId]
@@ -469,10 +475,10 @@ export default function Knowledge() {
       )
     }
 
-    const courseIndex = courses.findIndex((item) => item.id === course.id)
-    const previousCourse = courses[courseIndex - 1]
-    const nextCourse = courses[courseIndex + 1]
-    const rawText = COURSE_TEXTS[`../knowledge/${course.file}`]
+    const courseIndex = allCourses.findIndex((item) => item.id === course.id)
+    const previousCourse = allCourses[courseIndex - 1]
+    const nextCourse = allCourses[courseIndex + 1]
+    const rawText = course.summary || COURSE_TEXTS[`../knowledge/${course.file}`]
     const paragraphs = splitCourseText(rawText, course.title)
 
     return (
@@ -494,8 +500,8 @@ export default function Knowledge() {
 
           <div className="border border-[var(--qm-border)] bg-[var(--qm-surface)] px-5 py-6 md:px-8 md:py-8">
             <div className="mb-6 border-b border-[var(--qm-border-soft)] pb-4">
-              <div className="text-xs font-bold text-[var(--qm-secondary)]">课程正文</div>
-              <p className="mt-2 text-sm leading-7 text-[var(--qm-ink-soft)]">按自然段整理原始课程内容，阅读时可先抓住本课主题，再回到排盘页对照。</p>
+              <div className="text-xs font-bold text-[var(--qm-secondary)]">{course.summary ? '补充学习提要' : '课程正文'}</div>
+              <p className="mt-2 text-sm leading-7 text-[var(--qm-ink-soft)]">{course.summary ? course.status : '按自然段整理原始课程内容，阅读时可先抓住本课主题，再回到排盘页对照。'}</p>
             </div>
             <div className="space-y-5">
               {paragraphs.map((paragraph, index) => (
@@ -503,6 +509,16 @@ export default function Knowledge() {
               ))}
             </div>
           </div>
+
+          {course.source?.length > 0 && (
+            <section className="mt-6 border border-[var(--qm-border)] bg-[var(--qm-surface)] p-5">
+              <h2 className="text-lg font-semibold text-[var(--qm-primary)]">参考来源</h2>
+              <p className="mt-2 text-sm leading-7">以下为相关资料入口，提要尚未逐条校对，不表示全部原文已导入。</p>
+              {course.source.map((url) => (
+                <a key={url} href={url} target="_blank" rel="noreferrer" className="mt-2 block break-all text-sm underline">{url}</a>
+              ))}
+            </section>
+          )}
 
           <nav aria-label="课程翻页" className="mt-6 grid gap-3 sm:grid-cols-2">
             {previousCourse ? (
@@ -928,4 +944,5 @@ export default function Knowledge() {
     </div>
   )
 }
+
 
