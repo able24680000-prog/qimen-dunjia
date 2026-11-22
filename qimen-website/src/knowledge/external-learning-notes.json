@@ -1,0 +1,171 @@
+{
+  "version": 1,
+  "description": "依据公开目录与已抽查章节重新归纳，供学习检索；不代表两套资料的全文已导入。",
+  "items": [
+    {
+      "id": "scope",
+      "title": "排盘范围",
+      "category": "起局",
+      "summary": "时家奇门以所选时刻组织盘面；定局方式、转盘或飞盘、寄宫规则和换日时刻应随盘保存。",
+      "status": "学习整理，待逐项校对",
+      "source": [
+        "https://github.com/c0ng-Alex/qimen-dunjia/blob/main/qimen-dunjia.html",
+        "https://github.com/youngzs/xuanxue"
+      ]
+    },
+    {
+      "id": "time",
+      "title": "时间与节气",
+      "category": "起局",
+      "summary": "先记录公历时刻、时区和时间标准，再确定干支与交节时刻；交节附近应比对精确时刻。",
+      "status": "学习整理，待逐项校对",
+      "source": [
+        "https://github.com/c0ng-Alex/qimen-dunjia/blob/main/qimen-dunjia.html",
+        "https://github.com/youngzs/xuanxue"
+      ]
+    },
+    {
+      "id": "ju",
+      "title": "阴阳遁与局数",
+      "category": "起局",
+      "summary": "按选定定局体系，结合节气和三元确定阴阳遁与局数；拆补、茅山、置闰的规则不可混算。",
+      "status": "学习整理，待逐项校对",
+      "source": [
+        "https://github.com/c0ng-Alex/qimen-dunjia/blob/main/qimen-dunjia.html",
+        "https://github.com/youngzs/xuanxue"
+      ]
+    },
+    {
+      "id": "palaces",
+      "title": "九宫方位",
+      "category": "盘面",
+      "summary": "后天九宫常见方位：坎北、坤西南、震东、巽东南、中五、乾西北、兑西、艮东北、离南。",
+      "status": "学习整理，待逐项校对",
+      "source": [
+        "https://github.com/c0ng-Alex/qimen-dunjia/blob/main/qimen-dunjia.html",
+        "https://github.com/youngzs/xuanxue"
+      ]
+    },
+    {
+      "id": "six",
+      "title": "六甲遁仪",
+      "category": "盘面",
+      "summary": "六甲旬首对应甲子戊、甲戌己、甲申庚、甲午辛、甲辰壬、甲寅癸；具体以所排旬首与排盘体系为准。",
+      "status": "学习整理，待逐项校对",
+      "source": [
+        "https://github.com/c0ng-Alex/qimen-dunjia/blob/main/qimen-dunjia.html",
+        "https://github.com/youngzs/xuanxue"
+      ]
+    },
+    {
+      "id": "qiyi",
+      "title": "三奇六仪",
+      "category": "盘面",
+      "summary": "乙丙丁为三奇，戊己庚辛壬癸为六仪；地盘次序及顺逆排布应依选定遁法核算。",
+      "status": "学习整理，待逐项校对",
+      "source": [
+        "https://github.com/c0ng-Alex/qimen-dunjia/blob/main/qimen-dunjia.html",
+        "https://github.com/youngzs/xuanxue"
+      ]
+    },
+    {
+      "id": "zhifu",
+      "title": "值符值使",
+      "category": "盘面",
+      "summary": "先由旬首与地盘确定值符星及值使门，再按选定转盘规则确定落宫；不同规则下中宫寄宫需注明。",
+      "status": "学习整理，待逐项校对",
+      "source": [
+        "https://github.com/c0ng-Alex/qimen-dunjia/blob/main/qimen-dunjia.html",
+        "https://github.com/youngzs/xuanxue"
+      ]
+    },
+    {
+      "id": "four",
+      "title": "天地人神四盘",
+      "category": "盘面",
+      "summary": "可将地盘作为基础宫位和地盘干，天盘观察天盘干与星，人盘观察八门，神盘观察八神；具体定义存在流派差异。",
+      "status": "学习整理，待逐项校对",
+      "source": [
+        "https://github.com/c0ng-Alex/qimen-dunjia/blob/main/qimen-dunjia.html",
+        "https://github.com/youngzs/xuanxue"
+      ]
+    },
+    {
+      "id": "yongshen",
+      "title": "问题与用神",
+      "category": "断局",
+      "summary": "先明确所问，再按事项选择代表人物、事情和相关因素的用神；取法要公开列出，遇冲突保留替代取法。",
+      "status": "学习整理，待逐项校对",
+      "source": [
+        "https://github.com/c0ng-Alex/qimen-dunjia/blob/main/qimen-dunjia.html",
+        "https://github.com/youngzs/xuanxue"
+      ]
+    },
+    {
+      "id": "relation",
+      "title": "主客与动静",
+      "category": "断局",
+      "summary": "可从行动先后、主动与被动等角度辨别主客；天盘与地盘的主客对应也需结合事件角色，不能机械套用。",
+      "status": "学习整理，待逐项校对",
+      "source": [
+        "https://github.com/c0ng-Alex/qimen-dunjia/blob/main/qimen-dunjia.html",
+        "https://github.com/youngzs/xuanxue"
+      ]
+    },
+    {
+      "id": "qimen",
+      "title": "门迫与门制",
+      "category": "断局",
+      "summary": "某些转盘口径将门克宫称为门迫，宫克门称为门制；判断前需说明所采用的定义，区别五行关系与吉凶结论。",
+      "status": "学习整理，待逐项校对",
+      "source": [
+        "https://github.com/c0ng-Alex/qimen-dunjia/blob/main/qimen-dunjia.html",
+        "https://github.com/youngzs/xuanxue"
+      ]
+    },
+    {
+      "id": "risk",
+      "title": "特殊状态",
+      "category": "断局",
+      "summary": "检查空亡、击刑、入墓、门迫，以及伏吟反吟等状态；应记录触发依据和不同流派规则，不能仅以吉门抹除阻力。",
+      "status": "学习整理，待逐项校对",
+      "source": [
+        "https://github.com/c0ng-Alex/qimen-dunjia/blob/main/qimen-dunjia.html",
+        "https://github.com/youngzs/xuanxue"
+      ]
+    },
+    {
+      "id": "shigan",
+      "title": "天地盘干组合",
+      "category": "断局",
+      "summary": "先确认天盘干与地盘干及其对应顺序，再查对应克应；含寄干时应说明如何展开组合，并和用神、宫位共同阅读。",
+      "status": "学习整理，待逐项校对",
+      "source": [
+        "https://github.com/c0ng-Alex/qimen-dunjia/blob/main/qimen-dunjia.html",
+        "https://github.com/youngzs/xuanxue"
+      ]
+    },
+    {
+      "id": "yingqi",
+      "title": "应期与复盘",
+      "category": "复盘",
+      "summary": "明确事前提出的时间候选、观察窗口与触发条件；记录实际发生与未发生结果，不把事后解释当成事前预测。",
+      "status": "学习整理，待逐项校对",
+      "source": [
+        "https://github.com/c0ng-Alex/qimen-dunjia/blob/main/qimen-dunjia.html",
+        "https://github.com/youngzs/xuanxue"
+      ]
+    },
+    {
+      "id": "cases",
+      "title": "教学案例",
+      "category": "案例",
+      "summary": "来源一的合伙、求职、寻物案例是教学演示，缺少可验证的真实结果；其中两例日干时干组合不符合常用五鼠遁，不作基准盘。",
+      "status": "学习整理，待逐项校对",
+      "source": [
+        "https://github.com/c0ng-Alex/qimen-dunjia/blob/main/qimen-dunjia.html",
+        "https://github.com/youngzs/xuanxue"
+      ]
+    }
+  ]
+}
