@@ -359,7 +359,6 @@ function TimeSelector({ onSubmit, loading, initialQuestion = '' }) {
   const [purpose, setPurpose] = useState('综合')
   const [question, setQuestion] = useState(() => initialQuestion)
   const [birthYear, setBirthYear] = useState('')
-  const questionQuality = assessQuestionQuality(question)
 
   // 公历
   const [solarDate, setSolarDate] = useState(() => formatSolarDate(new Date()))
@@ -578,25 +577,6 @@ const handleUseCurrentTime = useCallback(() => {
           <span>问题越具体，宫位建议和复盘口径越容易校准。</span>
           <span>{question.length}/120</span>
         </div>
-        <div className="mt-3 border border-[var(--qm-border-soft)] bg-[var(--qm-surface-2)] p-3">
-          <div className="flex flex-wrap items-center justify-between gap-2">
-            <div className="text-xs font-bold text-[var(--qm-primary)]">问事质量：{questionQuality.score}/{questionQuality.total} · {questionQuality.level}</div>
-            {questionQuality.missing.length > 0 && (
-              <div className="text-xs text-[#7a4a25]">缺：{questionQuality.missing.join('、')}</div>
-            )}
-          </div>
-          <div className="mt-3 grid gap-2 sm:grid-cols-2">
-            {QUESTION_QUALITY_RULES.map((rule) => (
-              <div key={rule.key} className={`border px-3 py-2 text-xs leading-5 ${questionQuality.checks[rule.key] ? 'border-[rgba(31,97,87,0.3)] bg-[#edf5ef] text-[var(--qm-secondary)]' : 'border-[var(--qm-border-soft)] bg-[var(--qm-surface)] text-[#7f725f]'}`}>
-                <span className="font-bold">{questionQuality.checks[rule.key] ? '已满足' : '待补'} · {rule.label}</span>
-                <span className="mt-1 block">{rule.desc}</span>
-              </div>
-            ))}
-          </div>
-          {question.trim() && questionQuality.score < 4 && (
-            <p className="mt-3 text-xs leading-5 text-[#7a4a25]">{buildQuestionRewriteHint(question)}</p>
-          )}
-        </div>
         <details className="mt-4 border border-[var(--qm-border)] bg-[var(--qm-surface-2)]">
           <summary className="flex cursor-pointer list-none items-center justify-between gap-3 px-4 py-3 text-sm font-bold text-[var(--qm-primary)] marker:content-none">
             <span>高级设置</span>
@@ -713,26 +693,25 @@ const handleUseCurrentTime = useCallback(() => {
 }
 
 function CurrentDecisionCard({ result }) {
+  const question = result.basicInfo?.question || ''
+  const purpose = result.basicInfo?.purpose || '综合'
+  const unsupported = /天气|下雨|降雨|温度|气温|刮风|台风|下雪|晴天|阴天|气象/.test(question)
   const card = result?.multiGong?.decisionCard
-  if (!card) return null
-  const items = [['主断结论', card.mainVerdict], ['最大风险', card.maxRisk], ['第一验证信号', card.firstSignal], ['应期候选', card.yingQiCandidate], ['下一步行动', card.nextAction]]
   return (
     <section className="bg-[var(--qm-surface)] rounded-xl p-5 border border-[var(--qm-border)]">
-      <div className="flex flex-col gap-2 md:flex-row md:items-start md:justify-between">
-        <div>
-          <h3 className="text-sm font-bold text-[var(--qm-primary)]" style={{ fontFamily: FONT_YAHEI }}>当前决策卡</h3>
-          <p className="mt-2 text-sm leading-7 text-[#5f5144]">先看这张卡，再展开专业依据。</p>
+      <h3 className="text-lg font-bold text-[var(--qm-primary)]">预测与盘面线索</h3>
+      <p className="mt-3 text-sm leading-7 text-[#3e3429]">所问：{question}</p>
+      {unsupported ? (
+        <p className="mt-3 text-sm leading-7 text-[#3e3429]">当前系统还不能针对天气问题自动形成可靠判断。请以当地气象预报为准；下方盘面仅供研究。</p>
+      ) : purpose === '综合' ? (
+        <p className="mt-3 text-sm leading-7 text-[#3e3429]">当前系统不能可靠识别具体事项并自动回答。请在左侧选择与问题相符的分析目的并重新排盘，或展开依据自行研判。</p>
+      ) : (
+        <div className="mt-3 border border-[var(--qm-border-soft)] bg-[var(--qm-surface-2)] p-4">
+          <p className="text-sm leading-7 text-[#3e3429]">当前按“{purpose}”展示传统盘面线索，尚不能保证自动理解问题或直接给出可靠答案。</p>
+          {card?.maxRisk && <p className="mt-2 text-sm leading-7 text-[#3e3429]">需留意：{card.maxRisk}</p>}
         </div>
-        <span className="w-fit border border-[rgba(31,97,87,0.3)] bg-[#edf5ef] px-3 py-1 text-xs font-bold text-[var(--qm-secondary)]">一盘一问</span>
-      </div>
-      <div className="mt-4 grid gap-3 md:grid-cols-2">
-        {items.map(([label, text], index) => (
-          <div key={label} className={index === 0 ? 'md:col-span-2 border border-[rgba(31,97,87,0.3)] bg-[#edf5ef] p-4' : 'border border-[var(--qm-border-soft)] bg-[var(--qm-surface-2)] p-4'}>
-            <div className="text-xs font-bold text-[var(--qm-secondary)]">{label}</div>
-            <p className="mt-2 text-sm leading-7 text-[#29443e]">{text}</p>
-          </div>
-        ))}
-      </div>
+      )}
+      <p className="mt-3 text-xs leading-6 text-[#7f725f]">传统文化分析仅供参考，不能替代现实信息或专业意见。</p>
     </section>
   )
 }
@@ -1240,7 +1219,7 @@ function ChartActions({ result, gridRef }) {
           `结果: ${result.multiGong.logicChain?.result || ''}`,
           ...(result.multiGong.yingQi?.length ? ['【应期候选】', ...result.multiGong.yingQi.map(item => `- ${item.method}: ${item.detail} ${item.action}`)] : [])
         ] : []),
-        ...(result.analysis?.suggestions ? ['', '【综合建议】', `总体吉凶: ${result.analysis.overallJiXiongText || ''}`, `参考置信度: ${result.analysis.confidence || ''}% ${result.analysis.confidenceText || ''}`, ...result.analysis.suggestions.map(s => `- ${s}`)] : []),
+        ...(result.analysis?.suggestions ? ['', '【综合建议】', `总体吉凶: ${result.analysis.overallJiXiongText || ''}`, ...result.analysis.suggestions.map(s => `- ${s}`)] : []),
         '',
         '========================================',
         '仅供参考和学习之用，不构成任何决策建议',
@@ -1399,7 +1378,7 @@ const handlePalaceClick = useCallback((gongKey) => {
   const handleSaveReviewRecord = useCallback(() => {
     if (!result || result.error) return
     if (!result.basicInfo?.question) {
-      alert('请先填写“具体所问事项”并重新排盘，再保存复盘样本。这样70%校准才有明确口径。')
+      alert('请先填写“具体所问事项”并重新排盘，再保存复盘样本。以便之后回看。')
       return
     }
     setReviewRecords((prev) => {
@@ -1426,7 +1405,6 @@ const handlePalaceClick = useCallback((gongKey) => {
   const filteredReviewRecords = reviewFilter === 'high'
     ? reviewRecords.filter((item) => Number(item.confidence) >= 70)
     : reviewRecords
-  const highConfidenceNeed = Math.max(0, 30 - reviewStats.highConfidenceReviewed)
   const hasQuestion = Boolean(result?.basicInfo?.question?.trim())
 
   return (
@@ -1510,113 +1488,35 @@ const handlePalaceClick = useCallback((gongKey) => {
                 </div>
 
                 {hasQuestion ? (
-                  <>
-                    <CurrentDecisionCard result={result} />
-                    <QuestionCalibrationCard result={result} />
-                  </>
+                  <CurrentDecisionCard result={result} />
                 ) : <QuestionGate result={result} />}
 
                 {/* 操作按钮 */}
                 <ChartActions result={result} gridRef={gridRef} />
 
-                {hasQuestion && <MultiGongPanel multiGong={result.multiGong} />}
-
-                {hasQuestion && <YongShenTemplateCard purpose={result.basicInfo?.purpose} />}
-
-                {/* 值符值使 */}
-                <div className="bg-[var(--qm-surface)] rounded-xl p-5 border border-[var(--qm-border)]">
-                  <h3 className="text-sm font-bold text-[#7f725f] mb-3" style={{ fontFamily: FONT_YAHEI }}>
-                    值符值使
-                  </h3>
-                  <div className="flex flex-wrap gap-4">
-                    <div className="flex items-center gap-2">
-                      <span className="text-[var(--qm-primary)] text-sm font-bold">值符:</span>
-                      <span className="text-[#211b15] text-sm">
-                        {result.zhiFuXing} 落{GONG_NAMES[result.zhiFuGong] || result.zhiFuGong + '宫'}
-                      </span>
+                <details className="bg-[var(--qm-surface)] rounded-xl border border-[var(--qm-border)] p-5">
+                  <summary className="cursor-pointer text-base font-bold text-[var(--qm-primary)]">查看分析依据</summary>
+                  <div className="mt-4 space-y-4">
+                    {hasQuestion && <YongShenTemplateCard purpose={result.basicInfo?.purpose} />}
+                    <div className="text-sm leading-7 text-[#3e3429]">
+                      值符：{result.zhiFuXing} 落{GONG_NAMES[result.zhiFuGong] || result.zhiFuGong + '宫'}；
+                      值使：{result.zhiShiMen} 落{GONG_NAMES[result.zhiShiGong] || result.zhiShiGong + '宫'}；
+                      空亡：{result.kongWangZhi?.join('') || '无'}。
                     </div>
-                    <div className="flex items-center gap-2">
-                      <span className="text-[var(--qm-primary)] text-sm font-bold">值使:</span>
-                      <span className="text-[#211b15] text-sm">
-                        {result.zhiShiMen} 落{GONG_NAMES[result.zhiShiGong] || result.zhiShiGong + '宫'}
-                      </span>
-                    </div>
+                    {hasQuestion && !/天气|下雨|降雨|温度|气温|刮风|台风|下雪|晴天|阴天|气象/.test(result.basicInfo?.question || '') && result.basicInfo?.purpose !== '综合' && <MultiGongPanel multiGong={result.multiGong} />}
                   </div>
-                </div>
-
-                {/* 空亡 */}
-                {result.kongWangZhi && result.kongWangZhi.length > 0 && (
-                  <div className="bg-[var(--qm-surface)] rounded-xl p-5 border border-[var(--qm-border)]">
-                    <h3 className="text-sm font-bold text-[#7f725f] mb-3" style={{ fontFamily: FONT_YAHEI }}>
-                      空亡
-                    </h3>
-                    <div className="text-[#211b15] text-sm">
-                      空亡: {result.kongWangZhi.join('')} (落{result.kongWangGong?.join(', ')}宫)
-                    </div>
-                  </div>
-                )}
-
-                {/* 综合分析 */}
-                {hasQuestion && result.analysis && (
-                  <div className="bg-[var(--qm-surface)] rounded-xl p-5 border border-[var(--qm-border)]">
-                    <h3 className="text-sm font-bold text-[#7f725f] mb-3" style={{ fontFamily: FONT_YAHEI }}>
-                      综合分析
-                    </h3>
-                    <div className="flex flex-wrap items-center gap-3 mb-4">
-                      <span className="text-[#5f5144] text-sm">整体吉凶:</span>
-                      <span className={`text-lg font-bold ${JI_XIONG_COLORS[result.analysis.overallJiXiong]}`}>
-                        {result.analysis.overallJiXiongText}
-                      </span>
-                      {result.analysis.confidence && (
-                        <span className="text-sm font-bold text-[var(--qm-secondary)] border border-[rgba(31,97,87,0.3)] px-2 py-1 rounded">
-                          参考置信度 {result.analysis.confidence}% · {result.analysis.confidenceText}
-                        </span>
-                      )}
-                    </div>
-                    <div className="space-y-2">
-                      {result.analysis.suggestions?.map((s, i) => (
-                        <p key={i} className="text-[#3e3429] text-sm leading-relaxed">
-                          {s}
-                        </p>
-                      ))}
-                    </div>
-                  </div>
-                )}
-
-                {hasQuestion && result.analysis?.bestGong && (
-                  <div className="bg-[var(--qm-surface)] rounded-xl p-5 border border-[var(--qm-border)]">
-                    <h3 className="text-sm font-bold text-[#7f725f] mb-3" style={{ fontFamily: FONT_YAHEI }}>
-                      本盘复盘记录
-                    </h3>
-                    <div className="grid gap-3 md:grid-cols-2">
-                      <div className="border border-[var(--qm-border-soft)] bg-[var(--qm-surface-2)] p-4">
-                        <div className="text-xs font-bold text-[var(--qm-primary)]">重点观察宫</div>
-                        <p className="mt-2 text-sm leading-7 text-[#3e3429]">
-                          {GONG_NAMES[result.analysis.bestGong] || `${result.analysis.bestGong}宫`}，优先记录此宫的现实反馈、阻力和可执行机会。
-                        </p>
-                      </div>
-                      <div className="border border-[rgba(31,97,87,0.3)] bg-[#edf5ef] p-4">
-                        <div className="text-xs font-bold text-[var(--qm-secondary)]">记录口径</div>
-                        <p className="mt-2 text-sm leading-7 text-[#29443e]">
-                          记录问题、起局时间、推测结论、验证窗口、实际结果，并标记命中、部分命中或未命中。
-                        </p>
-                      </div>
-                    </div>
-                    <p className="mt-3 text-sm leading-7 text-[#7a4a25]">
-                      70%以上只代表盘内信号集中。真实准确率要靠同类问题连续复盘，样本不足时不宜宣称稳定命中率。
-                    </p>
-                  </div>
-                )}
+                </details>
 
                 {hasQuestion && (
-                <div className="bg-[var(--qm-surface)] rounded-xl p-5 border border-[var(--qm-border)]">
+                <details className="bg-[var(--qm-surface)] rounded-xl p-5 border border-[var(--qm-border)]">
+                  <summary className="cursor-pointer text-base font-bold text-[var(--qm-primary)]">案例复盘与记录</summary>
                   <div className="flex flex-col gap-3 md:flex-row md:items-center md:justify-between">
                     <div>
                       <h3 className="text-sm font-bold text-[#7f725f]" style={{ fontFamily: FONT_YAHEI }}>
                         复盘样本统计
                       </h3>
                       <p className="mt-2 text-sm leading-7 text-[#554a3f]">
-                        保存本盘为样本，等验证窗口结束后标记结果。累计样本越多，70%目标才越有判断意义。
+                        保存本盘为样本，等验证窗口结束后标记结果。记录实际结果，用于日后回看。
                       </p>
                     </div>
                     <div className="flex flex-wrap gap-2">
@@ -1635,13 +1535,6 @@ const handlePalaceClick = useCallback((gongKey) => {
                             className="border border-[var(--qm-secondary)] px-4 py-2 text-sm font-bold text-[var(--qm-secondary)] transition-colors hover:bg-[#edf5ef]"
                           >
                             导出CSV
-                          </button>
-                          <button
-                            type="button"
-                            onClick={() => downloadKnowledgeUpdateJson(reviewRecords, reviewStats)}
-                            className="border border-[var(--qm-secondary)] bg-[#edf5ef] px-4 py-2 text-sm font-bold text-[var(--qm-secondary)] transition-colors hover:bg-[var(--qm-surface)]"
-                          >
-                            生成知识库更新建议
                           </button>
                           <button
                             type="button"
@@ -1670,52 +1563,17 @@ const handlePalaceClick = useCallback((gongKey) => {
                     </div>
                   </div>
 
-                  <div className="mt-4 border border-[var(--qm-border)] bg-[var(--qm-surface-2)] p-4">
-                    <div className="flex flex-col gap-3 md:flex-row md:items-center md:justify-between">
-                      <div>
-                        <div className="text-sm font-bold text-[var(--qm-primary)]">70%高置信校准</div>
-                        <p className="mt-2 text-sm leading-7 text-[#3e3429]">
-                          只统计参考置信度70%以上的样本，避免把低置信试探盘混入准确率。至少累计30个已复盘高置信样本后，再判断是否稳定达到70%。
-                        </p>
-                      </div>
-                      <div className="grid min-w-64 grid-cols-3 gap-2 text-center">
-                        <div className="border border-[var(--qm-border-soft)] bg-[var(--qm-surface)] p-3">
-                          <div className="text-xs text-[#7f725f]">高置信样本</div>
-                          <div className="mt-1 text-xl font-bold text-[var(--qm-primary)]">{reviewStats.highConfidenceTotal}</div>
-                        </div>
-                        <div className="border border-[var(--qm-border-soft)] bg-[var(--qm-surface)] p-3">
-                          <div className="text-xs text-[#7f725f]">已复盘</div>
-                          <div className="mt-1 text-xl font-bold text-[var(--qm-primary)]">{reviewStats.highConfidenceReviewed}</div>
-                        </div>
-                        <div className="border border-[rgba(31,97,87,0.3)] bg-[#edf5ef] p-3">
-                          <div className="text-xs text-[var(--qm-secondary)]">高置信命中</div>
-                          <div className="mt-1 text-xl font-bold text-[var(--qm-secondary)]">
-                            {reviewStats.highConfidenceReviewed ? `${reviewStats.highConfidenceRate}%` : '待复盘'}
-                          </div>
-                        </div>
-                      </div>
-                    </div>
-                    <div className="mt-3 border-t border-[var(--qm-border-soft)] pt-3 text-sm leading-7 text-[#7a4a25]">
-                      校准状态：{reviewStats.calibrationStatus}。
-                      {highConfidenceNeed > 0
-                        ? ` 距离初步校准还差${highConfidenceNeed}个已复盘高置信样本。`
-                        : ' 已满足30个高置信复盘样本，可开始判断70%目标是否稳定。'}
-                      如果低于70%，需要回看取用神、空亡驿马、值符值使和宫位权重，而不是事后修改原判断。
-                    </div>
-                  </div>
-
                   <div className="mt-4 space-y-3">
                       <div className="flex flex-col gap-3 border border-[var(--qm-border-soft)] bg-[var(--qm-surface-2)] p-3 md:flex-row md:items-center md:justify-between">
                         <div>
                           <div className="text-sm font-bold text-[var(--qm-primary)]">样本列表</div>
                           <p className="mt-1 text-xs leading-5 text-[#7f725f]">
-                            当前显示 {reviewFilter === 'high' ? '70%以上高置信样本' : '全部样本'}，最多展示最近5条。
+                            当前显示全部样本，最多展示最近5条。
                           </p>
                         </div>
                         <div className="flex border border-[var(--qm-border-soft)] bg-[var(--qm-surface)] p-0.5">
                           {[
                             ['all', '全部样本'],
-                            ['high', '只看高置信'],
                           ].map(([value, label]) => (
                             <button
                               key={value}
@@ -1735,7 +1593,7 @@ const handlePalaceClick = useCallback((gongKey) => {
 
                       {filteredReviewRecords.length === 0 && (
                         <div className="border border-[var(--qm-border-soft)] bg-[var(--qm-surface-2)] p-4 text-sm leading-7 text-[#7a4a25]">
-                          当前还没有70%以上的高置信样本。建议只把“推测结论明确、验证窗口清楚、现实指标可复盘”的盘纳入70%校准。
+                          当前没有符合条件的复盘记录。
                         </div>
                       )}
 
@@ -1745,12 +1603,8 @@ const handlePalaceClick = useCallback((gongKey) => {
                             <div className="flex flex-col gap-2 md:flex-row md:items-start md:justify-between">
                               <div>
                               <div className="flex flex-wrap items-center gap-2 text-sm font-bold text-[var(--qm-primary)]">
-                                <span>{item.purpose} · {GONG_NAMES[item.bestGong] || item.bestGong || '待定宫'} · {item.confidence}%</span>
-                                {Number(item.confidence) >= 70 && (
-                                  <span className="border border-[rgba(31,97,87,0.3)] bg-[#edf5ef] px-2 py-0.5 text-xs text-[var(--qm-secondary)]">
-                                    高置信
-                                  </span>
-                                )}
+                                <span>{item.purpose} · {GONG_NAMES[item.bestGong] || item.bestGong || '待定宫'}</span>
+
                               </div>
                               <p className="mt-1 text-sm leading-6 text-[#3e3429]">
                                 {item.decision}。验证窗口：{item.verifyWindow}
@@ -1785,7 +1639,7 @@ const handlePalaceClick = useCallback((gongKey) => {
                         </div>
                       ))}
                   </div>
-                </div>
+                </details>
                 )}
               </div>
             ) : result?.error ? (
