@@ -41,9 +41,8 @@ const navLinks = [
 ]
 
 const skinOptions = [
-  { value: 'moon', label: '月白', title: '清冷、克制、适合知识阅读' },
-  { value: 'jade', label: '玄青', title: '沉稳、理性、适合排盘推演' },
   { value: 'paper', label: '宣纸', title: '温润、古籍、适合传统文化感' },
+  { value: 'jade', label: '玄青', title: '沉稳、理性、适合排盘推演' },
 ]
 
 function setMetaDescription(description) {
@@ -57,9 +56,9 @@ function setMetaDescription(description) {
 }
 
 function getStoredSkin() {
-  if (typeof window === 'undefined') return 'jade'
+  if (typeof window === 'undefined') return 'paper'
   const stored = window.localStorage.getItem('qimen-skin')
-  return skinOptions.some((item) => item.value === stored) ? stored : 'jade'
+  return skinOptions.some((item) => item.value === stored) ? stored : 'paper'
 }
 
 function ScrollToTop() {
