@@ -1402,8 +1402,8 @@ export default function Divination() {
     const seq=++request.current
     const question=(options.question || '').trim(); const outcome=(options.outcome || '').trim()
     const category=categoryMap[options.purpose]
-    if (options.manual && !question) { setResult(null); setError('手工四柱起局请填写具体问题、可观察结果与局式。'); return }
-    if (question && (!category || !outcome)) { setResult(null); setError(!category ? '请选择具体的分析目的，才能进行预测。' : '请填写可观察结果，以明确预测和复盘口径。'); return }
+    if (options.manual && !question) { setLoading(false); setResult(null); setError('手工四柱起局请填写具体问题、可观察结果与局式。'); return }
+    if (question && (!category || !outcome)) { setLoading(false); setResult(null); setError(!category ? '请选择具体的分析目的，才能进行预测。' : '请填写可观察结果，以明确预测和复盘口径。'); return }
     setLoading(true);setError('');setSelected(null);setSaved(false)
     const payload={ ...options,mode: question ? (options.manual ? 'manual' : 'event'):'chart', category,question,outcome,time:stamp(date),longitude:options.trueSolar && options.longitude !== '' ? Number(options.longitude) : null }
     try {
