@@ -177,7 +177,7 @@ function PageFallback() {
 function App() {
   const [skin, setSkin] = useState(getStoredSkin)
   const location = useLocation()
-  const isConceptRoute = location.pathname === '/home-concept'
+  const isConceptRoute = location.pathname === '/home-concept' || location.pathname === '/'
 
   useEffect(() => {
     document.documentElement.dataset.qimenSkin = skin
