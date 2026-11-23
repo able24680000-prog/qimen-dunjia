@@ -416,3 +416,33 @@ p {
   }
 }
 
+
+/* 玄青：深墨玉背景与清晰文字，仅影响玄青皮肤 */
+[data-qimen-skin="jade"] {
+ --qm-bg:#081311; --qm-bg-top:#081311; --qm-bg-mid:#101f1b; --qm-bg-bottom:#091512;
+ --qm-bg-soft:#142923; --qm-surface:#12221e; --qm-surface-2:#192c26; --qm-surface-3:#21372f;
+ --qm-border:#496b5e; --qm-border-soft:#38574d;
+ --qm-ink:#eef3e9; --qm-ink-soft:#c1d3c8; --qm-muted:#a9bcb0;
+ --qm-primary:#d8b783; --qm-primary-hover:#efd3a1; --qm-secondary:#a3c9bb;
+ --qm-nav-bg:rgba(8,19,17,.97); --qm-side-wash:rgba(70,121,103,.08); --qm-top-wash:rgba(201,160,106,.05);
+}
+[data-qimen-skin="jade"] [class*="text-[#211b15]"],
+[data-qimen-skin="jade"] [class*="text-[#1c1712]"],
+[data-qimen-skin="jade"] [class*="text-[#2b241d]"],
+[data-qimen-skin="jade"] [class*="text-[#29443e]"],
+[data-qimen-skin="jade"] [class*="text-[#3e3429]"],
+[data-qimen-skin="jade"] [class*="text-[#554a3f]"],
+[data-qimen-skin="jade"] [class*="text-[#5f5144]"],
+[data-qimen-skin="jade"] [class*="text-[#6d6256]"],
+[data-qimen-skin="jade"] [class*="text-[#7f725f]"],
+[data-qimen-skin="jade"] [class*="text-[#8a7c6b]"],
+[data-qimen-skin="jade"] [class*="text-[#988a74]"],
+[data-qimen-skin="jade"] [class*="text-[#7a4a25]"] { color:#c8d9cf; }
+[data-qimen-skin="jade"] .palace-cell .truncate[style] { color:#d9bd89 !important; }
+[data-qimen-skin="jade"] .palace-cell:hover { background:#1a3028; }
+[data-qimen-skin="jade"] [class*="bg-[#edf5ef]"],
+[data-qimen-skin="jade"] [class*="bg-[#fff7ed]"],
+[data-qimen-skin="jade"] [class*="bg-[#f3e3c8]"],
+[data-qimen-skin="jade"] [class*="bg-[#efe8dc]"] { background-color:#29473b; color:#e5eee3; }
+[data-qimen-skin="jade"] nav a[class*="bg-[var(--qm-primary)]"] { color:#102019; }
+[data-qimen-skin="jade"] nav button[class*="bg-[var(--qm-secondary)]"] { color:#102019; }
