@@ -65,6 +65,11 @@ def run_analysis(data):
         return {'mode':'cases', 'status':got.get('状态'), 'basis':got.get('检索依据',''), 'items':[
             {'id':r['id'],'title':safe_title(r),'point':safe_point(r),'note':safe_note(r),'basis':r.get('检索依据',''),'tags':r.get('tech',[])} for r in got.get('书例',[])]}
     opts = _calendar(data)
+    if mode == 'chart':
+        stamp = _stamp(data.get('time', ''))
+        chart, info = auto_pan(stamp, **opts)
+        if chart is None: raise ValueError('无法生成有效盘面。')
+        return {'mode':'chart', 'version':'时家奇门 v2.6', 'header':chart_header(chart,info), 'cells':_cells(chart), 'timeConvention':_time_note(opts)}
     if mode == 'compare':
         stamp = _stamp(data.get('time',''))
         source = data.get('sourcePalace'); targets = data.get('targetPalaces')

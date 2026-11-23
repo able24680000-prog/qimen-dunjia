@@ -104,3 +104,16 @@ class AdditionalCapabilitiesTest(unittest.TestCase):
         result=run_analysis({'mode':'cases','category':'健康','technique':'不存在标签'})
         self.assertEqual(result['items'],[])
         self.assertNotEqual(result['status'],'命中')
+
+class UnifiedPageTest(unittest.TestCase):
+    def test_chart_only_matches_event_chart(self):
+        chart = run_analysis({'mode':'chart','time':BASE['time']})
+        event = run_analysis(BASE)
+        self.assertEqual(chart['header'], event['header'])
+        self.assertEqual(chart['cells'], event['cells'])
+        self.assertNotIn('report', chart)
+    def test_confirmed_sheng_gate_is_earth(self):
+        from analyze import gate_wuxing
+        from pan_engine import gate_wuxing as pan_gate_wuxing
+        self.assertEqual(gate_wuxing['生门'], '土')
+        self.assertEqual(pan_gate_wuxing['生门'], '土')

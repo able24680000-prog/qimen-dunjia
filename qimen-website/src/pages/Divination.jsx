@@ -1,4 +1,5 @@
-import { useState, useCallback, useRef } from 'react'
+import { useState, useCallback, useRef, useEffect } from 'react'
+import AdvancedShijia from '../components/AdvancedShijia'
 import { Link, useSearchParams } from 'react-router-dom'
 import { calculate, fromLunarDate, JIU_GONG } from '../lib/qimen'
 import JiuGongGrid from '../components/JiuGongGrid'
@@ -41,6 +42,7 @@ const PURPOSE_OPTIONS = [
   { value: '婚姻', label: '婚姻感情' },
   { value: '健康', label: '健康' },
   { value: '学业', label: '学业' },
+  ...['官司','出行','走失','择吉','天气','风水阳宅','风水阴宅'].map(value => ({ value, label: value })),
 ]
 
 const QUESTION_TEMPLATES = [
@@ -359,10 +361,28 @@ function TimeSelector({ onSubmit, loading, initialQuestion = '' }) {
   const [purpose, setPurpose] = useState('综合')
   const [question, setQuestion] = useState(() => initialQuestion)
   const [birthYear, setBirthYear] = useState('')
+  const [outcome, setOutcome] = useState('')
+  const [ziHour, setZiHour] = useState(0)
+  const [exactTime, setExactTime] = useState(() => stamp(beijingClock()).slice(11))
+  const [manual, setManual] = useState(false)
+  const [manualGanzhi, setManualGanzhi] = useState('')
+  const [horizon, setHorizon] = useState('')
+  const [urgency, setUrgency] = useState('待核')
+  const [firstMover, setFirstMover] = useState('待核')
+  const [trueSolar, setTrueSolar] = useState(false)
+  const [longitude, setLongitude] = useState('')
+  const [ziMode, setZiMode] = useState('change')
+  const [manualJu, setManualJu] = useState('')
+  const [gender, setGender] = useState('')
+  const [topic, setTopic] = useState('')
+  const [primary, setPrimary] = useState('')
+  const [stage, setStage] = useState('')
+  const [asker, setAsker] = useState('')
+  const [subject, setSubject] = useState('')
 
   // 公历
-  const [solarDate, setSolarDate] = useState(() => formatSolarDate(new Date()))
-  const [shiChenIndex, setShiChenIndex] = useState(() => getShiChenIndex(new Date()))
+  const [solarDate, setSolarDate] = useState(() => formatSolarDate(beijingClock()))
+  const [shiChenIndex, setShiChenIndex] = useState(() => getShiChenIndex(beijingClock()))
 
 // 农历
   const [lunarYear, setLunarYear] = useState('')
@@ -370,13 +390,15 @@ function TimeSelector({ onSubmit, loading, initialQuestion = '' }) {
   const [lunarDay, setLunarDay] = useState('')
   const [isLeapMonth, setIsLeapMonth] = useState(false)
 const handleUseCurrentTime = useCallback(() => {
-    const now = new Date()
+    const now = beijingClock()
     setCalendarType('solar')
     setSolarDate(formatSolarDate(now))
     setShiChenIndex(getShiChenIndex(now))
+    setZiHour(now.getHours() === 23 ? 23 : 0)
+    setExactTime(stamp(now).slice(11))
     const questionText = question.trim()
-    onSubmit(now, { method, qijuMethod, purpose, question: questionText, birthYear: birthYear.trim() })
-  }, [method, qijuMethod, purpose, question, birthYear, onSubmit])
+    onSubmit(now, { method, qijuMethod, manual, manualGanzhi, purpose, question: questionText, yearLife: birthYear.trim(), outcome, horizon, urgency, firstMover, trueSolar, longitude, ziMode, manualJu, gender, topic, primary, stage, asker, subject })
+  }, [method, qijuMethod, purpose, question, birthYear, manual, manualGanzhi, ziHour, exactTime, outcome, horizon, urgency, firstMover, trueSolar, longitude, ziMode, manualJu, gender, topic, primary, stage, asker, subject, onSubmit])
 
   const handleSubmit = useCallback(() => {
     let date
@@ -384,12 +406,12 @@ const handleUseCurrentTime = useCallback(() => {
     if (calendarType === 'solar') {
       if (!solarDate) return
       const [year, month, day] = solarDate.split('-').map(Number)
-      const hour = SHI_CHEN[shiChenIndex].value
-      date = new Date(year, month - 1, day, hour, 0, 0)
+      const [hour, minute] = exactTime.split(':').map(Number)
+      date = new Date(year, month - 1, day, hour, minute, 0)
     } else {
       if (!lunarYear || !lunarMonth || !lunarDay) return
       try {
-        const hour = SHI_CHEN[shiChenIndex].value
+        const [hour, minute] = exactTime.split(':').map(Number)
         date = fromLunarDate(
           parseInt(lunarYear),
           parseInt(lunarMonth),
@@ -397,6 +419,7 @@ const handleUseCurrentTime = useCallback(() => {
           hour,
           isLeapMonth
         )
+        date.setMinutes(minute)
       } catch {
         alert('农历转换失败，请检查输入')
         return
@@ -408,10 +431,11 @@ const handleUseCurrentTime = useCallback(() => {
       return
     }
 
+    if (!exactTime || !/^\d{2}:\d{2}$/.test(exactTime)) { alert('请选择有效时间'); return }
     const questionText = question.trim()
 
-    onSubmit(date, { method, qijuMethod, purpose, question: questionText, birthYear: birthYear.trim() })
-  }, [calendarType, solarDate, shiChenIndex, lunarYear, lunarMonth, lunarDay, isLeapMonth, qijuMethod, method, purpose, question, birthYear, onSubmit])
+    onSubmit(date, { method, qijuMethod, manual, manualGanzhi, purpose, question: questionText, yearLife: birthYear.trim(), outcome, horizon, urgency, firstMover, trueSolar, longitude, ziMode, manualJu, gender, topic, primary, stage, asker, subject })
+  }, [calendarType, solarDate, shiChenIndex, lunarYear, lunarMonth, lunarDay, isLeapMonth, qijuMethod, method, purpose, question, birthYear, manual, manualGanzhi, ziHour, exactTime, outcome, horizon, urgency, firstMover, trueSolar, longitude, ziMode, manualJu, gender, topic, primary, stage, asker, subject, onSubmit])
 
   const inputClass = 'w-full bg-[var(--qm-bg)] border border-[var(--qm-border)] rounded-lg px-4 py-3 text-[var(--qm-ink)] focus:border-[var(--qm-primary)] focus:outline-none focus:ring-1 focus:ring-[rgba(107,36,31,0.3)] transition-colors'
   const labelClass = 'block text-[var(--qm-primary)] text-sm font-bold mb-2'
@@ -523,7 +547,7 @@ const handleUseCurrentTime = useCallback(() => {
             <button
               key={sc.label}
               type="button"
-              onClick={() => setShiChenIndex(index)}
+              onClick={() => { setShiChenIndex(index); setExactTime(`${String(index === 0 ? ziHour : sc.value).padStart(2,'0')}:00`) }}
               className={`py-2 px-1 rounded-lg text-sm transition-colors ${
                 shiChenIndex === index
                   ? 'bg-[var(--qm-primary)] text-[var(--qm-surface)] font-bold'
@@ -538,6 +562,9 @@ const handleUseCurrentTime = useCallback(() => {
         </div>
       </div>
 
+      {shiChenIndex === 0 && <label className="block text-sm">子时具体时间<select className={inputClass} value={ziHour} onChange={e => { const h=Number(e.target.value); setZiHour(h); setExactTime(`${String(h).padStart(2,'0')}:00`) }}><option value={0}>当日 00:00–00:59</option><option value={23}>当日 23:00–23:59</option></select></label>}
+      <label className="block text-sm">精确时间（北京时间）<input type="time" className={inputClass} value={exactTime} onChange={e => {setExactTime(e.target.value); const [h,m]=e.target.value.split(':').map(Number); if(Number.isFinite(h) && Number.isFinite(m)) {const d=new Date(2000,0,1,h,m);setShiChenIndex(getShiChenIndex(d));setZiHour(h===23?23:0)}}}/></label>
+      <p className="text-xs text-[var(--qm-ink-soft)]">可选择时辰后再调整分钟；子时可区分 23 点与 0 点。</p>
       {/* 分析目的 */}
       <div>
         <label className={labelClass} style={{ fontFamily: FONT_YAHEI }}>分析目的</label>
@@ -567,6 +594,12 @@ const handleUseCurrentTime = useCallback(() => {
           <span>问题越具体，宫位建议和复盘口径越容易校准。</span>
           <span>{question.length}/120</span>
         </div>
+        {question.trim() && <p className="mt-2 text-xs text-[var(--qm-ink-soft)]">{buildQuestionRewriteHint(question)}</p>}
+        <label className="mt-4 block text-sm font-bold text-[var(--qm-primary)]">可观察结果（进行预测时填写）</label>
+        <input className={inputClass} value={outcome} onChange={e => setOutcome(e.target.value)} placeholder="例如：收到合同尾款" maxLength={200} />
+        <label className="mt-3 block text-sm font-bold text-[var(--qm-primary)]">观察期限（可选）</label>
+        <input className={inputClass} value={horizon} onChange={e => setHorizon(e.target.value)} placeholder="例如：月底前" maxLength={80} />
+        <div className="mt-3 grid grid-cols-2 gap-2"><label className="text-sm">事项急缓<select className={inputClass} value={urgency} onChange={e => setUrgency(e.target.value)}>{['待核','急','缓'].map(x => <option key={x}>{x}</option>)}</select></label><label className="text-sm">行动先后<select className={inputClass} value={firstMover} onChange={e => setFirstMover(e.target.value)}>{['待核','本人','对方','双方未动','同动'].map(x => <option key={x}>{x}</option>)}</select></label></div>
         <details className="mt-4 border border-[var(--qm-border)] bg-[var(--qm-surface-2)]">
           <summary className="flex cursor-pointer list-none items-center justify-between gap-3 px-4 py-3 text-sm font-bold text-[var(--qm-primary)] marker:content-none">
             <span>高级设置</span>
@@ -575,23 +608,22 @@ const handleUseCurrentTime = useCallback(() => {
           <div className="grid gap-5 border-t border-[var(--qm-border-soft)] p-4">
             <div>
               <label className={labelClass} style={{ fontFamily: FONT_YAHEI }}>
-                出生年（可选，用于年命用神）
+                年命干支（可选，如庚戌）
               </label>
               <input
-                type="number"
-                placeholder="如 1985"
+                type="text"
+                placeholder="如 庚戌"
                 value={birthYear}
                 onChange={(e) => setBirthYear(e.target.value)}
                 className={inputClass}
-                min="1900"
-                max="2100"
+                maxLength={2}
               />
-              <p className="mt-1 text-xs leading-5 text-[#7f725f]">填写后会把年命作为个人用神参考；不填不会影响原有排盘。</p>
+              <p className="mt-1 text-xs leading-5 text-[#7f725f]">请填写已核对的年命干支；不填写则标为未知。</p>
             </div>
             <div>
               <label className={labelClass} style={{ fontFamily: FONT_YAHEI }}>起局方式</label>
               <div className="flex gap-2">
-                {QIJU_OPTIONS.map((opt) => (
+                {QIJU_OPTIONS.filter((opt) => opt.value === '拆补法').map((opt) => (
                   <button
                     key={opt.value}
                     type="button"
@@ -611,7 +643,7 @@ const handleUseCurrentTime = useCallback(() => {
             <div>
               <label className={labelClass} style={{ fontFamily: FONT_YAHEI }}>排盘方法</label>
               <div className="grid grid-cols-2 gap-2">
-                {METHOD_OPTIONS.map((opt) => (
+                {METHOD_OPTIONS.filter((opt) => opt.value === '时家').map((opt) => (
                   <button
                     key={opt.value}
                     type="button"
@@ -627,6 +659,16 @@ const handleUseCurrentTime = useCallback(() => {
                   </button>
                 ))}
               </div>
+            </div>
+            <div className="grid gap-3 text-sm">
+              <label className="flex gap-2"><input type="checkbox" checked={manual} onChange={e => setManual(e.target.checked)} />手工输入四柱和局式</label>
+              {manual && <label>四柱<input className={inputClass} value={manualGanzhi} onChange={e => setManualGanzhi(e.target.value)} placeholder="丙午年 甲午月 丁卯日 丙午时" /><span className="text-xs">请同时填写下方手工局式；该模式仅用于事件预测。</span></label>}
+              <label className="flex gap-2"><input type="checkbox" checked={trueSolar} onChange={e => setTrueSolar(e.target.checked)} />按经度校正真太阳时</label>
+              {trueSolar && <label>起局地经度（东经为正）<input className={inputClass} type="number" min="-180" max="180" step="any" value={longitude} onChange={e => setLongitude(e.target.value)} /></label>}
+              <label>子时换日<select className={inputClass} value={ziMode} onChange={e => setZiMode(e.target.value)}><option value="change">23点换日</option><option value="keep">0点换日</option></select></label>
+              <label>手工局式（可选）<input className={inputClass} value={manualJu} onChange={e => setManualJu(e.target.value)} placeholder="如 阴遁九局" /></label>
+              <label>性别（可选）<select className={inputClass} value={gender} onChange={e => setGender(e.target.value)}><option value="">未提供</option><option>男</option><option>女</option></select></label>
+              {[[topic,setTopic,'明确问项'],[primary,setPrimary,'指定主用神'],[stage,setStage,'事项阶段'],[asker,setAsker,'问者（代问时）'],[subject,setSubject,'所测人（代问时）']].map(([value,setter,label]) => <label key={label}>{label}<input className={inputClass} value={value} onChange={e => setter(e.target.value)} /></label>)}
             </div>
             <div className="grid gap-2">
               <div className="text-xs font-bold text-[var(--qm-secondary)]">常用问题模板</div>
@@ -1328,342 +1370,63 @@ function getInitialResult(initialQuestion = '') {
     return { error: true, message: e.message || '排盘计算失败' }
   }
 }
-export default function Divination() {
-  const [searchParams] = useSearchParams()
-  const initialQuestion = (searchParams.get('question') || '').slice(0, 120)
-  const [result, setResult] = useState(() => getInitialResult(initialQuestion))
-  const [loading, setLoading] = useState(false)
-  const [selectedPalace, setSelectedPalace] = useState(null)
-  const [reviewRecords, setReviewRecords] = useState(() => loadReviewRecords())
-  const [reviewFilter, setReviewFilter] = useState('all')
-  const gridRef = useRef(null)
-
-  const handleCalculate = useCallback((date, options) => {
-    setLoading(true)
-    setTimeout(() => {
-      try {
-        const res = calculate(date, options)
-        setSelectedPalace(null)
-        setResult(res)
-      } catch (e) {
-        console.error('排盘出错:', e)
-        setResult({ error: true, message: e.message || '排盘计算失败' })
-      }
-      setLoading(false)
-    }, 100)
-  }, [])
-const handlePalaceClick = useCallback((gongKey) => {
-    if (!result) return
-    setSelectedPalace({
-      gongKey,
-      xing: result.jiuXing?.[gongKey] || '',
-      men: result.baMen?.[gongKey] || '',
-      shen: result.baShen?.[gongKey] || '',
-      tianGan: result.displayTianPan?.[gongKey] ?? result.tianPan?.[gongKey] ?? '',
-      diGan: result.displayDiPan?.[gongKey] ?? result.diPan?.[gongKey] ?? '',
-      analysis: result.jiuGongAnalysis?.[gongKey] || null,
-    })
-  }, [result])
-
-  const handleSaveReviewRecord = useCallback(() => {
-    if (!result || result.error) return
-    if (!result.basicInfo?.question) {
-      alert('请先填写“具体所问事项”并重新排盘，再保存复盘样本。以便之后回看。')
-      return
-    }
-    setReviewRecords((prev) => {
-      const next = [buildReviewRecord(result), ...prev].slice(0, 50)
-      saveReviewRecords(next)
-      return next
-    })
-  }, [result])
-
-  const handleUpdateReviewRecord = useCallback((id, patch) => {
-    setReviewRecords((prev) => {
-      const next = prev.map((item) => item.id === id ? { ...item, ...patch } : item)
-      saveReviewRecords(next)
-      return next
-    })
-  }, [])
-
-  const handleClearReviewRecords = useCallback(() => {
-    setReviewRecords([])
-    saveReviewRecords([])
-  }, [])
-
-  const reviewStats = getReviewStats(reviewRecords)
-  const filteredReviewRecords = reviewFilter === 'high'
-    ? reviewRecords.filter((item) => Number(item.confidence) >= 70)
-    : reviewRecords
-  const hasQuestion = Boolean(result?.basicInfo?.question?.trim())
-
-  return (
-    <div className="min-h-[80vh] px-4 py-8 md:py-12 animate-fadeIn">
-      <h1
-        className="text-3xl md:text-5xl font-bold text-[var(--qm-primary)] mb-3 text-center tracking-wider"
-        style={{ fontFamily: FONT_SONG }}
-      >
-        在线排盘
-      </h1>
-      <p
-        className="text-base text-[#5f5144] mb-10 max-w-xl mx-auto text-center"
-        style={{ fontFamily: FONT_YAHEI }}
-      >
-        已按当前时间自动起局，可直接查看盘面，也可在下方调整时间与起局方式。
-      </p>
-
-      <div className="max-w-6xl mx-auto">
-        <div className="grid grid-cols-1 lg:grid-cols-12 gap-8">
-          {/* ========== 左侧面板 - 时间选择 ========== */}
-          <div className="order-2 lg:order-1 lg:col-span-4">
-            <div className="bg-[var(--qm-surface)] rounded-xl p-6 border border-[var(--qm-border)] sticky top-20">
-              <h2
-                className="text-lg font-bold text-[var(--qm-primary)] mb-5"
-                style={{ fontFamily: FONT_SONG }}
-              >
-                排盘参数
-              </h2>
-              <TimeSelector onSubmit={handleCalculate} loading={loading} initialQuestion={initialQuestion} />
-            </div>
-          </div>
-
-          {/* ========== 右侧面板 - 排盘结果 ========== */}
-          <div className="order-1 lg:order-2 lg:col-span-8">
-            {result && !result.error ? (
-              <div className="space-y-6 animate-fadeIn">
-                {/* 基本信息栏 */}
-                <div className="bg-[var(--qm-surface)] rounded-xl p-5 border border-[var(--qm-border)]">
-                  <div className="grid grid-cols-2 gap-4 md:grid-cols-5">
-                    <div>
-                      <div className="text-xs text-[#7f725f] mb-1">四柱</div>
-                      <div className="text-sm text-[#211b15] font-medium">
-                        {result.siZhu?.year} {result.siZhu?.month}
-                      </div>
-                      <div className="text-sm text-[#211b15] font-medium">
-                        {result.siZhu?.day} {result.siZhu?.time}
-                      </div>
-                    </div>
-                    <div>
-                      <div className="text-xs text-[#7f725f] mb-1">局数</div>
-                      <div className="text-sm text-[var(--qm-primary)] font-bold">
-                        {result.juShu?.fullName}
-                      </div>
-                    </div>
-                    <div>
-                      <div className="text-xs text-[#7f725f] mb-1">节气</div>
-                      <div className="text-sm text-[#211b15]">{result.juShu?.jieQiName}</div>
-                    </div>
-                    <div>
-                      <div className="text-xs text-[#7f725f] mb-1">起局方式</div>
-                      <div className="text-sm text-[#211b15]">{result.basicInfo?.qijuMethod}</div>
-                    </div>
-                    {result.basicInfo?.birthYear && (
-                      <div>
-                        <div className="text-xs text-[#7f725f] mb-1">年命</div>
-                        <div className="text-sm text-[#211b15]">{result.basicInfo.birthYear}年 · {result.basicInfo.nianMing || '-'}</div>
-                      </div>
-                    )}
-                  </div>
-                  <div className="mt-4 border-t border-[var(--qm-border-soft)] pt-4">
-                    <div className="text-xs text-[#7f725f] mb-1">本盘所问</div>
-                    <p className="text-sm leading-7 text-[#3e3429]">
-                      {result.basicInfo?.question || '未填写具体问题。建议补充“一盘一问”的事项，便于判断和后续复盘。'}
-                    </p>
-                  </div>
-                </div>
-
-                {/* 九宫格 */}
-                <div ref={gridRef} className="bg-[var(--qm-surface)] rounded-xl p-5 md:p-8 border border-[var(--qm-border)]">
-                  <JiuGongGrid result={result} onPalaceClick={handlePalaceClick} />
-                </div>
-
-                {hasQuestion ? (
-                  <><CurrentDecisionCard result={result} /><div className="mt-4 text-sm"><Link className="text-[var(--qm-secondary)] underline" to="/shijia">使用时家奇门 v2.6 独立起局与分析</Link></div></>
-                ) : <QuestionGate result={result} />}
-
-                {/* 操作按钮 */}
-                <ChartActions result={result} gridRef={gridRef} />
-
-                <details className="bg-[var(--qm-surface)] rounded-xl border border-[var(--qm-border)] p-5">
-                  <summary className="cursor-pointer text-base font-bold text-[var(--qm-primary)]">查看分析依据</summary>
-                  <div className="mt-4 space-y-4">
-                    {hasQuestion && <YongShenTemplateCard purpose={result.basicInfo?.purpose} />}
-                    <div className="text-sm leading-7 text-[#3e3429]">
-                      值符：{result.zhiFuXing} 落{GONG_NAMES[result.zhiFuGong] || result.zhiFuGong + '宫'}；
-                      值使：{result.zhiShiMen} 落{GONG_NAMES[result.zhiShiGong] || result.zhiShiGong + '宫'}；
-                      空亡：{result.kongWangZhi?.join('') || '无'}。
-                    </div>
-                    {hasQuestion && !/天气|下雨|降雨|温度|气温|刮风|台风|下雪|晴天|阴天|气象/.test(result.basicInfo?.question || '') && result.basicInfo?.purpose !== '综合' && <MultiGongPanel multiGong={result.multiGong} />}
-                  </div>
-                </details>
-
-                {hasQuestion && (
-                <details className="bg-[var(--qm-surface)] rounded-xl p-5 border border-[var(--qm-border)]">
-                  <summary className="cursor-pointer text-base font-bold text-[var(--qm-primary)]">案例复盘与记录</summary>
-                  <div className="flex flex-col gap-3 md:flex-row md:items-center md:justify-between">
-                    <div>
-                      <h3 className="text-sm font-bold text-[#7f725f]" style={{ fontFamily: FONT_YAHEI }}>
-                        复盘样本统计
-                      </h3>
-                      <p className="mt-2 text-sm leading-7 text-[#554a3f]">
-                        保存本盘为样本，等验证窗口结束后标记结果。记录实际结果，用于日后回看。
-                      </p>
-                    </div>
-                    <div className="flex flex-wrap gap-2">
-                      <button
-                        type="button"
-                        onClick={handleSaveReviewRecord}
-                        className="border border-[var(--qm-primary)] bg-[var(--qm-primary)] px-4 py-2 text-sm font-bold text-[var(--qm-surface)] transition-colors hover:bg-[var(--qm-primary-hover)]"
-                      >
-                        保存本盘样本
-                      </button>
-                      {reviewRecords.length > 0 && (
-                        <>
-                          <button
-                            type="button"
-                            onClick={() => downloadReviewCsv(reviewRecords, reviewStats)}
-                            className="border border-[var(--qm-secondary)] px-4 py-2 text-sm font-bold text-[var(--qm-secondary)] transition-colors hover:bg-[#edf5ef]"
-                          >
-                            导出CSV
-                          </button>
-                          <button
-                            type="button"
-                            onClick={handleClearReviewRecords}
-                            className="border border-[var(--qm-border)] px-4 py-2 text-sm font-bold text-[#5f5144] transition-colors hover:border-[var(--qm-primary)] hover:text-[var(--qm-primary)]"
-                          >
-                            清空样本
-                          </button>
-                        </>
-                      )}
-                    </div>
-                  </div>
-
-                  <div className="mt-4 grid gap-3 md:grid-cols-3">
-                    <div className="border border-[var(--qm-border-soft)] bg-[var(--qm-surface-2)] p-4">
-                      <div className="text-xs text-[#7f725f]">样本总数</div>
-                      <div className="mt-1 text-2xl font-bold text-[var(--qm-primary)]">{reviewRecords.length}</div>
-                    </div>
-                    <div className="border border-[var(--qm-border-soft)] bg-[var(--qm-surface-2)] p-4">
-                      <div className="text-xs text-[#7f725f]">已复盘样本</div>
-                      <div className="mt-1 text-2xl font-bold text-[var(--qm-primary)]">{reviewStats.reviewed}</div>
-                    </div>
-                    <div className="border border-[rgba(31,97,87,0.3)] bg-[#edf5ef] p-4">
-                      <div className="text-xs text-[var(--qm-secondary)]">当前命中率</div>
-                      <div className="mt-1 text-2xl font-bold text-[var(--qm-secondary)]">{reviewStats.reviewed ? `${reviewStats.rate}%` : '待复盘'}</div>
-                    </div>
-                  </div>
-
-                  <div className="mt-4 space-y-3">
-                      <div className="flex flex-col gap-3 border border-[var(--qm-border-soft)] bg-[var(--qm-surface-2)] p-3 md:flex-row md:items-center md:justify-between">
-                        <div>
-                          <div className="text-sm font-bold text-[var(--qm-primary)]">样本列表</div>
-                          <p className="mt-1 text-xs leading-5 text-[#7f725f]">
-                            当前显示全部样本，最多展示最近5条。
-                          </p>
-                        </div>
-                        <div className="flex border border-[var(--qm-border-soft)] bg-[var(--qm-surface)] p-0.5">
-                          {[
-                            ['all', '全部样本'],
-                          ].map(([value, label]) => (
-                            <button
-                              key={value}
-                              type="button"
-                              onClick={() => setReviewFilter(value)}
-                              className={`px-3 py-1.5 text-xs font-bold transition-colors ${
-                                reviewFilter === value
-                                  ? 'bg-[var(--qm-secondary)] text-[var(--qm-surface)]'
-                                  : 'text-[#5f5144] hover:bg-[var(--qm-surface-2)] hover:text-[var(--qm-secondary)]'
-                              }`}
-                            >
-                              {label}
-                            </button>
-                          ))}
-                        </div>
-                      </div>
-
-                      {filteredReviewRecords.length === 0 && (
-                        <div className="border border-[var(--qm-border-soft)] bg-[var(--qm-surface-2)] p-4 text-sm leading-7 text-[#7a4a25]">
-                          当前没有符合条件的复盘记录。
-                        </div>
-                      )}
-
-                      {filteredReviewRecords.slice(0, 5).map((item) => (
-                        <div key={item.id} className="border border-[var(--qm-border-soft)] bg-[var(--qm-surface-2)] p-4">
-                          <div className="flex flex-col gap-3">
-                            <div className="flex flex-col gap-2 md:flex-row md:items-start md:justify-between">
-                              <div>
-                              <div className="flex flex-wrap items-center gap-2 text-sm font-bold text-[var(--qm-primary)]">
-                                <span>{item.purpose} · {GONG_NAMES[item.bestGong] || item.bestGong || '待定宫'}</span>
-
-                              </div>
-                              <p className="mt-1 text-sm leading-6 text-[#3e3429]">
-                                {item.decision}。验证窗口：{item.verifyWindow}
-                              </p>
-                              {item.question && (
-                                <p className="mt-1 text-sm leading-6 text-[#5f5144]">
-                                  所问：{item.question}
-                                </p>
-                              )}
-                              <p className="mt-1 text-xs text-[#7f725f]">{item.createdAt} · {item.ju}</p>
-                              </div>
-                              <select
-                                value={item.outcome}
-                                onChange={(event) => handleUpdateReviewRecord(item.id, { outcome: event.target.value })}
-                                className="border border-[var(--qm-border)] bg-[var(--qm-surface)] px-3 py-2 text-sm text-[#211b15]"
-                              >
-                                <option value="pending">待验证</option>
-                                <option value="hit">命中</option>
-                                <option value="partial">部分命中</option>
-                                <option value="miss">未命中</option>
-                              </select>
-                            </div>
-                            <textarea
-                              value={item.actualFeedback || ''}
-                              onChange={(event) => handleUpdateReviewRecord(item.id, { actualFeedback: event.target.value })}
-                              rows={2}
-                              maxLength={160}
-                              placeholder="记录验证窗口内真实发生了什么，例如：客户回复愿意继续谈，但合同条款仍未确认。"
-                              className="w-full resize-none border border-[var(--qm-border-soft)] bg-[var(--qm-surface)] px-3 py-2 text-sm leading-6 text-[#211b15] placeholder:text-[#8a7c6b]"
-                            />
-                          </div>
-                        </div>
-                      ))}
-                  </div>
-                </details>
-                )}
-              </div>
-            ) : result?.error ? (
-              <div className="bg-[var(--qm-surface)] rounded-xl p-8 border border-red-500/30 text-center">
-                <p className="text-red-400">排盘出错: {result.message}</p>
-              </div>
-            ) : (
-              /* 空状态占位 */
-              <div className="bg-[var(--qm-surface)] rounded-xl p-16 border border-[var(--qm-border)] flex flex-col items-center justify-center min-h-[400px]">
-                <svg className="w-16 h-16 text-[var(--qm-border)] mb-6" fill="none" viewBox="0 0 24 24" stroke="currentColor" strokeWidth={1}>
-                  <path strokeLinecap="round" strokeLinejoin="round" d="M3.75 6A2.25 2.25 0 016 3.75h2.25A2.25 2.25 0 0110.5 6v2.25a2.25 2.25 0 01-2.25 2.25H6a2.25 2.25 0 01-2.25-2.25V6zM3.75 15.75A2.25 2.25 0 016 13.5h2.25a2.25 2.25 0 012.25 2.25V18a2.25 2.25 0 01-2.25 2.25H6A2.25 2.25 0 013.75 18v-2.25zM13.5 6a2.25 2.25 0 012.25-2.25H18A2.25 2.25 0 0120.25 6v2.25A2.25 2.25 0 0118 10.5h-2.25a2.25 2.25 0 01-2.25-2.25V6zM13.5 15.75a2.25 2.25 0 012.25-2.25H18a2.25 2.25 0 012.25 2.25V18A2.25 2.25 0 0118 20.25h-2.25A2.25 2.25 0 0113.5 18v-2.25z" />
-                </svg>
-                <p className="text-[#7f725f] text-lg" style={{ fontFamily: FONT_YAHEI }}>
-                  请选择时间开始排盘
-                </p>
-                <p className="text-[#988a74] text-sm mt-2">
-                  在左侧面板设置排盘参数后点击"立即排盘"
-                </p>
-              </div>
-            )}
-          </div>
-        </div>
-      </div>
-
-      {/* 宫位详情弹窗 */}
-      {selectedPalace && (
-        <PalaceDetail key={selectedPalace.gongKey} palace={selectedPalace} onClose={() => setSelectedPalace(null)} />
-      )}
-    </div>
-  )
+function beijingClock() {
+  const p = new Intl.DateTimeFormat('en-CA', { timeZone:'Asia/Shanghai',year:'numeric',month:'2-digit',day:'2-digit',hour:'2-digit',minute:'2-digit',hourCycle:'h23' }).formatToParts(new Date())
+  const v = key => p.find(item => item.type === key)?.value
+  return new Date(Number(v('year')), Number(v('month')) - 1, Number(v('day')), Number(v('hour')), Number(v('minute')))
 }
-
-
-
-
-
-
+function stamp(date) {
+  const pad = n => String(n).padStart(2, '0')
+  return `${date.getFullYear()}-${pad(date.getMonth()+1)}-${pad(date.getDate())} ${pad(date.getHours())}:${pad(date.getMinutes())}`
+}
+function asGrid(cells) {
+  const data = { displayTianPan:{}, displayDiPan:{}, jiuXing:{}, baMen:{}, baShen:{}, kongWangGong:[], maStar:{}, jiuGongAnalysis:{} }
+  cells.forEach(c => { const k=String(c.palace); data.displayTianPan[k]=c.heaven.join('、');data.displayDiPan[k]=c.earth.join('、');data.jiuXing[k]=c.star === '芮禽' ? '天芮、天禽' : c.star;data.baMen[k]=c.gate;data.baShen[k]=c.god;if(c.void)data.kongWangGong.push(k);if(c.horse)data.maStar.gong=k })
+  return data
+}
+const categoryMap = {事业:'事业官运',财运:'求财',婚姻:'婚姻',健康:'健康',学业:'考试',官司:'官司',出行:'出行',走失:'走失',择吉:'择吉',天气:'天气',风水阳宅:'风水阳宅',风水阴宅:'风水阴宅'}
+const panel = 'bg-[var(--qm-surface)] rounded-xl p-5 border border-[var(--qm-border)]'
+export default function Divination() {
+  const [params] = useSearchParams()
+  const [result,setResult] = useState(null)
+  const [error,setError] = useState('')
+  const [loading,setLoading] = useState(false)
+  const [selected,setSelected] = useState(null)
+  const [extra,setExtra] = useState('cases')
+  const [legacyRecords] = useState(loadReviewRecords)
+  const [saved,setSaved] = useState(false)
+  const gridRef=useRef(null)
+  const request=useRef(0)
+  const initialQuestion=(params.get('question') || '').slice(0,120)
+  const calculate=useCallback(async (date,options={}) => {
+    const seq=++request.current
+    const question=(options.question || '').trim(); const outcome=(options.outcome || '').trim()
+    const category=categoryMap[options.purpose]
+    if (options.manual && !question) { setResult(null); setError('手工四柱起局请填写具体问题、可观察结果与局式。'); return }
+    if (question && (!category || !outcome)) { setResult(null); setError(!category ? '请选择具体的分析目的，才能进行预测。' : '请填写可观察结果，以明确预测和复盘口径。'); return }
+    setLoading(true);setError('');setSelected(null);setSaved(false)
+    const payload={ ...options,mode: question ? (options.manual ? 'manual' : 'event'):'chart', category,question,outcome,time:stamp(date),longitude:options.trueSolar && options.longitude !== '' ? Number(options.longitude) : null }
+    try {
+      const response=await fetch('/api/qimen',{method:'POST',headers:{'Content-Type':'application/json'},body:JSON.stringify(payload)})
+      if (!(response.headers.get('content-type')||'').includes('application/json')) throw Error('排盘服务尚未启用，请检查网站部署。')
+      const data=await response.json(); if(!response.ok) throw Error(data.error || '排盘失败。')
+      if(seq===request.current) setResult({...data,question,outcome,time:payload.time,category})
+    } catch(e) {if(seq===request.current){setResult(null);setError(e.message || '无法连接排盘服务。')}} finally {if(seq===request.current)setLoading(false)}
+  },[])
+  useEffect(()=>{ calculate(beijingClock()) },[calculate])
+  const copy=async()=>{try{await navigator.clipboard.writeText([result.header.ganzhi,result.header.ju_name,result.timeConvention,result.question,result.report].filter(Boolean).join('\n'));alert('已复制盘面与分析')}catch{alert('复制失败，请检查浏览器权限。')}}
+  const image=async()=>{try{const {toPng}=await import('html-to-image');const url=await toPng(gridRef.current,{pixelRatio:2,cacheBust:true});const a=document.createElement('a');a.href=url;a.download='qimen-chart.png';a.click()}catch{alert('保存图片失败，请重试。')}}
+  const save=()=>{try{const key='shijia-v26-casebook';const records=JSON.parse(localStorage.getItem(key)||'[]');if(!Array.isArray(records))throw Error();records.unshift({id:crypto.randomUUID(),kind:'事前判断',source:'在线排盘',chart:`${result.time} ${result.header.ganzhi} ${result.header.ju_name}`,question:result.question,prediction:result.report,observation:result.outcome,window:result.scope?.观察期限 || '未提供',invalid:'待补充',createdAt:new Date().toISOString()});localStorage.setItem(key,JSON.stringify(records));setSaved(true)}catch{alert('保存失败，请检查浏览器存储空间。')}}
+  return <div className="min-h-[80vh] px-4 py-8 md:py-12 animate-fadeIn"><h1 className="text-center text-3xl font-bold tracking-wider text-[var(--qm-primary)] md:text-5xl" style={{fontFamily:FONT_SONG}}>在线排盘</h1><p className="mx-auto mb-10 mt-3 max-w-xl text-center text-[var(--qm-ink-soft)]">时家阳盘 · 拆补法。盘面与预测使用同一套规则；时间按北京时间输入。</p>
+    <div className="mx-auto grid max-w-6xl grid-cols-1 gap-8 lg:grid-cols-12"><div className="order-2 lg:order-1 lg:col-span-4"><div className={`${panel} sticky top-20`}><h2 className="mb-5 text-lg font-bold text-[var(--qm-primary)]">排盘参数</h2><TimeSelector onSubmit={calculate} loading={loading} initialQuestion={initialQuestion}/><p className="mt-4 text-xs leading-5 text-[var(--qm-ink-soft)]">填写的问题会发送至本站排盘服务。仅支持时家阳盘拆补；未填写问题时只显示盘面。</p></div></div>
+    <div className="order-1 space-y-5 lg:order-2 lg:col-span-8">{error && <div role="alert" className={`${panel} text-sm text-red-700`}>{error}</div>}{loading && <p className={panel}>正在排盘…</p>}
+    {result && !loading && <><div className={panel}><h2 className="font-bold text-[var(--qm-primary)]">盘面信息</h2><p className="mt-2 text-sm leading-7">{result.header.ganzhi}　{result.header.ju_name}　{result.header.term || ''}<br/>旬首 {result.header.旬首}　旬空 {result.header.旬空地支}<br/>值符 {result.header.值符.join(' · ')}　值使 {result.header.值使.join(' · ')}<br/>{result.timeConvention}</p><p className="mt-3 border-t border-[var(--qm-border-soft)] pt-3 text-sm">本盘所问：{result.question || '未填写，当前仅展示盘面。'}</p></div>
+    <div ref={gridRef} className={panel}><JiuGongGrid limitedMarkers result={asGrid(result.cells)} onPalaceClick={k=>setSelected(result.cells.find(c=>String(c.palace)===k))}/>{selected && <div className="mt-4 border-t border-[var(--qm-border-soft)] pt-3 text-sm leading-7"><strong>{GONG_NAMES[String(selected.palace)] || `${selected.palace}宫`}</strong>　{selected.god || '—'} · {selected.star || '—'} · {selected.gate || '—'}<br/>天盘 {selected.heaven.join('、') || '—'}　地盘 {selected.earth.join('、') || '—'}　{selected.void ? '空亡 ' : ''}{selected.horse ? '驿马' : ''}<p className="text-xs text-[var(--qm-ink-soft)]">具体吉凶需结合用神、旺衰与其他宫位，不能单凭一宫下结论。</p></div>}</div>
+    <div className="flex flex-wrap gap-2"><button onClick={copy} className="border border-[var(--qm-border)] px-4 py-2 text-sm">复制结果</button><button onClick={image} className="border border-[var(--qm-border)] px-4 py-2 text-sm">保存盘面图片</button>{result.report && <button onClick={save} disabled={saved} className="border border-[var(--qm-primary)] px-4 py-2 text-sm text-[var(--qm-primary)]">{saved?'已保存本盘':'保存本盘复盘'}</button>}</div>
+    {result.report ? <div className={panel}><h2 className="text-lg font-bold text-[var(--qm-primary)]">预测与分析依据</h2><p className="mt-2 text-sm leading-6 text-[var(--qm-ink-soft)]">以下是规则给出的盘面线索与倾向，分数及信心属于内部信号，不代表经过验证的预测概率；应结合反证和现实反馈复核。</p>{result.timingNote && <p className="mt-2 text-sm">{result.timingNote}</p>}<div className="mt-4 border border-[var(--qm-border-soft)] p-3 text-sm leading-7"><b>本问与取用神</b><p>{result.scope?.问项} · 主用神 {result.scope?.主用神}</p><p>{result.scope?.取用依据}</p><p>观察：{result.outcome}；期限：{result.scope?.观察期限}</p></div><pre className="mt-4 whitespace-pre-wrap break-words font-sans text-sm leading-7">{result.report.replace(/信心高/g, '信号较集中').replace(/信心中/g, '信号有分歧').replace(/信心低/g, '信号不足')}</pre><p className="mt-5 border-t border-[var(--qm-border-soft)] pt-4 text-xs leading-6">以上内容属于传统文化与时空决策模型的分析参考，不构成绝对预测；涉及健康、法律、投资和重大人生决定时，请结合现实信息与专业意见。</p></div> : <div className={`${panel} text-sm leading-7`}>补充具体问题、分析目的和可观察结果后，可查看预测依据与复盘线索。</div>}
+    {result.cases && <details className={panel}><summary className="cursor-pointer font-bold">同类书例参照</summary><p className="mt-2 text-xs">仅供方法参考，不能套用结局。</p>{result.cases.书例?.map(item=><div className="mt-3 text-sm" key={item.编号}><b>{item.标题}</b><p>{item.断法要点}</p></div>)}</details>}
+    </>}
+    <details className={panel}><summary className="cursor-pointer font-bold text-[var(--qm-primary)]">深入分析与案例复盘</summary><div className="mt-4 flex flex-wrap gap-2">{[['cases','案例复盘'],['lifetime','终身局'],['review','截图核盘'],['compare','转宫比较']].map(([id,label])=><button key={id} type="button" onClick={()=>setExtra(id)} className={`border border-[var(--qm-border)] px-3 py-2 text-sm ${extra===id?'bg-[var(--qm-primary)] text-[var(--qm-surface)]':''}`}>{label}</button>)}</div><AdvancedShijia key={extra} mode={extra} initialTime={(result?.time || stamp(beijingClock())).replace(' ','T')}/></details>
+    {legacyRecords.length>0 && <details className={panel}><summary className="cursor-pointer font-bold">原有复盘记录（{legacyRecords.length}）</summary><p className="mt-2 text-xs">历史记录保留原计算口径，不与新规则的结果混算。</p>{legacyRecords.map((item,i)=><div key={item.id || i} className="mt-3 border-t border-[var(--qm-border-soft)] pt-2 text-sm">{item.question || '未填写问题'} · {item.date || item.createdAt || ''}</div>)}<button onClick={()=>downloadReviewCsv(legacyRecords,getReviewStats(legacyRecords))} className="mt-3 border border-[var(--qm-border)] px-3 py-2 text-sm">导出原有记录</button></details>}
+    </div></div></div>
+}
