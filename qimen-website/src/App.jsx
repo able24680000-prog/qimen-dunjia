@@ -107,7 +107,7 @@ function Navbar({ skin, onSkinChange }) {
               )
             })}
           </div>
-          <div className="hidden shrink-0 items-center border border-[var(--qm-border-soft)] bg-[var(--qm-surface)] p-0.5 sm:flex">
+          <div className="flex shrink-0 items-center border border-[var(--qm-border-soft)] bg-[var(--qm-surface)] p-0.5">
             {skinOptions.map((option) => {
               const isActive = skin === option.value
               return (
@@ -177,7 +177,7 @@ function PageFallback() {
 function App() {
   const [skin, setSkin] = useState(getStoredSkin)
   const location = useLocation()
-  const isConceptRoute = location.pathname === '/home-concept' || location.pathname === '/'
+  const isConceptRoute = location.pathname === '/home-concept'
 
   useEffect(() => {
     document.documentElement.dataset.qimenSkin = skin
@@ -204,7 +204,7 @@ function App() {
       <main className="flex-1">
         <Suspense fallback={<PageFallback />}>
           <Routes>
-            <Route path="/" element={<Home />} />
+            <Route path="/" element={<Home skin={skin} />} />
             <Route path="/home-concept" element={<HomeConcept />} />
             <Route path="/home-v2" element={<HomeV2 />} />
             <Route path="/divination" element={<Divination />} />
