@@ -8,14 +8,6 @@ const GRID_ORDER = [
 
 const FONT_SONG = "'SimSun', 'STSong', 'Noto Serif SC', serif"
 
-const JI_XIONG_BG = {
-  da_ji: 'bg-green-400/10 border-green-400/30',
-  xiao_ji: 'bg-green-300/10 border-green-300/30',
-  ping: 'bg-[#1f6157]/10 border-[#1f6157]/30',
-  xiao_xiong: 'bg-orange-400/10 border-orange-400/30',
-  da_xiong: 'bg-red-400/10 border-red-400/30',
-}
-
 const GONG_MARKER_STYLE = {
   kongwang: 'border-[#8f7d61] bg-[#f3e3c8] text-[#7a4a25]',
   mastar: 'border-[#2d6253]/35 bg-[#edf5ef] text-[var(--qm-secondary)]',
@@ -73,7 +65,7 @@ export default function JiuGongGrid({ result, onPalaceClick }) {
               onClick={() => onPalaceClick?.(gongKey)}
               className={`palace-cell aspect-square relative bg-[var(--qm-surface)] border rounded-lg p-2 md:p-3 cursor-pointer transition-all duration-200 hover:border-[rgba(107,36,31,0.6)] hover:bg-[rgba(255,250,240,0.9)] hover:shadow-[0_6px_16px_rgba(107,36,31,0.14)] ${
                 gongNum === 5 ? 'col-span-1' : ''
-              } ${analysis ? JI_XIONG_BG[analysis.jiXiong] : 'border-[var(--qm-border)]'}`}
+              } border-[var(--qm-border)]`}
             >
               <div className="flex items-start justify-between gap-1">
                 <div className="text-[10px] md:text-xs text-[var(--qm-primary)] font-bold" style={{ fontFamily: FONT_SONG }}>
