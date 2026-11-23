@@ -5,6 +5,7 @@ import Home from './pages/Home'
 const HomeConcept = lazy(() => import('./pages/HomeConcept'))
 const HomeV2 = lazy(() => import('./pages/home-v2/HomeV2'))
 const Divination = lazy(() => import('./pages/Divination'))
+const ShijiaAnalysis = lazy(() => import('./pages/ShijiaAnalysis'))
 const Knowledge = lazy(() => import('./pages/Knowledge'))
 const Cases = lazy(() => import('./pages/Cases'))
 const About = lazy(() => import('./pages/About'))
@@ -35,6 +36,7 @@ const routeMeta = {
 const navLinks = [
   { path: '/', label: '首页' },
   { path: '/divination', label: '排盘' },
+  { path: '/shijia', label: '时家分析' },
   { path: '/knowledge', label: '知识' },
   { path: '/cases', label: '案例' },
   { path: '/about', label: '关于' },
@@ -207,6 +209,7 @@ function App() {
             <Route path="/home-concept" element={<HomeConcept />} />
             <Route path="/home-v2" element={<HomeV2 />} />
             <Route path="/divination" element={<Divination />} />
+            <Route path="/shijia" element={<ShijiaAnalysis />} />
             <Route path="/knowledge" element={<Knowledge />} />
             <Route path="/knowledge/:sectionId" element={<Knowledge />} />
             <Route path="/knowledge/course/:courseId" element={<Knowledge />} />
@@ -222,4 +225,5 @@ function App() {
 }
 
 export default App
+
 

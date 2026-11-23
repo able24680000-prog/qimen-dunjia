@@ -1478,7 +1478,7 @@ const handlePalaceClick = useCallback((gongKey) => {
                 </div>
 
                 {hasQuestion ? (
-                  <CurrentDecisionCard result={result} />
+                  <><CurrentDecisionCard result={result} /><div className="mt-4 text-sm"><Link className="text-[var(--qm-secondary)] underline" to="/shijia">使用时家奇门 v2.6 独立起局与分析</Link></div></>
                 ) : <QuestionGate result={result} />}
 
                 {/* 操作按钮 */}
@@ -1661,6 +1661,7 @@ const handlePalaceClick = useCallback((gongKey) => {
     </div>
   )
 }
+
 
 
 
