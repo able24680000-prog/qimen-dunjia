@@ -1,11 +1,11 @@
 {
   "version": 1,
   "updated": "2026-11-22",
-  "purpose": "外部奇门资料目录，支持仓库内按标题检索；不含来源全文。",
+  "purpose": "外部奇门资料目录，正文已存放于本站知识资料目录。",
   "notices": [
-    "条目为目录索引，不代表已逐条校验或已转载正文。",
-    "两个仓库根目录均未发现 LICENSE 文件，原始资料和转载版本的权利待确认。",
-    "本目录不包含真实已验证预测案例。"
+    "资料按原样收录，内容尚未逐条校对。",
+    "来源资料可能存在缺卷、笔误和流派差异。",
+    "教学案例不代表真实已验证预测案例。"
   ],
   "sources": [
     {
@@ -409,7 +409,8 @@
           "sourceSection": "ap-e",
           "review": "目录已核，正文待逐项校验"
         }
-      ]
+      ],
+      "localFile": "knowledge-sources/book/qimen-dunjia.txt"
     },
     {
       "id": "xuanxue",
@@ -424,47 +425,58 @@
           "chapters": [
             {
               "title": "000奇门源流",
-              "url": "https://github.com/youngzs/xuanxue/blob/main/docs/%E5%BE%A1%E5%AE%9A%E5%A5%87%E9%97%A8%E5%AE%9D%E9%89%B4/000%E5%A5%87%E9%97%A8%E6%BA%90%E6%B5%81.md"
+              "url": "https://github.com/youngzs/xuanxue/blob/main/docs/%E5%BE%A1%E5%AE%9A%E5%A5%87%E9%97%A8%E5%AE%9D%E9%89%B4/000%E5%A5%87%E9%97%A8%E6%BA%90%E6%B5%81.md",
+              "localFile": "knowledge-sources/classics/0/0.md"
             },
             {
               "title": "001遁甲总论",
-              "url": "https://github.com/youngzs/xuanxue/blob/main/docs/%E5%BE%A1%E5%AE%9A%E5%A5%87%E9%97%A8%E5%AE%9D%E9%89%B4/001%E9%81%81%E7%94%B2%E6%80%BB%E8%AE%BA.md"
+              "url": "https://github.com/youngzs/xuanxue/blob/main/docs/%E5%BE%A1%E5%AE%9A%E5%A5%87%E9%97%A8%E5%AE%9D%E9%89%B4/001%E9%81%81%E7%94%B2%E6%80%BB%E8%AE%BA.md",
+              "localFile": "knowledge-sources/classics/0/1.md"
             },
             {
               "title": "002凡例",
-              "url": "https://github.com/youngzs/xuanxue/blob/main/docs/%E5%BE%A1%E5%AE%9A%E5%A5%87%E9%97%A8%E5%AE%9D%E9%89%B4/002%E5%87%A1%E4%BE%8B.md"
+              "url": "https://github.com/youngzs/xuanxue/blob/main/docs/%E5%BE%A1%E5%AE%9A%E5%A5%87%E9%97%A8%E5%AE%9D%E9%89%B4/002%E5%87%A1%E4%BE%8B.md",
+              "localFile": "knowledge-sources/classics/0/2.md"
             },
             {
               "title": "003释义四十四则",
-              "url": "https://github.com/youngzs/xuanxue/blob/main/docs/%E5%BE%A1%E5%AE%9A%E5%A5%87%E9%97%A8%E5%AE%9D%E9%89%B4/003%E9%87%8A%E4%B9%89%E5%9B%9B%E5%8D%81%E5%9B%9B%E5%88%99.md"
+              "url": "https://github.com/youngzs/xuanxue/blob/main/docs/%E5%BE%A1%E5%AE%9A%E5%A5%87%E9%97%A8%E5%AE%9D%E9%89%B4/003%E9%87%8A%E4%B9%89%E5%9B%9B%E5%8D%81%E5%9B%9B%E5%88%99.md",
+              "localFile": "knowledge-sources/classics/0/3.md"
             },
             {
               "title": "004注释烟波钓叟歌",
-              "url": "https://github.com/youngzs/xuanxue/blob/main/docs/%E5%BE%A1%E5%AE%9A%E5%A5%87%E9%97%A8%E5%AE%9D%E9%89%B4/004%E6%B3%A8%E9%87%8A%E7%83%9F%E6%B3%A2%E9%92%93%E5%8F%9F%E6%AD%8C.md"
+              "url": "https://github.com/youngzs/xuanxue/blob/main/docs/%E5%BE%A1%E5%AE%9A%E5%A5%87%E9%97%A8%E5%AE%9D%E9%89%B4/004%E6%B3%A8%E9%87%8A%E7%83%9F%E6%B3%A2%E9%92%93%E5%8F%9F%E6%AD%8C.md",
+              "localFile": "knowledge-sources/classics/0/4.md"
             },
             {
               "title": "005遁甲隐公歌",
-              "url": "https://github.com/youngzs/xuanxue/blob/main/docs/%E5%BE%A1%E5%AE%9A%E5%A5%87%E9%97%A8%E5%AE%9D%E9%89%B4/005%E9%81%81%E7%94%B2%E9%9A%90%E5%85%AC%E6%AD%8C.md"
+              "url": "https://github.com/youngzs/xuanxue/blob/main/docs/%E5%BE%A1%E5%AE%9A%E5%A5%87%E9%97%A8%E5%AE%9D%E9%89%B4/005%E9%81%81%E7%94%B2%E9%9A%90%E5%85%AC%E6%AD%8C.md",
+              "localFile": "knowledge-sources/classics/0/5.md"
             },
             {
               "title": "006汉阴居士歌",
-              "url": "https://github.com/youngzs/xuanxue/blob/main/docs/%E5%BE%A1%E5%AE%9A%E5%A5%87%E9%97%A8%E5%AE%9D%E9%89%B4/006%E6%B1%89%E9%98%B4%E5%B1%85%E5%A3%AB%E6%AD%8C.md"
+              "url": "https://github.com/youngzs/xuanxue/blob/main/docs/%E5%BE%A1%E5%AE%9A%E5%A5%87%E9%97%A8%E5%AE%9D%E9%89%B4/006%E6%B1%89%E9%98%B4%E5%B1%85%E5%A3%AB%E6%AD%8C.md",
+              "localFile": "knowledge-sources/classics/0/6.md"
             },
             {
               "title": "007神机赋",
-              "url": "https://github.com/youngzs/xuanxue/blob/main/docs/%E5%BE%A1%E5%AE%9A%E5%A5%87%E9%97%A8%E5%AE%9D%E9%89%B4/007%E7%A5%9E%E6%9C%BA%E8%B5%8B.md"
+              "url": "https://github.com/youngzs/xuanxue/blob/main/docs/%E5%BE%A1%E5%AE%9A%E5%A5%87%E9%97%A8%E5%AE%9D%E9%89%B4/007%E7%A5%9E%E6%9C%BA%E8%B5%8B.md",
+              "localFile": "knowledge-sources/classics/0/7.md"
             },
             {
               "title": "008指迷赋摘",
-              "url": "https://github.com/youngzs/xuanxue/blob/main/docs/%E5%BE%A1%E5%AE%9A%E5%A5%87%E9%97%A8%E5%AE%9D%E9%89%B4/008%E6%8C%87%E8%BF%B7%E8%B5%8B%E6%91%98.md"
+              "url": "https://github.com/youngzs/xuanxue/blob/main/docs/%E5%BE%A1%E5%AE%9A%E5%A5%87%E9%97%A8%E5%AE%9D%E9%89%B4/008%E6%8C%87%E8%BF%B7%E8%B5%8B%E6%91%98.md",
+              "localFile": "knowledge-sources/classics/0/8.md"
             },
             {
               "title": "009专征赋摘",
-              "url": "https://github.com/youngzs/xuanxue/blob/main/docs/%E5%BE%A1%E5%AE%9A%E5%A5%87%E9%97%A8%E5%AE%9D%E9%89%B4/009%E4%B8%93%E5%BE%81%E8%B5%8B%E6%91%98.md"
+              "url": "https://github.com/youngzs/xuanxue/blob/main/docs/%E5%BE%A1%E5%AE%9A%E5%A5%87%E9%97%A8%E5%AE%9D%E9%89%B4/009%E4%B8%93%E5%BE%81%E8%B5%8B%E6%91%98.md",
+              "localFile": "knowledge-sources/classics/0/9.md"
             },
             {
               "title": "010混合百神",
-              "url": "https://github.com/youngzs/xuanxue/blob/main/docs/%E5%BE%A1%E5%AE%9A%E5%A5%87%E9%97%A8%E5%AE%9D%E9%89%B4/010%E6%B7%B7%E5%90%88%E7%99%BE%E7%A5%9E.md"
+              "url": "https://github.com/youngzs/xuanxue/blob/main/docs/%E5%BE%A1%E5%AE%9A%E5%A5%87%E9%97%A8%E5%AE%9D%E9%89%B4/010%E6%B7%B7%E5%90%88%E7%99%BE%E7%A5%9E.md",
+              "localFile": "knowledge-sources/classics/0/10.md"
             }
           ]
         },
@@ -474,35 +486,43 @@
           "chapters": [
             {
               "title": "000细目",
-              "url": "https://github.com/youngzs/xuanxue/blob/main/docs/%E5%A5%87%E9%97%A8%E6%B3%95%E7%AA%8D/000%E7%BB%86%E7%9B%AE.md"
+              "url": "https://github.com/youngzs/xuanxue/blob/main/docs/%E5%A5%87%E9%97%A8%E6%B3%95%E7%AA%8D/000%E7%BB%86%E7%9B%AE.md",
+              "localFile": "knowledge-sources/classics/1/0.md"
             },
             {
               "title": "001卷一",
-              "url": "https://github.com/youngzs/xuanxue/blob/main/docs/%E5%A5%87%E9%97%A8%E6%B3%95%E7%AA%8D/001%E5%8D%B7%E4%B8%80.md"
+              "url": "https://github.com/youngzs/xuanxue/blob/main/docs/%E5%A5%87%E9%97%A8%E6%B3%95%E7%AA%8D/001%E5%8D%B7%E4%B8%80.md",
+              "localFile": "knowledge-sources/classics/1/1.md"
             },
             {
               "title": "002卷三",
-              "url": "https://github.com/youngzs/xuanxue/blob/main/docs/%E5%A5%87%E9%97%A8%E6%B3%95%E7%AA%8D/002%E5%8D%B7%E4%B8%89.md"
+              "url": "https://github.com/youngzs/xuanxue/blob/main/docs/%E5%A5%87%E9%97%A8%E6%B3%95%E7%AA%8D/002%E5%8D%B7%E4%B8%89.md",
+              "localFile": "knowledge-sources/classics/1/2.md"
             },
             {
               "title": "003卷四",
-              "url": "https://github.com/youngzs/xuanxue/blob/main/docs/%E5%A5%87%E9%97%A8%E6%B3%95%E7%AA%8D/003%E5%8D%B7%E5%9B%9B.md"
+              "url": "https://github.com/youngzs/xuanxue/blob/main/docs/%E5%A5%87%E9%97%A8%E6%B3%95%E7%AA%8D/003%E5%8D%B7%E5%9B%9B.md",
+              "localFile": "knowledge-sources/classics/1/3.md"
             },
             {
               "title": "004卷五",
-              "url": "https://github.com/youngzs/xuanxue/blob/main/docs/%E5%A5%87%E9%97%A8%E6%B3%95%E7%AA%8D/004%E5%8D%B7%E4%BA%94.md"
+              "url": "https://github.com/youngzs/xuanxue/blob/main/docs/%E5%A5%87%E9%97%A8%E6%B3%95%E7%AA%8D/004%E5%8D%B7%E4%BA%94.md",
+              "localFile": "knowledge-sources/classics/1/4.md"
             },
             {
               "title": "005卷六",
-              "url": "https://github.com/youngzs/xuanxue/blob/main/docs/%E5%A5%87%E9%97%A8%E6%B3%95%E7%AA%8D/005%E5%8D%B7%E5%85%AD.md"
+              "url": "https://github.com/youngzs/xuanxue/blob/main/docs/%E5%A5%87%E9%97%A8%E6%B3%95%E7%AA%8D/005%E5%8D%B7%E5%85%AD.md",
+              "localFile": "knowledge-sources/classics/1/5.md"
             },
             {
               "title": "006卷七",
-              "url": "https://github.com/youngzs/xuanxue/blob/main/docs/%E5%A5%87%E9%97%A8%E6%B3%95%E7%AA%8D/006%E5%8D%B7%E4%B8%83.md"
+              "url": "https://github.com/youngzs/xuanxue/blob/main/docs/%E5%A5%87%E9%97%A8%E6%B3%95%E7%AA%8D/006%E5%8D%B7%E4%B8%83.md",
+              "localFile": "knowledge-sources/classics/1/6.md"
             },
             {
               "title": "007卷八",
-              "url": "https://github.com/youngzs/xuanxue/blob/main/docs/%E5%A5%87%E9%97%A8%E6%B3%95%E7%AA%8D/007%E5%8D%B7%E5%85%AB.md"
+              "url": "https://github.com/youngzs/xuanxue/blob/main/docs/%E5%A5%87%E9%97%A8%E6%B3%95%E7%AA%8D/007%E5%8D%B7%E5%85%AB.md",
+              "localFile": "knowledge-sources/classics/1/7.md"
             }
           ]
         },
@@ -512,47 +532,58 @@
           "chapters": [
             {
               "title": "000序",
-              "url": "https://github.com/youngzs/xuanxue/blob/main/docs/%E5%A5%87%E9%97%A8%E9%81%81%E7%94%B2%E4%B8%93%E4%B8%9A%E7%9F%A5%E8%AF%86/000%E5%BA%8F.md"
+              "url": "https://github.com/youngzs/xuanxue/blob/main/docs/%E5%A5%87%E9%97%A8%E9%81%81%E7%94%B2%E4%B8%93%E4%B8%9A%E7%9F%A5%E8%AF%86/000%E5%BA%8F.md",
+              "localFile": "knowledge-sources/classics/2/0.md"
             },
             {
               "title": "001第一讲 定局概说",
-              "url": "https://github.com/youngzs/xuanxue/blob/main/docs/%E5%A5%87%E9%97%A8%E9%81%81%E7%94%B2%E4%B8%93%E4%B8%9A%E7%9F%A5%E8%AF%86/001%E7%AC%AC%E4%B8%80%E8%AE%B2%20%E5%AE%9A%E5%B1%80%E6%A6%82%E8%AF%B4.md"
+              "url": "https://github.com/youngzs/xuanxue/blob/main/docs/%E5%A5%87%E9%97%A8%E9%81%81%E7%94%B2%E4%B8%93%E4%B8%9A%E7%9F%A5%E8%AF%86/001%E7%AC%AC%E4%B8%80%E8%AE%B2%20%E5%AE%9A%E5%B1%80%E6%A6%82%E8%AF%B4.md",
+              "localFile": "knowledge-sources/classics/2/1.md"
             },
             {
               "title": "002第二讲 超神接气和置闰",
-              "url": "https://github.com/youngzs/xuanxue/blob/main/docs/%E5%A5%87%E9%97%A8%E9%81%81%E7%94%B2%E4%B8%93%E4%B8%9A%E7%9F%A5%E8%AF%86/002%E7%AC%AC%E4%BA%8C%E8%AE%B2%20%E8%B6%85%E7%A5%9E%E6%8E%A5%E6%B0%94%E5%92%8C%E7%BD%AE%E9%97%B0.md"
+              "url": "https://github.com/youngzs/xuanxue/blob/main/docs/%E5%A5%87%E9%97%A8%E9%81%81%E7%94%B2%E4%B8%93%E4%B8%9A%E7%9F%A5%E8%AF%86/002%E7%AC%AC%E4%BA%8C%E8%AE%B2%20%E8%B6%85%E7%A5%9E%E6%8E%A5%E6%B0%94%E5%92%8C%E7%BD%AE%E9%97%B0.md",
+              "localFile": "knowledge-sources/classics/2/2.md"
             },
             {
               "title": "003第三讲 九宫、六仪、三奇",
-              "url": "https://github.com/youngzs/xuanxue/blob/main/docs/%E5%A5%87%E9%97%A8%E9%81%81%E7%94%B2%E4%B8%93%E4%B8%9A%E7%9F%A5%E8%AF%86/003%E7%AC%AC%E4%B8%89%E8%AE%B2%20%E4%B9%9D%E5%AE%AB%E3%80%81%E5%85%AD%E4%BB%AA%E3%80%81%E4%B8%89%E5%A5%87.md"
+              "url": "https://github.com/youngzs/xuanxue/blob/main/docs/%E5%A5%87%E9%97%A8%E9%81%81%E7%94%B2%E4%B8%93%E4%B8%9A%E7%9F%A5%E8%AF%86/003%E7%AC%AC%E4%B8%89%E8%AE%B2%20%E4%B9%9D%E5%AE%AB%E3%80%81%E5%85%AD%E4%BB%AA%E3%80%81%E4%B8%89%E5%A5%87.md",
+              "localFile": "knowledge-sources/classics/2/3.md"
             },
             {
               "title": "004第四讲 八门、九星、八神",
-              "url": "https://github.com/youngzs/xuanxue/blob/main/docs/%E5%A5%87%E9%97%A8%E9%81%81%E7%94%B2%E4%B8%93%E4%B8%9A%E7%9F%A5%E8%AF%86/004%E7%AC%AC%E5%9B%9B%E8%AE%B2%20%E5%85%AB%E9%97%A8%E3%80%81%E4%B9%9D%E6%98%9F%E3%80%81%E5%85%AB%E7%A5%9E.md"
+              "url": "https://github.com/youngzs/xuanxue/blob/main/docs/%E5%A5%87%E9%97%A8%E9%81%81%E7%94%B2%E4%B8%93%E4%B8%9A%E7%9F%A5%E8%AF%86/004%E7%AC%AC%E5%9B%9B%E8%AE%B2%20%E5%85%AB%E9%97%A8%E3%80%81%E4%B9%9D%E6%98%9F%E3%80%81%E5%85%AB%E7%A5%9E.md",
+              "localFile": "knowledge-sources/classics/2/4.md"
             },
             {
               "title": "005第五讲 时辰干支",
-              "url": "https://github.com/youngzs/xuanxue/blob/main/docs/%E5%A5%87%E9%97%A8%E9%81%81%E7%94%B2%E4%B8%93%E4%B8%9A%E7%9F%A5%E8%AF%86/005%E7%AC%AC%E4%BA%94%E8%AE%B2%20%E6%97%B6%E8%BE%B0%E5%B9%B2%E6%94%AF.md"
+              "url": "https://github.com/youngzs/xuanxue/blob/main/docs/%E5%A5%87%E9%97%A8%E9%81%81%E7%94%B2%E4%B8%93%E4%B8%9A%E7%9F%A5%E8%AF%86/005%E7%AC%AC%E4%BA%94%E8%AE%B2%20%E6%97%B6%E8%BE%B0%E5%B9%B2%E6%94%AF.md",
+              "localFile": "knowledge-sources/classics/2/5.md"
             },
             {
               "title": "006第六讲 直符直使",
-              "url": "https://github.com/youngzs/xuanxue/blob/main/docs/%E5%A5%87%E9%97%A8%E9%81%81%E7%94%B2%E4%B8%93%E4%B8%9A%E7%9F%A5%E8%AF%86/006%E7%AC%AC%E5%85%AD%E8%AE%B2%20%E7%9B%B4%E7%AC%A6%E7%9B%B4%E4%BD%BF.md"
+              "url": "https://github.com/youngzs/xuanxue/blob/main/docs/%E5%A5%87%E9%97%A8%E9%81%81%E7%94%B2%E4%B8%93%E4%B8%9A%E7%9F%A5%E8%AF%86/006%E7%AC%AC%E5%85%AD%E8%AE%B2%20%E7%9B%B4%E7%AC%A6%E7%9B%B4%E4%BD%BF.md",
+              "localFile": "knowledge-sources/classics/2/6.md"
             },
             {
               "title": "007第七讲 八门、九星、八神含义",
-              "url": "https://github.com/youngzs/xuanxue/blob/main/docs/%E5%A5%87%E9%97%A8%E9%81%81%E7%94%B2%E4%B8%93%E4%B8%9A%E7%9F%A5%E8%AF%86/007%E7%AC%AC%E4%B8%83%E8%AE%B2%20%E5%85%AB%E9%97%A8%E3%80%81%E4%B9%9D%E6%98%9F%E3%80%81%E5%85%AB%E7%A5%9E%E5%90%AB%E4%B9%89.md"
+              "url": "https://github.com/youngzs/xuanxue/blob/main/docs/%E5%A5%87%E9%97%A8%E9%81%81%E7%94%B2%E4%B8%93%E4%B8%9A%E7%9F%A5%E8%AF%86/007%E7%AC%AC%E4%B8%83%E8%AE%B2%20%E5%85%AB%E9%97%A8%E3%80%81%E4%B9%9D%E6%98%9F%E3%80%81%E5%85%AB%E7%A5%9E%E5%90%AB%E4%B9%89.md",
+              "localFile": "knowledge-sources/classics/2/7.md"
             },
             {
               "title": "008第八讲 奇门诸格",
-              "url": "https://github.com/youngzs/xuanxue/blob/main/docs/%E5%A5%87%E9%97%A8%E9%81%81%E7%94%B2%E4%B8%93%E4%B8%9A%E7%9F%A5%E8%AF%86/008%E7%AC%AC%E5%85%AB%E8%AE%B2%20%E5%A5%87%E9%97%A8%E8%AF%B8%E6%A0%BC.md"
+              "url": "https://github.com/youngzs/xuanxue/blob/main/docs/%E5%A5%87%E9%97%A8%E9%81%81%E7%94%B2%E4%B8%93%E4%B8%9A%E7%9F%A5%E8%AF%86/008%E7%AC%AC%E5%85%AB%E8%AE%B2%20%E5%A5%87%E9%97%A8%E8%AF%B8%E6%A0%BC.md",
+              "localFile": "knowledge-sources/classics/2/8.md"
             },
             {
               "title": "009第九讲 奇门吉凶断要",
-              "url": "https://github.com/youngzs/xuanxue/blob/main/docs/%E5%A5%87%E9%97%A8%E9%81%81%E7%94%B2%E4%B8%93%E4%B8%9A%E7%9F%A5%E8%AF%86/009%E7%AC%AC%E4%B9%9D%E8%AE%B2%20%E5%A5%87%E9%97%A8%E5%90%89%E5%87%B6%E6%96%AD%E8%A6%81.md"
+              "url": "https://github.com/youngzs/xuanxue/blob/main/docs/%E5%A5%87%E9%97%A8%E9%81%81%E7%94%B2%E4%B8%93%E4%B8%9A%E7%9F%A5%E8%AF%86/009%E7%AC%AC%E4%B9%9D%E8%AE%B2%20%E5%A5%87%E9%97%A8%E5%90%89%E5%87%B6%E6%96%AD%E8%A6%81.md",
+              "localFile": "knowledge-sources/classics/2/9.md"
             },
             {
               "title": "010第十讲 主客",
-              "url": "https://github.com/youngzs/xuanxue/blob/main/docs/%E5%A5%87%E9%97%A8%E9%81%81%E7%94%B2%E4%B8%93%E4%B8%9A%E7%9F%A5%E8%AF%86/010%E7%AC%AC%E5%8D%81%E8%AE%B2%20%E4%B8%BB%E5%AE%A2.md"
+              "url": "https://github.com/youngzs/xuanxue/blob/main/docs/%E5%A5%87%E9%97%A8%E9%81%81%E7%94%B2%E4%B8%93%E4%B8%9A%E7%9F%A5%E8%AF%86/010%E7%AC%AC%E5%8D%81%E8%AE%B2%20%E4%B8%BB%E5%AE%A2.md",
+              "localFile": "knowledge-sources/classics/2/10.md"
             }
           ]
         },
@@ -562,63 +593,78 @@
           "chapters": [
             {
               "title": "000序",
-              "url": "https://github.com/youngzs/xuanxue/blob/main/docs/%E5%A5%87%E9%97%A8%E9%81%81%E7%94%B2%E5%85%83%E7%81%B5%E7%BB%8F/000%E5%BA%8F.md"
+              "url": "https://github.com/youngzs/xuanxue/blob/main/docs/%E5%A5%87%E9%97%A8%E9%81%81%E7%94%B2%E5%85%83%E7%81%B5%E7%BB%8F/000%E5%BA%8F.md",
+              "localFile": "knowledge-sources/classics/3/0.md"
             },
             {
               "title": "001细目",
-              "url": "https://github.com/youngzs/xuanxue/blob/main/docs/%E5%A5%87%E9%97%A8%E9%81%81%E7%94%B2%E5%85%83%E7%81%B5%E7%BB%8F/001%E7%BB%86%E7%9B%AE.md"
+              "url": "https://github.com/youngzs/xuanxue/blob/main/docs/%E5%A5%87%E9%97%A8%E9%81%81%E7%94%B2%E5%85%83%E7%81%B5%E7%BB%8F/001%E7%BB%86%E7%9B%AE.md",
+              "localFile": "knowledge-sources/classics/3/1.md"
             },
             {
               "title": "002奇门节气八卦图",
-              "url": "https://github.com/youngzs/xuanxue/blob/main/docs/%E5%A5%87%E9%97%A8%E9%81%81%E7%94%B2%E5%85%83%E7%81%B5%E7%BB%8F/002%E5%A5%87%E9%97%A8%E8%8A%82%E6%B0%94%E5%85%AB%E5%8D%A6%E5%9B%BE.md"
+              "url": "https://github.com/youngzs/xuanxue/blob/main/docs/%E5%A5%87%E9%97%A8%E9%81%81%E7%94%B2%E5%85%83%E7%81%B5%E7%BB%8F/002%E5%A5%87%E9%97%A8%E8%8A%82%E6%B0%94%E5%85%AB%E5%8D%A6%E5%9B%BE.md",
+              "localFile": "knowledge-sources/classics/3/2.md"
             },
             {
               "title": "003卷一",
-              "url": "https://github.com/youngzs/xuanxue/blob/main/docs/%E5%A5%87%E9%97%A8%E9%81%81%E7%94%B2%E5%85%83%E7%81%B5%E7%BB%8F/003%E5%8D%B7%E4%B8%80.md"
+              "url": "https://github.com/youngzs/xuanxue/blob/main/docs/%E5%A5%87%E9%97%A8%E9%81%81%E7%94%B2%E5%85%83%E7%81%B5%E7%BB%8F/003%E5%8D%B7%E4%B8%80.md",
+              "localFile": "knowledge-sources/classics/3/3.md"
             },
             {
               "title": "004卷二",
-              "url": "https://github.com/youngzs/xuanxue/blob/main/docs/%E5%A5%87%E9%97%A8%E9%81%81%E7%94%B2%E5%85%83%E7%81%B5%E7%BB%8F/004%E5%8D%B7%E4%BA%8C.md"
+              "url": "https://github.com/youngzs/xuanxue/blob/main/docs/%E5%A5%87%E9%97%A8%E9%81%81%E7%94%B2%E5%85%83%E7%81%B5%E7%BB%8F/004%E5%8D%B7%E4%BA%8C.md",
+              "localFile": "knowledge-sources/classics/3/4.md"
             },
             {
               "title": "005卷三",
-              "url": "https://github.com/youngzs/xuanxue/blob/main/docs/%E5%A5%87%E9%97%A8%E9%81%81%E7%94%B2%E5%85%83%E7%81%B5%E7%BB%8F/005%E5%8D%B7%E4%B8%89.md"
+              "url": "https://github.com/youngzs/xuanxue/blob/main/docs/%E5%A5%87%E9%97%A8%E9%81%81%E7%94%B2%E5%85%83%E7%81%B5%E7%BB%8F/005%E5%8D%B7%E4%B8%89.md",
+              "localFile": "knowledge-sources/classics/3/5.md"
             },
             {
               "title": "006卷四",
-              "url": "https://github.com/youngzs/xuanxue/blob/main/docs/%E5%A5%87%E9%97%A8%E9%81%81%E7%94%B2%E5%85%83%E7%81%B5%E7%BB%8F/006%E5%8D%B7%E5%9B%9B.md"
+              "url": "https://github.com/youngzs/xuanxue/blob/main/docs/%E5%A5%87%E9%97%A8%E9%81%81%E7%94%B2%E5%85%83%E7%81%B5%E7%BB%8F/006%E5%8D%B7%E5%9B%9B.md",
+              "localFile": "knowledge-sources/classics/3/6.md"
             },
             {
               "title": "007卷五",
-              "url": "https://github.com/youngzs/xuanxue/blob/main/docs/%E5%A5%87%E9%97%A8%E9%81%81%E7%94%B2%E5%85%83%E7%81%B5%E7%BB%8F/007%E5%8D%B7%E4%BA%94.md"
+              "url": "https://github.com/youngzs/xuanxue/blob/main/docs/%E5%A5%87%E9%97%A8%E9%81%81%E7%94%B2%E5%85%83%E7%81%B5%E7%BB%8F/007%E5%8D%B7%E4%BA%94.md",
+              "localFile": "knowledge-sources/classics/3/7.md"
             },
             {
               "title": "008卷六",
-              "url": "https://github.com/youngzs/xuanxue/blob/main/docs/%E5%A5%87%E9%97%A8%E9%81%81%E7%94%B2%E5%85%83%E7%81%B5%E7%BB%8F/008%E5%8D%B7%E5%85%AD.md"
+              "url": "https://github.com/youngzs/xuanxue/blob/main/docs/%E5%A5%87%E9%97%A8%E9%81%81%E7%94%B2%E5%85%83%E7%81%B5%E7%BB%8F/008%E5%8D%B7%E5%85%AD.md",
+              "localFile": "knowledge-sources/classics/3/8.md"
             },
             {
               "title": "009卷七",
-              "url": "https://github.com/youngzs/xuanxue/blob/main/docs/%E5%A5%87%E9%97%A8%E9%81%81%E7%94%B2%E5%85%83%E7%81%B5%E7%BB%8F/009%E5%8D%B7%E4%B8%83.md"
+              "url": "https://github.com/youngzs/xuanxue/blob/main/docs/%E5%A5%87%E9%97%A8%E9%81%81%E7%94%B2%E5%85%83%E7%81%B5%E7%BB%8F/009%E5%8D%B7%E4%B8%83.md",
+              "localFile": "knowledge-sources/classics/3/9.md"
             },
             {
               "title": "010卷八",
-              "url": "https://github.com/youngzs/xuanxue/blob/main/docs/%E5%A5%87%E9%97%A8%E9%81%81%E7%94%B2%E5%85%83%E7%81%B5%E7%BB%8F/010%E5%8D%B7%E5%85%AB.md"
+              "url": "https://github.com/youngzs/xuanxue/blob/main/docs/%E5%A5%87%E9%97%A8%E9%81%81%E7%94%B2%E5%85%83%E7%81%B5%E7%BB%8F/010%E5%8D%B7%E5%85%AB.md",
+              "localFile": "knowledge-sources/classics/3/10.md"
             },
             {
               "title": "011卷九",
-              "url": "https://github.com/youngzs/xuanxue/blob/main/docs/%E5%A5%87%E9%97%A8%E9%81%81%E7%94%B2%E5%85%83%E7%81%B5%E7%BB%8F/011%E5%8D%B7%E4%B9%9D.md"
+              "url": "https://github.com/youngzs/xuanxue/blob/main/docs/%E5%A5%87%E9%97%A8%E9%81%81%E7%94%B2%E5%85%83%E7%81%B5%E7%BB%8F/011%E5%8D%B7%E4%B9%9D.md",
+              "localFile": "knowledge-sources/classics/3/11.md"
             },
             {
               "title": "012卷十",
-              "url": "https://github.com/youngzs/xuanxue/blob/main/docs/%E5%A5%87%E9%97%A8%E9%81%81%E7%94%B2%E5%85%83%E7%81%B5%E7%BB%8F/012%E5%8D%B7%E5%8D%81.md"
+              "url": "https://github.com/youngzs/xuanxue/blob/main/docs/%E5%A5%87%E9%97%A8%E9%81%81%E7%94%B2%E5%85%83%E7%81%B5%E7%BB%8F/012%E5%8D%B7%E5%8D%81.md",
+              "localFile": "knowledge-sources/classics/3/12.md"
             },
             {
               "title": "013卷十一",
-              "url": "https://github.com/youngzs/xuanxue/blob/main/docs/%E5%A5%87%E9%97%A8%E9%81%81%E7%94%B2%E5%85%83%E7%81%B5%E7%BB%8F/013%E5%8D%B7%E5%8D%81%E4%B8%80.md"
+              "url": "https://github.com/youngzs/xuanxue/blob/main/docs/%E5%A5%87%E9%97%A8%E9%81%81%E7%94%B2%E5%85%83%E7%81%B5%E7%BB%8F/013%E5%8D%B7%E5%8D%81%E4%B8%80.md",
+              "localFile": "knowledge-sources/classics/3/13.md"
             },
             {
               "title": "014卷十二",
-              "url": "https://github.com/youngzs/xuanxue/blob/main/docs/%E5%A5%87%E9%97%A8%E9%81%81%E7%94%B2%E5%85%83%E7%81%B5%E7%BB%8F/014%E5%8D%B7%E5%8D%81%E4%BA%8C.md"
+              "url": "https://github.com/youngzs/xuanxue/blob/main/docs/%E5%A5%87%E9%97%A8%E9%81%81%E7%94%B2%E5%85%83%E7%81%B5%E7%BB%8F/014%E5%8D%B7%E5%8D%81%E4%BA%8C.md",
+              "localFile": "knowledge-sources/classics/3/14.md"
             }
           ]
         },
@@ -628,11 +674,13 @@
           "chapters": [
             {
               "title": "000卷上",
-              "url": "https://github.com/youngzs/xuanxue/blob/main/docs/%E5%A5%87%E9%97%A8%E9%81%81%E7%94%B2%E5%85%A5%E9%97%A8%E5%9F%BA%E7%A1%80/000%E5%8D%B7%E4%B8%8A.md"
+              "url": "https://github.com/youngzs/xuanxue/blob/main/docs/%E5%A5%87%E9%97%A8%E9%81%81%E7%94%B2%E5%85%A5%E9%97%A8%E5%9F%BA%E7%A1%80/000%E5%8D%B7%E4%B8%8A.md",
+              "localFile": "knowledge-sources/classics/4/0.md"
             },
             {
               "title": "001卷下",
-              "url": "https://github.com/youngzs/xuanxue/blob/main/docs/%E5%A5%87%E9%97%A8%E9%81%81%E7%94%B2%E5%85%A5%E9%97%A8%E5%9F%BA%E7%A1%80/001%E5%8D%B7%E4%B8%8B.md"
+              "url": "https://github.com/youngzs/xuanxue/blob/main/docs/%E5%A5%87%E9%97%A8%E9%81%81%E7%94%B2%E5%85%A5%E9%97%A8%E5%9F%BA%E7%A1%80/001%E5%8D%B7%E4%B8%8B.md",
+              "localFile": "knowledge-sources/classics/4/1.md"
             }
           ]
         },
@@ -642,123 +690,153 @@
           "chapters": [
             {
               "title": "000《奇门遁甲秘笈大全》总序",
-              "url": "https://github.com/youngzs/xuanxue/blob/main/docs/%E5%A5%87%E9%97%A8%E9%81%81%E7%94%B2%E7%A7%98%E7%AC%88%E5%A4%A7%E5%85%A8/000%E3%80%8A%E5%A5%87%E9%97%A8%E9%81%81%E7%94%B2%E7%A7%98%E7%AC%88%E5%A4%A7%E5%85%A8%E3%80%8B%E6%80%BB%E5%BA%8F.md"
+              "url": "https://github.com/youngzs/xuanxue/blob/main/docs/%E5%A5%87%E9%97%A8%E9%81%81%E7%94%B2%E7%A7%98%E7%AC%88%E5%A4%A7%E5%85%A8/000%E3%80%8A%E5%A5%87%E9%97%A8%E9%81%81%E7%94%B2%E7%A7%98%E7%AC%88%E5%A4%A7%E5%85%A8%E3%80%8B%E6%80%BB%E5%BA%8F.md",
+              "localFile": "knowledge-sources/classics/5/0.md"
             },
             {
               "title": "001《奇门遁甲秘笈大全》卷一",
-              "url": "https://github.com/youngzs/xuanxue/blob/main/docs/%E5%A5%87%E9%97%A8%E9%81%81%E7%94%B2%E7%A7%98%E7%AC%88%E5%A4%A7%E5%85%A8/001%E3%80%8A%E5%A5%87%E9%97%A8%E9%81%81%E7%94%B2%E7%A7%98%E7%AC%88%E5%A4%A7%E5%85%A8%E3%80%8B%E5%8D%B7%E4%B8%80.md"
+              "url": "https://github.com/youngzs/xuanxue/blob/main/docs/%E5%A5%87%E9%97%A8%E9%81%81%E7%94%B2%E7%A7%98%E7%AC%88%E5%A4%A7%E5%85%A8/001%E3%80%8A%E5%A5%87%E9%97%A8%E9%81%81%E7%94%B2%E7%A7%98%E7%AC%88%E5%A4%A7%E5%85%A8%E3%80%8B%E5%8D%B7%E4%B8%80.md",
+              "localFile": "knowledge-sources/classics/5/1.md"
             },
             {
               "title": "002《奇门遁甲秘笈大全》卷二",
-              "url": "https://github.com/youngzs/xuanxue/blob/main/docs/%E5%A5%87%E9%97%A8%E9%81%81%E7%94%B2%E7%A7%98%E7%AC%88%E5%A4%A7%E5%85%A8/002%E3%80%8A%E5%A5%87%E9%97%A8%E9%81%81%E7%94%B2%E7%A7%98%E7%AC%88%E5%A4%A7%E5%85%A8%E3%80%8B%E5%8D%B7%E4%BA%8C.md"
+              "url": "https://github.com/youngzs/xuanxue/blob/main/docs/%E5%A5%87%E9%97%A8%E9%81%81%E7%94%B2%E7%A7%98%E7%AC%88%E5%A4%A7%E5%85%A8/002%E3%80%8A%E5%A5%87%E9%97%A8%E9%81%81%E7%94%B2%E7%A7%98%E7%AC%88%E5%A4%A7%E5%85%A8%E3%80%8B%E5%8D%B7%E4%BA%8C.md",
+              "localFile": "knowledge-sources/classics/5/2.md"
             },
             {
               "title": "003《奇门遁甲秘笈大全》卷四",
-              "url": "https://github.com/youngzs/xuanxue/blob/main/docs/%E5%A5%87%E9%97%A8%E9%81%81%E7%94%B2%E7%A7%98%E7%AC%88%E5%A4%A7%E5%85%A8/003%E3%80%8A%E5%A5%87%E9%97%A8%E9%81%81%E7%94%B2%E7%A7%98%E7%AC%88%E5%A4%A7%E5%85%A8%E3%80%8B%E5%8D%B7%E5%9B%9B.md"
+              "url": "https://github.com/youngzs/xuanxue/blob/main/docs/%E5%A5%87%E9%97%A8%E9%81%81%E7%94%B2%E7%A7%98%E7%AC%88%E5%A4%A7%E5%85%A8/003%E3%80%8A%E5%A5%87%E9%97%A8%E9%81%81%E7%94%B2%E7%A7%98%E7%AC%88%E5%A4%A7%E5%85%A8%E3%80%8B%E5%8D%B7%E5%9B%9B.md",
+              "localFile": "knowledge-sources/classics/5/3.md"
             },
             {
               "title": "004《奇门遁甲秘笈大全》卷五",
-              "url": "https://github.com/youngzs/xuanxue/blob/main/docs/%E5%A5%87%E9%97%A8%E9%81%81%E7%94%B2%E7%A7%98%E7%AC%88%E5%A4%A7%E5%85%A8/004%E3%80%8A%E5%A5%87%E9%97%A8%E9%81%81%E7%94%B2%E7%A7%98%E7%AC%88%E5%A4%A7%E5%85%A8%E3%80%8B%E5%8D%B7%E4%BA%94.md"
+              "url": "https://github.com/youngzs/xuanxue/blob/main/docs/%E5%A5%87%E9%97%A8%E9%81%81%E7%94%B2%E7%A7%98%E7%AC%88%E5%A4%A7%E5%85%A8/004%E3%80%8A%E5%A5%87%E9%97%A8%E9%81%81%E7%94%B2%E7%A7%98%E7%AC%88%E5%A4%A7%E5%85%A8%E3%80%8B%E5%8D%B7%E4%BA%94.md",
+              "localFile": "knowledge-sources/classics/5/4.md"
             },
             {
               "title": "005《奇门遁甲秘笈大全》卷六",
-              "url": "https://github.com/youngzs/xuanxue/blob/main/docs/%E5%A5%87%E9%97%A8%E9%81%81%E7%94%B2%E7%A7%98%E7%AC%88%E5%A4%A7%E5%85%A8/005%E3%80%8A%E5%A5%87%E9%97%A8%E9%81%81%E7%94%B2%E7%A7%98%E7%AC%88%E5%A4%A7%E5%85%A8%E3%80%8B%E5%8D%B7%E5%85%AD.md"
+              "url": "https://github.com/youngzs/xuanxue/blob/main/docs/%E5%A5%87%E9%97%A8%E9%81%81%E7%94%B2%E7%A7%98%E7%AC%88%E5%A4%A7%E5%85%A8/005%E3%80%8A%E5%A5%87%E9%97%A8%E9%81%81%E7%94%B2%E7%A7%98%E7%AC%88%E5%A4%A7%E5%85%A8%E3%80%8B%E5%8D%B7%E5%85%AD.md",
+              "localFile": "knowledge-sources/classics/5/5.md"
             },
             {
               "title": "006《奇门遁甲秘笈大全》卷七",
-              "url": "https://github.com/youngzs/xuanxue/blob/main/docs/%E5%A5%87%E9%97%A8%E9%81%81%E7%94%B2%E7%A7%98%E7%AC%88%E5%A4%A7%E5%85%A8/006%E3%80%8A%E5%A5%87%E9%97%A8%E9%81%81%E7%94%B2%E7%A7%98%E7%AC%88%E5%A4%A7%E5%85%A8%E3%80%8B%E5%8D%B7%E4%B8%83.md"
+              "url": "https://github.com/youngzs/xuanxue/blob/main/docs/%E5%A5%87%E9%97%A8%E9%81%81%E7%94%B2%E7%A7%98%E7%AC%88%E5%A4%A7%E5%85%A8/006%E3%80%8A%E5%A5%87%E9%97%A8%E9%81%81%E7%94%B2%E7%A7%98%E7%AC%88%E5%A4%A7%E5%85%A8%E3%80%8B%E5%8D%B7%E4%B8%83.md",
+              "localFile": "knowledge-sources/classics/5/6.md"
             },
             {
               "title": "007《奇门遁甲秘笈大全》卷八",
-              "url": "https://github.com/youngzs/xuanxue/blob/main/docs/%E5%A5%87%E9%97%A8%E9%81%81%E7%94%B2%E7%A7%98%E7%AC%88%E5%A4%A7%E5%85%A8/007%E3%80%8A%E5%A5%87%E9%97%A8%E9%81%81%E7%94%B2%E7%A7%98%E7%AC%88%E5%A4%A7%E5%85%A8%E3%80%8B%E5%8D%B7%E5%85%AB.md"
+              "url": "https://github.com/youngzs/xuanxue/blob/main/docs/%E5%A5%87%E9%97%A8%E9%81%81%E7%94%B2%E7%A7%98%E7%AC%88%E5%A4%A7%E5%85%A8/007%E3%80%8A%E5%A5%87%E9%97%A8%E9%81%81%E7%94%B2%E7%A7%98%E7%AC%88%E5%A4%A7%E5%85%A8%E3%80%8B%E5%8D%B7%E5%85%AB.md",
+              "localFile": "knowledge-sources/classics/5/7.md"
             },
             {
               "title": "008《奇门遁甲秘笈大全》卷九",
-              "url": "https://github.com/youngzs/xuanxue/blob/main/docs/%E5%A5%87%E9%97%A8%E9%81%81%E7%94%B2%E7%A7%98%E7%AC%88%E5%A4%A7%E5%85%A8/008%E3%80%8A%E5%A5%87%E9%97%A8%E9%81%81%E7%94%B2%E7%A7%98%E7%AC%88%E5%A4%A7%E5%85%A8%E3%80%8B%E5%8D%B7%E4%B9%9D.md"
+              "url": "https://github.com/youngzs/xuanxue/blob/main/docs/%E5%A5%87%E9%97%A8%E9%81%81%E7%94%B2%E7%A7%98%E7%AC%88%E5%A4%A7%E5%85%A8/008%E3%80%8A%E5%A5%87%E9%97%A8%E9%81%81%E7%94%B2%E7%A7%98%E7%AC%88%E5%A4%A7%E5%85%A8%E3%80%8B%E5%8D%B7%E4%B9%9D.md",
+              "localFile": "knowledge-sources/classics/5/8.md"
             },
             {
               "title": "009《奇门遁甲秘笈大全》卷十",
-              "url": "https://github.com/youngzs/xuanxue/blob/main/docs/%E5%A5%87%E9%97%A8%E9%81%81%E7%94%B2%E7%A7%98%E7%AC%88%E5%A4%A7%E5%85%A8/009%E3%80%8A%E5%A5%87%E9%97%A8%E9%81%81%E7%94%B2%E7%A7%98%E7%AC%88%E5%A4%A7%E5%85%A8%E3%80%8B%E5%8D%B7%E5%8D%81.md"
+              "url": "https://github.com/youngzs/xuanxue/blob/main/docs/%E5%A5%87%E9%97%A8%E9%81%81%E7%94%B2%E7%A7%98%E7%AC%88%E5%A4%A7%E5%85%A8/009%E3%80%8A%E5%A5%87%E9%97%A8%E9%81%81%E7%94%B2%E7%A7%98%E7%AC%88%E5%A4%A7%E5%85%A8%E3%80%8B%E5%8D%B7%E5%8D%81.md",
+              "localFile": "knowledge-sources/classics/5/9.md"
             },
             {
               "title": "010《奇门遁甲秘笈大全》卷十一",
-              "url": "https://github.com/youngzs/xuanxue/blob/main/docs/%E5%A5%87%E9%97%A8%E9%81%81%E7%94%B2%E7%A7%98%E7%AC%88%E5%A4%A7%E5%85%A8/010%E3%80%8A%E5%A5%87%E9%97%A8%E9%81%81%E7%94%B2%E7%A7%98%E7%AC%88%E5%A4%A7%E5%85%A8%E3%80%8B%E5%8D%B7%E5%8D%81%E4%B8%80.md"
+              "url": "https://github.com/youngzs/xuanxue/blob/main/docs/%E5%A5%87%E9%97%A8%E9%81%81%E7%94%B2%E7%A7%98%E7%AC%88%E5%A4%A7%E5%85%A8/010%E3%80%8A%E5%A5%87%E9%97%A8%E9%81%81%E7%94%B2%E7%A7%98%E7%AC%88%E5%A4%A7%E5%85%A8%E3%80%8B%E5%8D%B7%E5%8D%81%E4%B8%80.md",
+              "localFile": "knowledge-sources/classics/5/10.md"
             },
             {
               "title": "011《奇门遁甲秘笈大全》卷十二",
-              "url": "https://github.com/youngzs/xuanxue/blob/main/docs/%E5%A5%87%E9%97%A8%E9%81%81%E7%94%B2%E7%A7%98%E7%AC%88%E5%A4%A7%E5%85%A8/011%E3%80%8A%E5%A5%87%E9%97%A8%E9%81%81%E7%94%B2%E7%A7%98%E7%AC%88%E5%A4%A7%E5%85%A8%E3%80%8B%E5%8D%B7%E5%8D%81%E4%BA%8C.md"
+              "url": "https://github.com/youngzs/xuanxue/blob/main/docs/%E5%A5%87%E9%97%A8%E9%81%81%E7%94%B2%E7%A7%98%E7%AC%88%E5%A4%A7%E5%85%A8/011%E3%80%8A%E5%A5%87%E9%97%A8%E9%81%81%E7%94%B2%E7%A7%98%E7%AC%88%E5%A4%A7%E5%85%A8%E3%80%8B%E5%8D%B7%E5%8D%81%E4%BA%8C.md",
+              "localFile": "knowledge-sources/classics/5/11.md"
             },
             {
               "title": "012《奇门遁甲秘笈大全》卷十三",
-              "url": "https://github.com/youngzs/xuanxue/blob/main/docs/%E5%A5%87%E9%97%A8%E9%81%81%E7%94%B2%E7%A7%98%E7%AC%88%E5%A4%A7%E5%85%A8/012%E3%80%8A%E5%A5%87%E9%97%A8%E9%81%81%E7%94%B2%E7%A7%98%E7%AC%88%E5%A4%A7%E5%85%A8%E3%80%8B%E5%8D%B7%E5%8D%81%E4%B8%89.md"
+              "url": "https://github.com/youngzs/xuanxue/blob/main/docs/%E5%A5%87%E9%97%A8%E9%81%81%E7%94%B2%E7%A7%98%E7%AC%88%E5%A4%A7%E5%85%A8/012%E3%80%8A%E5%A5%87%E9%97%A8%E9%81%81%E7%94%B2%E7%A7%98%E7%AC%88%E5%A4%A7%E5%85%A8%E3%80%8B%E5%8D%B7%E5%8D%81%E4%B8%89.md",
+              "localFile": "knowledge-sources/classics/5/12.md"
             },
             {
               "title": "013《奇门遁甲秘笈大全》卷十四",
-              "url": "https://github.com/youngzs/xuanxue/blob/main/docs/%E5%A5%87%E9%97%A8%E9%81%81%E7%94%B2%E7%A7%98%E7%AC%88%E5%A4%A7%E5%85%A8/013%E3%80%8A%E5%A5%87%E9%97%A8%E9%81%81%E7%94%B2%E7%A7%98%E7%AC%88%E5%A4%A7%E5%85%A8%E3%80%8B%E5%8D%B7%E5%8D%81%E5%9B%9B.md"
+              "url": "https://github.com/youngzs/xuanxue/blob/main/docs/%E5%A5%87%E9%97%A8%E9%81%81%E7%94%B2%E7%A7%98%E7%AC%88%E5%A4%A7%E5%85%A8/013%E3%80%8A%E5%A5%87%E9%97%A8%E9%81%81%E7%94%B2%E7%A7%98%E7%AC%88%E5%A4%A7%E5%85%A8%E3%80%8B%E5%8D%B7%E5%8D%81%E5%9B%9B.md",
+              "localFile": "knowledge-sources/classics/5/13.md"
             },
             {
               "title": "014《奇门遁甲秘笈大全》卷十五",
-              "url": "https://github.com/youngzs/xuanxue/blob/main/docs/%E5%A5%87%E9%97%A8%E9%81%81%E7%94%B2%E7%A7%98%E7%AC%88%E5%A4%A7%E5%85%A8/014%E3%80%8A%E5%A5%87%E9%97%A8%E9%81%81%E7%94%B2%E7%A7%98%E7%AC%88%E5%A4%A7%E5%85%A8%E3%80%8B%E5%8D%B7%E5%8D%81%E4%BA%94.md"
+              "url": "https://github.com/youngzs/xuanxue/blob/main/docs/%E5%A5%87%E9%97%A8%E9%81%81%E7%94%B2%E7%A7%98%E7%AC%88%E5%A4%A7%E5%85%A8/014%E3%80%8A%E5%A5%87%E9%97%A8%E9%81%81%E7%94%B2%E7%A7%98%E7%AC%88%E5%A4%A7%E5%85%A8%E3%80%8B%E5%8D%B7%E5%8D%81%E4%BA%94.md",
+              "localFile": "knowledge-sources/classics/5/14.md"
             },
             {
               "title": "015《奇门遁甲秘笈大全》卷十六",
-              "url": "https://github.com/youngzs/xuanxue/blob/main/docs/%E5%A5%87%E9%97%A8%E9%81%81%E7%94%B2%E7%A7%98%E7%AC%88%E5%A4%A7%E5%85%A8/015%E3%80%8A%E5%A5%87%E9%97%A8%E9%81%81%E7%94%B2%E7%A7%98%E7%AC%88%E5%A4%A7%E5%85%A8%E3%80%8B%E5%8D%B7%E5%8D%81%E5%85%AD.md"
+              "url": "https://github.com/youngzs/xuanxue/blob/main/docs/%E5%A5%87%E9%97%A8%E9%81%81%E7%94%B2%E7%A7%98%E7%AC%88%E5%A4%A7%E5%85%A8/015%E3%80%8A%E5%A5%87%E9%97%A8%E9%81%81%E7%94%B2%E7%A7%98%E7%AC%88%E5%A4%A7%E5%85%A8%E3%80%8B%E5%8D%B7%E5%8D%81%E5%85%AD.md",
+              "localFile": "knowledge-sources/classics/5/15.md"
             },
             {
               "title": "016《奇门遁甲秘笈大全》卷十七",
-              "url": "https://github.com/youngzs/xuanxue/blob/main/docs/%E5%A5%87%E9%97%A8%E9%81%81%E7%94%B2%E7%A7%98%E7%AC%88%E5%A4%A7%E5%85%A8/016%E3%80%8A%E5%A5%87%E9%97%A8%E9%81%81%E7%94%B2%E7%A7%98%E7%AC%88%E5%A4%A7%E5%85%A8%E3%80%8B%E5%8D%B7%E5%8D%81%E4%B8%83.md"
+              "url": "https://github.com/youngzs/xuanxue/blob/main/docs/%E5%A5%87%E9%97%A8%E9%81%81%E7%94%B2%E7%A7%98%E7%AC%88%E5%A4%A7%E5%85%A8/016%E3%80%8A%E5%A5%87%E9%97%A8%E9%81%81%E7%94%B2%E7%A7%98%E7%AC%88%E5%A4%A7%E5%85%A8%E3%80%8B%E5%8D%B7%E5%8D%81%E4%B8%83.md",
+              "localFile": "knowledge-sources/classics/5/16.md"
             },
             {
               "title": "017《奇门遁甲秘笈大全》卷十八",
-              "url": "https://github.com/youngzs/xuanxue/blob/main/docs/%E5%A5%87%E9%97%A8%E9%81%81%E7%94%B2%E7%A7%98%E7%AC%88%E5%A4%A7%E5%85%A8/017%E3%80%8A%E5%A5%87%E9%97%A8%E9%81%81%E7%94%B2%E7%A7%98%E7%AC%88%E5%A4%A7%E5%85%A8%E3%80%8B%E5%8D%B7%E5%8D%81%E5%85%AB.md"
+              "url": "https://github.com/youngzs/xuanxue/blob/main/docs/%E5%A5%87%E9%97%A8%E9%81%81%E7%94%B2%E7%A7%98%E7%AC%88%E5%A4%A7%E5%85%A8/017%E3%80%8A%E5%A5%87%E9%97%A8%E9%81%81%E7%94%B2%E7%A7%98%E7%AC%88%E5%A4%A7%E5%85%A8%E3%80%8B%E5%8D%B7%E5%8D%81%E5%85%AB.md",
+              "localFile": "knowledge-sources/classics/5/17.md"
             },
             {
               "title": "018《奇门遁甲秘笈大全》卷十九",
-              "url": "https://github.com/youngzs/xuanxue/blob/main/docs/%E5%A5%87%E9%97%A8%E9%81%81%E7%94%B2%E7%A7%98%E7%AC%88%E5%A4%A7%E5%85%A8/018%E3%80%8A%E5%A5%87%E9%97%A8%E9%81%81%E7%94%B2%E7%A7%98%E7%AC%88%E5%A4%A7%E5%85%A8%E3%80%8B%E5%8D%B7%E5%8D%81%E4%B9%9D.md"
+              "url": "https://github.com/youngzs/xuanxue/blob/main/docs/%E5%A5%87%E9%97%A8%E9%81%81%E7%94%B2%E7%A7%98%E7%AC%88%E5%A4%A7%E5%85%A8/018%E3%80%8A%E5%A5%87%E9%97%A8%E9%81%81%E7%94%B2%E7%A7%98%E7%AC%88%E5%A4%A7%E5%85%A8%E3%80%8B%E5%8D%B7%E5%8D%81%E4%B9%9D.md",
+              "localFile": "knowledge-sources/classics/5/18.md"
             },
             {
               "title": "019《奇门遁甲秘笈大全》卷二十",
-              "url": "https://github.com/youngzs/xuanxue/blob/main/docs/%E5%A5%87%E9%97%A8%E9%81%81%E7%94%B2%E7%A7%98%E7%AC%88%E5%A4%A7%E5%85%A8/019%E3%80%8A%E5%A5%87%E9%97%A8%E9%81%81%E7%94%B2%E7%A7%98%E7%AC%88%E5%A4%A7%E5%85%A8%E3%80%8B%E5%8D%B7%E4%BA%8C%E5%8D%81.md"
+              "url": "https://github.com/youngzs/xuanxue/blob/main/docs/%E5%A5%87%E9%97%A8%E9%81%81%E7%94%B2%E7%A7%98%E7%AC%88%E5%A4%A7%E5%85%A8/019%E3%80%8A%E5%A5%87%E9%97%A8%E9%81%81%E7%94%B2%E7%A7%98%E7%AC%88%E5%A4%A7%E5%85%A8%E3%80%8B%E5%8D%B7%E4%BA%8C%E5%8D%81.md",
+              "localFile": "knowledge-sources/classics/5/19.md"
             },
             {
               "title": "020《奇门遁甲秘笈大全》卷二十一",
-              "url": "https://github.com/youngzs/xuanxue/blob/main/docs/%E5%A5%87%E9%97%A8%E9%81%81%E7%94%B2%E7%A7%98%E7%AC%88%E5%A4%A7%E5%85%A8/020%E3%80%8A%E5%A5%87%E9%97%A8%E9%81%81%E7%94%B2%E7%A7%98%E7%AC%88%E5%A4%A7%E5%85%A8%E3%80%8B%E5%8D%B7%E4%BA%8C%E5%8D%81%E4%B8%80.md"
+              "url": "https://github.com/youngzs/xuanxue/blob/main/docs/%E5%A5%87%E9%97%A8%E9%81%81%E7%94%B2%E7%A7%98%E7%AC%88%E5%A4%A7%E5%85%A8/020%E3%80%8A%E5%A5%87%E9%97%A8%E9%81%81%E7%94%B2%E7%A7%98%E7%AC%88%E5%A4%A7%E5%85%A8%E3%80%8B%E5%8D%B7%E4%BA%8C%E5%8D%81%E4%B8%80.md",
+              "localFile": "knowledge-sources/classics/5/20.md"
             },
             {
               "title": "021《奇门遁甲秘笈大全》卷二十二",
-              "url": "https://github.com/youngzs/xuanxue/blob/main/docs/%E5%A5%87%E9%97%A8%E9%81%81%E7%94%B2%E7%A7%98%E7%AC%88%E5%A4%A7%E5%85%A8/021%E3%80%8A%E5%A5%87%E9%97%A8%E9%81%81%E7%94%B2%E7%A7%98%E7%AC%88%E5%A4%A7%E5%85%A8%E3%80%8B%E5%8D%B7%E4%BA%8C%E5%8D%81%E4%BA%8C.md"
+              "url": "https://github.com/youngzs/xuanxue/blob/main/docs/%E5%A5%87%E9%97%A8%E9%81%81%E7%94%B2%E7%A7%98%E7%AC%88%E5%A4%A7%E5%85%A8/021%E3%80%8A%E5%A5%87%E9%97%A8%E9%81%81%E7%94%B2%E7%A7%98%E7%AC%88%E5%A4%A7%E5%85%A8%E3%80%8B%E5%8D%B7%E4%BA%8C%E5%8D%81%E4%BA%8C.md",
+              "localFile": "knowledge-sources/classics/5/21.md"
             },
             {
               "title": "022《奇门遁甲秘笈大全》卷二十三",
-              "url": "https://github.com/youngzs/xuanxue/blob/main/docs/%E5%A5%87%E9%97%A8%E9%81%81%E7%94%B2%E7%A7%98%E7%AC%88%E5%A4%A7%E5%85%A8/022%E3%80%8A%E5%A5%87%E9%97%A8%E9%81%81%E7%94%B2%E7%A7%98%E7%AC%88%E5%A4%A7%E5%85%A8%E3%80%8B%E5%8D%B7%E4%BA%8C%E5%8D%81%E4%B8%89.md"
+              "url": "https://github.com/youngzs/xuanxue/blob/main/docs/%E5%A5%87%E9%97%A8%E9%81%81%E7%94%B2%E7%A7%98%E7%AC%88%E5%A4%A7%E5%85%A8/022%E3%80%8A%E5%A5%87%E9%97%A8%E9%81%81%E7%94%B2%E7%A7%98%E7%AC%88%E5%A4%A7%E5%85%A8%E3%80%8B%E5%8D%B7%E4%BA%8C%E5%8D%81%E4%B8%89.md",
+              "localFile": "knowledge-sources/classics/5/22.md"
             },
             {
               "title": "023《奇门遁甲秘笈大全》卷二十四",
-              "url": "https://github.com/youngzs/xuanxue/blob/main/docs/%E5%A5%87%E9%97%A8%E9%81%81%E7%94%B2%E7%A7%98%E7%AC%88%E5%A4%A7%E5%85%A8/023%E3%80%8A%E5%A5%87%E9%97%A8%E9%81%81%E7%94%B2%E7%A7%98%E7%AC%88%E5%A4%A7%E5%85%A8%E3%80%8B%E5%8D%B7%E4%BA%8C%E5%8D%81%E5%9B%9B.md"
+              "url": "https://github.com/youngzs/xuanxue/blob/main/docs/%E5%A5%87%E9%97%A8%E9%81%81%E7%94%B2%E7%A7%98%E7%AC%88%E5%A4%A7%E5%85%A8/023%E3%80%8A%E5%A5%87%E9%97%A8%E9%81%81%E7%94%B2%E7%A7%98%E7%AC%88%E5%A4%A7%E5%85%A8%E3%80%8B%E5%8D%B7%E4%BA%8C%E5%8D%81%E5%9B%9B.md",
+              "localFile": "knowledge-sources/classics/5/23.md"
             },
             {
               "title": "024《奇门遁甲秘笈大全》卷二十五",
-              "url": "https://github.com/youngzs/xuanxue/blob/main/docs/%E5%A5%87%E9%97%A8%E9%81%81%E7%94%B2%E7%A7%98%E7%AC%88%E5%A4%A7%E5%85%A8/024%E3%80%8A%E5%A5%87%E9%97%A8%E9%81%81%E7%94%B2%E7%A7%98%E7%AC%88%E5%A4%A7%E5%85%A8%E3%80%8B%E5%8D%B7%E4%BA%8C%E5%8D%81%E4%BA%94.md"
+              "url": "https://github.com/youngzs/xuanxue/blob/main/docs/%E5%A5%87%E9%97%A8%E9%81%81%E7%94%B2%E7%A7%98%E7%AC%88%E5%A4%A7%E5%85%A8/024%E3%80%8A%E5%A5%87%E9%97%A8%E9%81%81%E7%94%B2%E7%A7%98%E7%AC%88%E5%A4%A7%E5%85%A8%E3%80%8B%E5%8D%B7%E4%BA%8C%E5%8D%81%E4%BA%94.md",
+              "localFile": "knowledge-sources/classics/5/24.md"
             },
             {
               "title": "025《奇门遁甲秘笈大全》卷二十六",
-              "url": "https://github.com/youngzs/xuanxue/blob/main/docs/%E5%A5%87%E9%97%A8%E9%81%81%E7%94%B2%E7%A7%98%E7%AC%88%E5%A4%A7%E5%85%A8/025%E3%80%8A%E5%A5%87%E9%97%A8%E9%81%81%E7%94%B2%E7%A7%98%E7%AC%88%E5%A4%A7%E5%85%A8%E3%80%8B%E5%8D%B7%E4%BA%8C%E5%8D%81%E5%85%AD.md"
+              "url": "https://github.com/youngzs/xuanxue/blob/main/docs/%E5%A5%87%E9%97%A8%E9%81%81%E7%94%B2%E7%A7%98%E7%AC%88%E5%A4%A7%E5%85%A8/025%E3%80%8A%E5%A5%87%E9%97%A8%E9%81%81%E7%94%B2%E7%A7%98%E7%AC%88%E5%A4%A7%E5%85%A8%E3%80%8B%E5%8D%B7%E4%BA%8C%E5%8D%81%E5%85%AD.md",
+              "localFile": "knowledge-sources/classics/5/25.md"
             },
             {
               "title": "026《奇门遁甲秘笈大全》卷二十七",
-              "url": "https://github.com/youngzs/xuanxue/blob/main/docs/%E5%A5%87%E9%97%A8%E9%81%81%E7%94%B2%E7%A7%98%E7%AC%88%E5%A4%A7%E5%85%A8/026%E3%80%8A%E5%A5%87%E9%97%A8%E9%81%81%E7%94%B2%E7%A7%98%E7%AC%88%E5%A4%A7%E5%85%A8%E3%80%8B%E5%8D%B7%E4%BA%8C%E5%8D%81%E4%B8%83.md"
+              "url": "https://github.com/youngzs/xuanxue/blob/main/docs/%E5%A5%87%E9%97%A8%E9%81%81%E7%94%B2%E7%A7%98%E7%AC%88%E5%A4%A7%E5%85%A8/026%E3%80%8A%E5%A5%87%E9%97%A8%E9%81%81%E7%94%B2%E7%A7%98%E7%AC%88%E5%A4%A7%E5%85%A8%E3%80%8B%E5%8D%B7%E4%BA%8C%E5%8D%81%E4%B8%83.md",
+              "localFile": "knowledge-sources/classics/5/26.md"
             },
             {
               "title": "027《奇门遁甲秘笈大全》卷二十八",
-              "url": "https://github.com/youngzs/xuanxue/blob/main/docs/%E5%A5%87%E9%97%A8%E9%81%81%E7%94%B2%E7%A7%98%E7%AC%88%E5%A4%A7%E5%85%A8/027%E3%80%8A%E5%A5%87%E9%97%A8%E9%81%81%E7%94%B2%E7%A7%98%E7%AC%88%E5%A4%A7%E5%85%A8%E3%80%8B%E5%8D%B7%E4%BA%8C%E5%8D%81%E5%85%AB.md"
+              "url": "https://github.com/youngzs/xuanxue/blob/main/docs/%E5%A5%87%E9%97%A8%E9%81%81%E7%94%B2%E7%A7%98%E7%AC%88%E5%A4%A7%E5%85%A8/027%E3%80%8A%E5%A5%87%E9%97%A8%E9%81%81%E7%94%B2%E7%A7%98%E7%AC%88%E5%A4%A7%E5%85%A8%E3%80%8B%E5%8D%B7%E4%BA%8C%E5%8D%81%E5%85%AB.md",
+              "localFile": "knowledge-sources/classics/5/27.md"
             },
             {
               "title": "028《奇门遁甲秘笈大全》卷二十九",
-              "url": "https://github.com/youngzs/xuanxue/blob/main/docs/%E5%A5%87%E9%97%A8%E9%81%81%E7%94%B2%E7%A7%98%E7%AC%88%E5%A4%A7%E5%85%A8/028%E3%80%8A%E5%A5%87%E9%97%A8%E9%81%81%E7%94%B2%E7%A7%98%E7%AC%88%E5%A4%A7%E5%85%A8%E3%80%8B%E5%8D%B7%E4%BA%8C%E5%8D%81%E4%B9%9D.md"
+              "url": "https://github.com/youngzs/xuanxue/blob/main/docs/%E5%A5%87%E9%97%A8%E9%81%81%E7%94%B2%E7%A7%98%E7%AC%88%E5%A4%A7%E5%85%A8/028%E3%80%8A%E5%A5%87%E9%97%A8%E9%81%81%E7%94%B2%E7%A7%98%E7%AC%88%E5%A4%A7%E5%85%A8%E3%80%8B%E5%8D%B7%E4%BA%8C%E5%8D%81%E4%B9%9D.md",
+              "localFile": "knowledge-sources/classics/5/28.md"
             },
             {
               "title": "029《奇门遁甲秘笈大全》卷三十",
-              "url": "https://github.com/youngzs/xuanxue/blob/main/docs/%E5%A5%87%E9%97%A8%E9%81%81%E7%94%B2%E7%A7%98%E7%AC%88%E5%A4%A7%E5%85%A8/029%E3%80%8A%E5%A5%87%E9%97%A8%E9%81%81%E7%94%B2%E7%A7%98%E7%AC%88%E5%A4%A7%E5%85%A8%E3%80%8B%E5%8D%B7%E4%B8%89%E5%8D%81.md"
+              "url": "https://github.com/youngzs/xuanxue/blob/main/docs/%E5%A5%87%E9%97%A8%E9%81%81%E7%94%B2%E7%A7%98%E7%AC%88%E5%A4%A7%E5%85%A8/029%E3%80%8A%E5%A5%87%E9%97%A8%E9%81%81%E7%94%B2%E7%A7%98%E7%AC%88%E5%A4%A7%E5%85%A8%E3%80%8B%E5%8D%B7%E4%B8%89%E5%8D%81.md",
+              "localFile": "knowledge-sources/classics/5/29.md"
             }
           ]
         },
@@ -768,47 +846,58 @@
           "chapters": [
             {
               "title": "000序",
-              "url": "https://github.com/youngzs/xuanxue/blob/main/docs/%E5%A5%87%E9%97%A8%E9%81%81%E7%94%B2%E7%BB%9F%E5%AE%97%E5%A4%A7%E5%85%A8/000%E5%BA%8F.md"
+              "url": "https://github.com/youngzs/xuanxue/blob/main/docs/%E5%A5%87%E9%97%A8%E9%81%81%E7%94%B2%E7%BB%9F%E5%AE%97%E5%A4%A7%E5%85%A8/000%E5%BA%8F.md",
+              "localFile": "knowledge-sources/classics/6/0.md"
             },
             {
               "title": "001奇门遁甲统宗源流",
-              "url": "https://github.com/youngzs/xuanxue/blob/main/docs/%E5%A5%87%E9%97%A8%E9%81%81%E7%94%B2%E7%BB%9F%E5%AE%97%E5%A4%A7%E5%85%A8/001%E5%A5%87%E9%97%A8%E9%81%81%E7%94%B2%E7%BB%9F%E5%AE%97%E6%BA%90%E6%B5%81.md"
+              "url": "https://github.com/youngzs/xuanxue/blob/main/docs/%E5%A5%87%E9%97%A8%E9%81%81%E7%94%B2%E7%BB%9F%E5%AE%97%E5%A4%A7%E5%85%A8/001%E5%A5%87%E9%97%A8%E9%81%81%E7%94%B2%E7%BB%9F%E5%AE%97%E6%BA%90%E6%B5%81.md",
+              "localFile": "knowledge-sources/classics/6/1.md"
             },
             {
               "title": "002凡例",
-              "url": "https://github.com/youngzs/xuanxue/blob/main/docs/%E5%A5%87%E9%97%A8%E9%81%81%E7%94%B2%E7%BB%9F%E5%AE%97%E5%A4%A7%E5%85%A8/002%E5%87%A1%E4%BE%8B.md"
+              "url": "https://github.com/youngzs/xuanxue/blob/main/docs/%E5%A5%87%E9%97%A8%E9%81%81%E7%94%B2%E7%BB%9F%E5%AE%97%E5%A4%A7%E5%85%A8/002%E5%87%A1%E4%BE%8B.md",
+              "localFile": "knowledge-sources/classics/6/2.md"
             },
             {
               "title": "003卷之一",
-              "url": "https://github.com/youngzs/xuanxue/blob/main/docs/%E5%A5%87%E9%97%A8%E9%81%81%E7%94%B2%E7%BB%9F%E5%AE%97%E5%A4%A7%E5%85%A8/003%E5%8D%B7%E4%B9%8B%E4%B8%80.md"
+              "url": "https://github.com/youngzs/xuanxue/blob/main/docs/%E5%A5%87%E9%97%A8%E9%81%81%E7%94%B2%E7%BB%9F%E5%AE%97%E5%A4%A7%E5%85%A8/003%E5%8D%B7%E4%B9%8B%E4%B8%80.md",
+              "localFile": "knowledge-sources/classics/6/3.md"
             },
             {
               "title": "004卷之二",
-              "url": "https://github.com/youngzs/xuanxue/blob/main/docs/%E5%A5%87%E9%97%A8%E9%81%81%E7%94%B2%E7%BB%9F%E5%AE%97%E5%A4%A7%E5%85%A8/004%E5%8D%B7%E4%B9%8B%E4%BA%8C.md"
+              "url": "https://github.com/youngzs/xuanxue/blob/main/docs/%E5%A5%87%E9%97%A8%E9%81%81%E7%94%B2%E7%BB%9F%E5%AE%97%E5%A4%A7%E5%85%A8/004%E5%8D%B7%E4%B9%8B%E4%BA%8C.md",
+              "localFile": "knowledge-sources/classics/6/4.md"
             },
             {
               "title": "005卷之三",
-              "url": "https://github.com/youngzs/xuanxue/blob/main/docs/%E5%A5%87%E9%97%A8%E9%81%81%E7%94%B2%E7%BB%9F%E5%AE%97%E5%A4%A7%E5%85%A8/005%E5%8D%B7%E4%B9%8B%E4%B8%89.md"
+              "url": "https://github.com/youngzs/xuanxue/blob/main/docs/%E5%A5%87%E9%97%A8%E9%81%81%E7%94%B2%E7%BB%9F%E5%AE%97%E5%A4%A7%E5%85%A8/005%E5%8D%B7%E4%B9%8B%E4%B8%89.md",
+              "localFile": "knowledge-sources/classics/6/5.md"
             },
             {
               "title": "006卷之四～九（缺）",
-              "url": "https://github.com/youngzs/xuanxue/blob/main/docs/%E5%A5%87%E9%97%A8%E9%81%81%E7%94%B2%E7%BB%9F%E5%AE%97%E5%A4%A7%E5%85%A8/006%E5%8D%B7%E4%B9%8B%E5%9B%9B%EF%BD%9E%E4%B9%9D%EF%BC%88%E7%BC%BA%EF%BC%89.md"
+              "url": "https://github.com/youngzs/xuanxue/blob/main/docs/%E5%A5%87%E9%97%A8%E9%81%81%E7%94%B2%E7%BB%9F%E5%AE%97%E5%A4%A7%E5%85%A8/006%E5%8D%B7%E4%B9%8B%E5%9B%9B%EF%BD%9E%E4%B9%9D%EF%BC%88%E7%BC%BA%EF%BC%89.md",
+              "localFile": "knowledge-sources/classics/6/6.md"
             },
             {
               "title": "007卷之十 玄机赋（上）",
-              "url": "https://github.com/youngzs/xuanxue/blob/main/docs/%E5%A5%87%E9%97%A8%E9%81%81%E7%94%B2%E7%BB%9F%E5%AE%97%E5%A4%A7%E5%85%A8/007%E5%8D%B7%E4%B9%8B%E5%8D%81%20%E7%8E%84%E6%9C%BA%E8%B5%8B%EF%BC%88%E4%B8%8A%EF%BC%89.md"
+              "url": "https://github.com/youngzs/xuanxue/blob/main/docs/%E5%A5%87%E9%97%A8%E9%81%81%E7%94%B2%E7%BB%9F%E5%AE%97%E5%A4%A7%E5%85%A8/007%E5%8D%B7%E4%B9%8B%E5%8D%81%20%E7%8E%84%E6%9C%BA%E8%B5%8B%EF%BC%88%E4%B8%8A%EF%BC%89.md",
+              "localFile": "knowledge-sources/classics/6/7.md"
             },
             {
               "title": "008卷之十一 玄机赋（中）",
-              "url": "https://github.com/youngzs/xuanxue/blob/main/docs/%E5%A5%87%E9%97%A8%E9%81%81%E7%94%B2%E7%BB%9F%E5%AE%97%E5%A4%A7%E5%85%A8/008%E5%8D%B7%E4%B9%8B%E5%8D%81%E4%B8%80%20%E7%8E%84%E6%9C%BA%E8%B5%8B%EF%BC%88%E4%B8%AD%EF%BC%89.md"
+              "url": "https://github.com/youngzs/xuanxue/blob/main/docs/%E5%A5%87%E9%97%A8%E9%81%81%E7%94%B2%E7%BB%9F%E5%AE%97%E5%A4%A7%E5%85%A8/008%E5%8D%B7%E4%B9%8B%E5%8D%81%E4%B8%80%20%E7%8E%84%E6%9C%BA%E8%B5%8B%EF%BC%88%E4%B8%AD%EF%BC%89.md",
+              "localFile": "knowledge-sources/classics/6/8.md"
             },
             {
               "title": "009卷之十二 玄机赋（下）",
-              "url": "https://github.com/youngzs/xuanxue/blob/main/docs/%E5%A5%87%E9%97%A8%E9%81%81%E7%94%B2%E7%BB%9F%E5%AE%97%E5%A4%A7%E5%85%A8/009%E5%8D%B7%E4%B9%8B%E5%8D%81%E4%BA%8C%20%E7%8E%84%E6%9C%BA%E8%B5%8B%EF%BC%88%E4%B8%8B%EF%BC%89.md"
+              "url": "https://github.com/youngzs/xuanxue/blob/main/docs/%E5%A5%87%E9%97%A8%E9%81%81%E7%94%B2%E7%BB%9F%E5%AE%97%E5%A4%A7%E5%85%A8/009%E5%8D%B7%E4%B9%8B%E5%8D%81%E4%BA%8C%20%E7%8E%84%E6%9C%BA%E8%B5%8B%EF%BC%88%E4%B8%8B%EF%BC%89.md",
+              "localFile": "knowledge-sources/classics/6/9.md"
             }
           ]
         }
-      ]
+      ],
+      "localDirectory": "knowledge-sources/classics"
     }
   ]
 }
