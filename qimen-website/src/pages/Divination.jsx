@@ -375,11 +375,6 @@ const handleUseCurrentTime = useCallback(() => {
     setSolarDate(formatSolarDate(now))
     setShiChenIndex(getShiChenIndex(now))
     const questionText = question.trim()
-    const quality = assessQuestionQuality(questionText)
-    if (questionText && quality.score < 3) {
-      const shouldContinue = window.confirm(`${buildQuestionRewriteHint(questionText)}\n\n仍然继续按当前时间排盘吗？低质量问题会让复盘样本失真。`)
-      if (!shouldContinue) return
-    }
     onSubmit(now, { method, qijuMethod, purpose, question: questionText, birthYear: birthYear.trim() })
   }, [method, qijuMethod, purpose, question, birthYear, onSubmit])
 
@@ -414,11 +409,6 @@ const handleUseCurrentTime = useCallback(() => {
     }
 
     const questionText = question.trim()
-    const quality = assessQuestionQuality(questionText)
-    if (questionText && quality.score < 3) {
-      const shouldContinue = window.confirm(`${buildQuestionRewriteHint(questionText)}\n\n仍然继续排盘吗？低质量问题会让复盘样本失真。`)
-      if (!shouldContinue) return
-    }
 
     onSubmit(date, { method, qijuMethod, purpose, question: questionText, birthYear: birthYear.trim() })
   }, [calendarType, solarDate, shiChenIndex, lunarYear, lunarMonth, lunarDay, isLeapMonth, qijuMethod, method, purpose, question, birthYear, onSubmit])
