@@ -13,17 +13,17 @@ const [bookCatalog, classicsCatalog] = externalCatalog.sources
 const sourceItems = [
   ...bookCatalog.chapters.map((chapter) => ({
     id: `book-${chapter.id}`, title: chapter.title, category: bookCatalog.name,
-    desc: '原始资料章节 · 在线读取 · 尚未逐条校对',
+    desc: '原始资料章节 · 本站收录 · 尚未逐条校对',
     focus: '外部资料 · 时家转盘', sourceUrl: chapter.reference,
-    rawUrl: 'https://raw.githubusercontent.com/c0ng-Alex/qimen-dunjia/main/qimen-dunjia.html',
+    rawUrl: `${import.meta.env.BASE_URL}knowledge-sources/book/qimen-dunjia.txt`,
     sectionId: chapter.sourceSection,
     caution: bookCatalog.caution,
   })),
   ...classicsCatalog.works.flatMap((work, workIndex) => work.chapters.map((chapter, chapterIndex) => ({
     id: `classic-${workIndex}-${chapterIndex}`, title: chapter.title, category: work.title,
-    desc: `${work.title} · 原始资料章节 · 在线读取 · 尚未逐条校对`,
+    desc: `${work.title} · 原始资料章节 · 本站收录 · 尚未逐条校对`,
     focus: `外部资料 · ${work.title}`, sourceUrl: chapter.url,
-    rawUrl: chapter.url.replace('https://github.com/', 'https://raw.githubusercontent.com/').replace('/blob/main/', '/main/'),
+    rawUrl: `${import.meta.env.BASE_URL}knowledge-sources/classics/${workIndex}/${chapterIndex}.md`,
     caution: classicsCatalog.caution,
   }))),
 ]
@@ -201,7 +201,7 @@ const QUICK_NAV = [
 ]
 
 const SECTION_META = {
-  courses: ['课程', '麦垛十课', '选择原有课程、补充提要或外部资料章节；外部正文需要联网。'],
+  courses: ['课程', '麦垛十课', '选择原有课程、补充提要或外部资料章节；阅读时从本站加载正文。'],
   'core-terms': ['基础', '核心术语与四层盘', '先补齐盘面语言，再理解地盘、人盘、天盘和神盘各自负责什么。'],
   'reading-flow': ['流程', '从起局到建议', '把读盘拆成可重复的步骤，避免只凭单一符号下结论。'],
   'judgement-basis': ['依据', '判断线索与断语规则', '查看值符、值使、星、门、神等线索如何共同形成判断。'],
@@ -499,11 +499,11 @@ function SourceReader({ course }) {
       <p className="mb-5 text-sm leading-7 text-[#7a4a25]">{course.caution}</p>
       <a href={course.sourceUrl} target="_blank" rel="noreferrer" className="mb-5 block break-all text-sm underline">查看原始来源</a>
       <div className="border border-[var(--qm-border)] bg-[var(--qm-surface)] p-5">
-        {result.loading && <p>正在从原资料读取内容…</p>}
+        {result.loading && <p>正在加载本站资料…</p>}
         {result.error && <p role="alert">读取失败：{result.error}。请使用上方链接打开原资料。</p>}
         {!result.loading && !result.error && <div className="whitespace-pre-wrap break-words text-[15px] leading-8">{result.text}</div>}
       </div>
-      <p className="mt-4 text-sm leading-7">正文由原来源实时提供，可能更新或暂时无法访问；目录和内容尚未全面校勘。</p>
+      <p className="mt-4 text-sm leading-7">正文存放于本站资料库；保留原始来源，目录和内容尚未全面校勘。</p>
     </article>
   )
 }

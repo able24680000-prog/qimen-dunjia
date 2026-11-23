@@ -1,0 +1,452 @@
+{
+  "created": "2026-11-23",
+  "sources": [
+    {
+      "repository": "https://github.com/c0ng-Alex/qimen-dunjia",
+      "path": "qimen-dunjia.html",
+      "gitBlob": "1c4de5157b12f6c4c1d0fc298cfe25dc4d860418",
+      "local": "book/qimen-dunjia.txt"
+    },
+    {
+      "repository": "https://github.com/youngzs/xuanxue",
+      "files": [
+        {
+          "source": "docs/御定奇门宝鉴/000奇门源流.md",
+          "gitBlob": "9a0b9059ee73f572969f1ad8c235e8eaa242c308",
+          "local": "classics/0/0.md"
+        },
+        {
+          "source": "docs/御定奇门宝鉴/001遁甲总论.md",
+          "gitBlob": "26941cf953cc29869e5a0ddfa716324c42d74fe7",
+          "local": "classics/0/1.md"
+        },
+        {
+          "source": "docs/御定奇门宝鉴/002凡例.md",
+          "gitBlob": "1dd957c7deb0daeec5a145e53c57bb152bbaf799",
+          "local": "classics/0/2.md"
+        },
+        {
+          "source": "docs/御定奇门宝鉴/003释义四十四则.md",
+          "gitBlob": "6ecf205f2f17b102991279ba6d3a46ff9f797414",
+          "local": "classics/0/3.md"
+        },
+        {
+          "source": "docs/御定奇门宝鉴/004注释烟波钓叟歌.md",
+          "gitBlob": "550f0dd7fe4fc5d669184a53c971454a4516c653",
+          "local": "classics/0/4.md"
+        },
+        {
+          "source": "docs/御定奇门宝鉴/005遁甲隐公歌.md",
+          "gitBlob": "dda83f91a0c49f75174ab82ca638c6e75cf718db",
+          "local": "classics/0/5.md"
+        },
+        {
+          "source": "docs/御定奇门宝鉴/006汉阴居士歌.md",
+          "gitBlob": "9575cffc7368b2c9a6efe9b77abf1ea4d31ef79b",
+          "local": "classics/0/6.md"
+        },
+        {
+          "source": "docs/御定奇门宝鉴/007神机赋.md",
+          "gitBlob": "2449da047e358170fe417be28de52dc8839adc73",
+          "local": "classics/0/7.md"
+        },
+        {
+          "source": "docs/御定奇门宝鉴/008指迷赋摘.md",
+          "gitBlob": "57d6d38c4af231ac780b1c1304cfa972ac89bea7",
+          "local": "classics/0/8.md"
+        },
+        {
+          "source": "docs/御定奇门宝鉴/009专征赋摘.md",
+          "gitBlob": "35d047f31f3a60010230bb570db1a44fccf89751",
+          "local": "classics/0/9.md"
+        },
+        {
+          "source": "docs/御定奇门宝鉴/010混合百神.md",
+          "gitBlob": "96fe8aea68d375a57e0bc4909796f0829b61d9df",
+          "local": "classics/0/10.md"
+        },
+        {
+          "source": "docs/奇门法窍/000细目.md",
+          "gitBlob": "8f00bd3fea5cbacc90af5263262124a3d04efac5",
+          "local": "classics/1/0.md"
+        },
+        {
+          "source": "docs/奇门法窍/001卷一.md",
+          "gitBlob": "d047d60823bc44c571da6aad31ab9e861d6f1ee1",
+          "local": "classics/1/1.md"
+        },
+        {
+          "source": "docs/奇门法窍/002卷三.md",
+          "gitBlob": "e32b60035f1dbc0a86f80c531efd3802483139d1",
+          "local": "classics/1/2.md"
+        },
+        {
+          "source": "docs/奇门法窍/003卷四.md",
+          "gitBlob": "d8bcc32ca5e9f9015dd230ae7f0a6a4dffef64eb",
+          "local": "classics/1/3.md"
+        },
+        {
+          "source": "docs/奇门法窍/004卷五.md",
+          "gitBlob": "de116467d64e36ddcc6ec1792b94cf76db1a0cd3",
+          "local": "classics/1/4.md"
+        },
+        {
+          "source": "docs/奇门法窍/005卷六.md",
+          "gitBlob": "e00c8e334b3d59a6a30d6d17988e71d64177f50b",
+          "local": "classics/1/5.md"
+        },
+        {
+          "source": "docs/奇门法窍/006卷七.md",
+          "gitBlob": "5ca8e831918efc29a36c9e966853cb62c97bfc25",
+          "local": "classics/1/6.md"
+        },
+        {
+          "source": "docs/奇门法窍/007卷八.md",
+          "gitBlob": "48a6a68a15cc1dce1b3dfc1d0c0872bc37bae840",
+          "local": "classics/1/7.md"
+        },
+        {
+          "source": "docs/奇门遁甲专业知识/000序.md",
+          "gitBlob": "0b46696e77249cbf40e3a1f82a7139c91b40966f",
+          "local": "classics/2/0.md"
+        },
+        {
+          "source": "docs/奇门遁甲专业知识/001第一讲 定局概说.md",
+          "gitBlob": "7a5d25e1f546926dcb2ad234ee52038425685496",
+          "local": "classics/2/1.md"
+        },
+        {
+          "source": "docs/奇门遁甲专业知识/002第二讲 超神接气和置闰.md",
+          "gitBlob": "a662efef0fdcb19a4c4caf91091c1e5375607008",
+          "local": "classics/2/2.md"
+        },
+        {
+          "source": "docs/奇门遁甲专业知识/003第三讲 九宫、六仪、三奇.md",
+          "gitBlob": "b5498a46f45ed6c5ec3c99f8a687bc20278ebe0b",
+          "local": "classics/2/3.md"
+        },
+        {
+          "source": "docs/奇门遁甲专业知识/004第四讲 八门、九星、八神.md",
+          "gitBlob": "19ec7ba6f3cfe86ac193a08551e69d3d79402909",
+          "local": "classics/2/4.md"
+        },
+        {
+          "source": "docs/奇门遁甲专业知识/005第五讲 时辰干支.md",
+          "gitBlob": "9701b1be3c5ba59bee895175741288a05acc9cc8",
+          "local": "classics/2/5.md"
+        },
+        {
+          "source": "docs/奇门遁甲专业知识/006第六讲 直符直使.md",
+          "gitBlob": "88f9ceece6c608ff6bd4df30e61a3a1960cdf4c1",
+          "local": "classics/2/6.md"
+        },
+        {
+          "source": "docs/奇门遁甲专业知识/007第七讲 八门、九星、八神含义.md",
+          "gitBlob": "d56662c4f07cccf067e26974dfcea3d267b36cc1",
+          "local": "classics/2/7.md"
+        },
+        {
+          "source": "docs/奇门遁甲专业知识/008第八讲 奇门诸格.md",
+          "gitBlob": "1451cf711cf33879ec593bdd09196900db976007",
+          "local": "classics/2/8.md"
+        },
+        {
+          "source": "docs/奇门遁甲专业知识/009第九讲 奇门吉凶断要.md",
+          "gitBlob": "6237273a870fba21980250a2d48fe3cf3c542aa0",
+          "local": "classics/2/9.md"
+        },
+        {
+          "source": "docs/奇门遁甲专业知识/010第十讲 主客.md",
+          "gitBlob": "47898ccb552be006e1329310bd26b5b1fbc7cf90",
+          "local": "classics/2/10.md"
+        },
+        {
+          "source": "docs/奇门遁甲元灵经/000序.md",
+          "gitBlob": "4240958d9740c3adc3939f49c5e2cd441eca1906",
+          "local": "classics/3/0.md"
+        },
+        {
+          "source": "docs/奇门遁甲元灵经/001细目.md",
+          "gitBlob": "5958ad58e1a92d8f70686f17a7ee531570b9da42",
+          "local": "classics/3/1.md"
+        },
+        {
+          "source": "docs/奇门遁甲元灵经/002奇门节气八卦图.md",
+          "gitBlob": "ef8b72f05734f3175ebb3c6df1093cadac20b290",
+          "local": "classics/3/2.md"
+        },
+        {
+          "source": "docs/奇门遁甲元灵经/003卷一.md",
+          "gitBlob": "b8ef10b952970a0a9ccb16ae67d53499d5cb4ae5",
+          "local": "classics/3/3.md"
+        },
+        {
+          "source": "docs/奇门遁甲元灵经/004卷二.md",
+          "gitBlob": "ce97ded1c6b4ca86f017cabaa695f542e20444a1",
+          "local": "classics/3/4.md"
+        },
+        {
+          "source": "docs/奇门遁甲元灵经/005卷三.md",
+          "gitBlob": "1dcd7a74ea2a36f457a309da6401a199e827cd95",
+          "local": "classics/3/5.md"
+        },
+        {
+          "source": "docs/奇门遁甲元灵经/006卷四.md",
+          "gitBlob": "736d049147f39402af462be3bf0853c363909c6d",
+          "local": "classics/3/6.md"
+        },
+        {
+          "source": "docs/奇门遁甲元灵经/007卷五.md",
+          "gitBlob": "1ddb19762f87f645fb1d9a8ada909e46e435f88a",
+          "local": "classics/3/7.md"
+        },
+        {
+          "source": "docs/奇门遁甲元灵经/008卷六.md",
+          "gitBlob": "dd61b28f60af448e4f5c5155766590b308c477aa",
+          "local": "classics/3/8.md"
+        },
+        {
+          "source": "docs/奇门遁甲元灵经/009卷七.md",
+          "gitBlob": "3b4584f5e0894d9907576b2875c2ff02987750ba",
+          "local": "classics/3/9.md"
+        },
+        {
+          "source": "docs/奇门遁甲元灵经/010卷八.md",
+          "gitBlob": "352802c62ba8f7669a9ca8a44623da9748cd10f2",
+          "local": "classics/3/10.md"
+        },
+        {
+          "source": "docs/奇门遁甲元灵经/011卷九.md",
+          "gitBlob": "e5669de7bfa333a08287713312918b5990056f4a",
+          "local": "classics/3/11.md"
+        },
+        {
+          "source": "docs/奇门遁甲元灵经/012卷十.md",
+          "gitBlob": "b080aa34d6bafc8e5c2c31ef7de069d26865a7a1",
+          "local": "classics/3/12.md"
+        },
+        {
+          "source": "docs/奇门遁甲元灵经/013卷十一.md",
+          "gitBlob": "02c964376e6f9b0d8ae41e9c3b4aae33f474dce3",
+          "local": "classics/3/13.md"
+        },
+        {
+          "source": "docs/奇门遁甲元灵经/014卷十二.md",
+          "gitBlob": "eae9a8dda2aaf474f552863f8540ac88be6f2a65",
+          "local": "classics/3/14.md"
+        },
+        {
+          "source": "docs/奇门遁甲入门基础/000卷上.md",
+          "gitBlob": "d5ea182ee479eee43f2ea2b865fdb46e8d11f364",
+          "local": "classics/4/0.md"
+        },
+        {
+          "source": "docs/奇门遁甲入门基础/001卷下.md",
+          "gitBlob": "84b5df927441101116a0f4bed8c05df546162f51",
+          "local": "classics/4/1.md"
+        },
+        {
+          "source": "docs/奇门遁甲秘笈大全/000《奇门遁甲秘笈大全》总序.md",
+          "gitBlob": "9965f2cf6a0dd563be7d1e78960442670f655ae2",
+          "local": "classics/5/0.md"
+        },
+        {
+          "source": "docs/奇门遁甲秘笈大全/001《奇门遁甲秘笈大全》卷一.md",
+          "gitBlob": "71ebf6ab8065c2d46bf2eaa2b7b0ff1068b239ff",
+          "local": "classics/5/1.md"
+        },
+        {
+          "source": "docs/奇门遁甲秘笈大全/002《奇门遁甲秘笈大全》卷二.md",
+          "gitBlob": "d09ed6dce4cfdb0afd3a489944529a38eedfe0c5",
+          "local": "classics/5/2.md"
+        },
+        {
+          "source": "docs/奇门遁甲秘笈大全/003《奇门遁甲秘笈大全》卷四.md",
+          "gitBlob": "382a943b79f27774c6bf7be470c2e6942c6e14a1",
+          "local": "classics/5/3.md"
+        },
+        {
+          "source": "docs/奇门遁甲秘笈大全/004《奇门遁甲秘笈大全》卷五.md",
+          "gitBlob": "36c03259d41713a164ed108c989c6e20bf9efc7e",
+          "local": "classics/5/4.md"
+        },
+        {
+          "source": "docs/奇门遁甲秘笈大全/005《奇门遁甲秘笈大全》卷六.md",
+          "gitBlob": "68f926ad8d56e56892216b20fa98eaba61aed67d",
+          "local": "classics/5/5.md"
+        },
+        {
+          "source": "docs/奇门遁甲秘笈大全/006《奇门遁甲秘笈大全》卷七.md",
+          "gitBlob": "2bf49ff8f01e9e0a679e9b600a74dd4690d96561",
+          "local": "classics/5/6.md"
+        },
+        {
+          "source": "docs/奇门遁甲秘笈大全/007《奇门遁甲秘笈大全》卷八.md",
+          "gitBlob": "153d57a3e62da1638edb2b6b3128da0d3e457235",
+          "local": "classics/5/7.md"
+        },
+        {
+          "source": "docs/奇门遁甲秘笈大全/008《奇门遁甲秘笈大全》卷九.md",
+          "gitBlob": "ffe2d5295e6473f7e3c61ffe70fd1c1169816f82",
+          "local": "classics/5/8.md"
+        },
+        {
+          "source": "docs/奇门遁甲秘笈大全/009《奇门遁甲秘笈大全》卷十.md",
+          "gitBlob": "9f92f44621a263e15bf44a515b8d5efe0980978c",
+          "local": "classics/5/9.md"
+        },
+        {
+          "source": "docs/奇门遁甲秘笈大全/010《奇门遁甲秘笈大全》卷十一.md",
+          "gitBlob": "bb089e3a8266ce67a11c6fe1614ca39aae391efb",
+          "local": "classics/5/10.md"
+        },
+        {
+          "source": "docs/奇门遁甲秘笈大全/011《奇门遁甲秘笈大全》卷十二.md",
+          "gitBlob": "9a7cd7eedb1e5c4a7c6ef629d557b2290fb71452",
+          "local": "classics/5/11.md"
+        },
+        {
+          "source": "docs/奇门遁甲秘笈大全/012《奇门遁甲秘笈大全》卷十三.md",
+          "gitBlob": "bd05154925df45a3eb7df5384487425201e49121",
+          "local": "classics/5/12.md"
+        },
+        {
+          "source": "docs/奇门遁甲秘笈大全/013《奇门遁甲秘笈大全》卷十四.md",
+          "gitBlob": "3028fdf1f9ec2db2fec9c2ee2eb3afc29ba2e6da",
+          "local": "classics/5/13.md"
+        },
+        {
+          "source": "docs/奇门遁甲秘笈大全/014《奇门遁甲秘笈大全》卷十五.md",
+          "gitBlob": "76a98d65820b8a45986adfc162f3359e23307b0b",
+          "local": "classics/5/14.md"
+        },
+        {
+          "source": "docs/奇门遁甲秘笈大全/015《奇门遁甲秘笈大全》卷十六.md",
+          "gitBlob": "d29c50e4341027ea3ee651b36d1b26418ffa4061",
+          "local": "classics/5/15.md"
+        },
+        {
+          "source": "docs/奇门遁甲秘笈大全/016《奇门遁甲秘笈大全》卷十七.md",
+          "gitBlob": "9b476a5991f4bddadf5b4509b2ce8c5250d424cf",
+          "local": "classics/5/16.md"
+        },
+        {
+          "source": "docs/奇门遁甲秘笈大全/017《奇门遁甲秘笈大全》卷十八.md",
+          "gitBlob": "e9fdbc3800df07d25257191edbb9cdbece33f5c0",
+          "local": "classics/5/17.md"
+        },
+        {
+          "source": "docs/奇门遁甲秘笈大全/018《奇门遁甲秘笈大全》卷十九.md",
+          "gitBlob": "a7908efca36cf5d4bcf713dfff2856ec7741c7ef",
+          "local": "classics/5/18.md"
+        },
+        {
+          "source": "docs/奇门遁甲秘笈大全/019《奇门遁甲秘笈大全》卷二十.md",
+          "gitBlob": "ecde028f712f7518d606a042a02bbd9f403e57da",
+          "local": "classics/5/19.md"
+        },
+        {
+          "source": "docs/奇门遁甲秘笈大全/020《奇门遁甲秘笈大全》卷二十一.md",
+          "gitBlob": "f2b153e2cb7f05d6d91be545224e742163509084",
+          "local": "classics/5/20.md"
+        },
+        {
+          "source": "docs/奇门遁甲秘笈大全/021《奇门遁甲秘笈大全》卷二十二.md",
+          "gitBlob": "2e915293084843559b958c7da55ffccfb89e2194",
+          "local": "classics/5/21.md"
+        },
+        {
+          "source": "docs/奇门遁甲秘笈大全/022《奇门遁甲秘笈大全》卷二十三.md",
+          "gitBlob": "aab170a026076f26c477b643d85728b002558cd1",
+          "local": "classics/5/22.md"
+        },
+        {
+          "source": "docs/奇门遁甲秘笈大全/023《奇门遁甲秘笈大全》卷二十四.md",
+          "gitBlob": "6d8777a7afc46e10d3c137e17c956cce71b6aa78",
+          "local": "classics/5/23.md"
+        },
+        {
+          "source": "docs/奇门遁甲秘笈大全/024《奇门遁甲秘笈大全》卷二十五.md",
+          "gitBlob": "885c93afd78b100ccfff7fd2fabccd1095132cf4",
+          "local": "classics/5/24.md"
+        },
+        {
+          "source": "docs/奇门遁甲秘笈大全/025《奇门遁甲秘笈大全》卷二十六.md",
+          "gitBlob": "4b46dd6337e6a5662c385814f1cb9b944aa5a8e3",
+          "local": "classics/5/25.md"
+        },
+        {
+          "source": "docs/奇门遁甲秘笈大全/026《奇门遁甲秘笈大全》卷二十七.md",
+          "gitBlob": "85c113e69f0e64c013bc2521e1edd8dd5b9568f1",
+          "local": "classics/5/26.md"
+        },
+        {
+          "source": "docs/奇门遁甲秘笈大全/027《奇门遁甲秘笈大全》卷二十八.md",
+          "gitBlob": "262e39f97170d9eec20621549923a5b31973421f",
+          "local": "classics/5/27.md"
+        },
+        {
+          "source": "docs/奇门遁甲秘笈大全/028《奇门遁甲秘笈大全》卷二十九.md",
+          "gitBlob": "c0daff6b00c92a8fd9308a1f7bf7102c9828ad37",
+          "local": "classics/5/28.md"
+        },
+        {
+          "source": "docs/奇门遁甲秘笈大全/029《奇门遁甲秘笈大全》卷三十.md",
+          "gitBlob": "6ed5a30092d6bbb9814851018d12a57a9b6031de",
+          "local": "classics/5/29.md"
+        },
+        {
+          "source": "docs/奇门遁甲统宗大全/000序.md",
+          "gitBlob": "a1177698522bf735c5000c283752811ac66c1cc0",
+          "local": "classics/6/0.md"
+        },
+        {
+          "source": "docs/奇门遁甲统宗大全/001奇门遁甲统宗源流.md",
+          "gitBlob": "4b9915ef657062c3f8d477ee9a97a97e2d15bfc9",
+          "local": "classics/6/1.md"
+        },
+        {
+          "source": "docs/奇门遁甲统宗大全/002凡例.md",
+          "gitBlob": "8a4686bd7e72c13a543d5d14c8df5455b5565572",
+          "local": "classics/6/2.md"
+        },
+        {
+          "source": "docs/奇门遁甲统宗大全/003卷之一.md",
+          "gitBlob": "69a1efc085531279da683885f8805c631e4602bc",
+          "local": "classics/6/3.md"
+        },
+        {
+          "source": "docs/奇门遁甲统宗大全/004卷之二.md",
+          "gitBlob": "b9150422456768bf821fe95c5fa4ee47f9049c46",
+          "local": "classics/6/4.md"
+        },
+        {
+          "source": "docs/奇门遁甲统宗大全/005卷之三.md",
+          "gitBlob": "54a4942513928c8af5aee4cff6a9841dc16284a6",
+          "local": "classics/6/5.md"
+        },
+        {
+          "source": "docs/奇门遁甲统宗大全/006卷之四～九（缺）.md",
+          "gitBlob": "48e284cc0e12d8dafc59257f38f71d813caa354e",
+          "local": "classics/6/6.md"
+        },
+        {
+          "source": "docs/奇门遁甲统宗大全/007卷之十 玄机赋（上）.md",
+          "gitBlob": "85455c6235c5a5c0ae0a78d995beeae4bbe8903f",
+          "local": "classics/6/7.md"
+        },
+        {
+          "source": "docs/奇门遁甲统宗大全/008卷之十一 玄机赋（中）.md",
+          "gitBlob": "599630418bea82c244b9e6073ebc24f2c976e398",
+          "local": "classics/6/8.md"
+        },
+        {
+          "source": "docs/奇门遁甲统宗大全/009卷之十二 玄机赋（下）.md",
+          "gitBlob": "6a3f4d8e6897d1fac2dad4f61a35fe2ec1c98546",
+          "local": "classics/6/9.md"
+        }
+      ]
+    }
+  ],
+  "note": "保留原文，内容未经全面校对；目录注明缺卷和案例限制。"
+}
