@@ -40,7 +40,7 @@ function getGongMarkers(result, gongKey, analysis) {
   return markers
 }
 
-export default function JiuGongGrid({ result, onPalaceClick }) {
+export default function JiuGongGrid({ result, onPalaceClick, limitedMarkers = false }) {
   if (!result) return null
 
   const { tianPan, diPan, displayTianPan, displayDiPan, jiuXing, baMen, baShen, jiuGongAnalysis } = result
@@ -127,7 +127,7 @@ export default function JiuGongGrid({ result, onPalaceClick }) {
           ['迫', '门迫'],
           ['伏', '伏吟'],
           ['反', '反吟']
-        ].map(([mark, label]) => (
+        ].filter(([mark]) => !limitedMarkers || ['空','马'].includes(mark)).map(([mark, label]) => (
           <span key={mark} className="border border-[var(--qm-border-soft)] bg-[var(--qm-surface)] px-2 py-1">
             <span className="font-bold text-[var(--qm-primary)]">{mark}</span> {label}
           </span>
@@ -136,6 +136,7 @@ export default function JiuGongGrid({ result, onPalaceClick }) {
     </div>
   )
 }
+
 
 
 

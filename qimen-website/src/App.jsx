@@ -1,4 +1,4 @@
-import { Routes, Route, Link, useLocation } from 'react-router-dom'
+import { Routes, Route, Link, useLocation, Navigate } from 'react-router-dom'
 import { lazy, Suspense, useEffect, useState } from 'react'
 import Home from './pages/Home'
 
@@ -207,6 +207,7 @@ function App() {
             <Route path="/home-concept" element={<HomeConcept />} />
             <Route path="/home-v2" element={<HomeV2 />} />
             <Route path="/divination" element={<Divination />} />
+            <Route path="/shijia" element={<Navigate to="/divination" replace />} />
             <Route path="/knowledge" element={<Knowledge />} />
             <Route path="/knowledge/:sectionId" element={<Knowledge />} />
             <Route path="/knowledge/course/:courseId" element={<Knowledge />} />
@@ -222,4 +223,5 @@ function App() {
 }
 
 export default App
+
 
