@@ -50,6 +50,7 @@ export default function HomeV2() {
   const layerRefs = useRef([])
   const dutyMarkRef = useRef(null)
   const introRunRef = useRef(0)
+  const replayRef = useRef(null)
   const animationsRef = useRef([])
 
   const [activePalace, setActivePalace] = useState(null)
@@ -58,6 +59,7 @@ export default function HomeV2() {
   const dutyPalace = bureauData.palaces.find((p) => p.duty)
   const current = activePalace || dutyPalace
 
+  useEffect(() => {
   function css(name) {
     return getComputedStyle(pageRef.current).getPropertyValue(name).trim()
   }
@@ -259,7 +261,7 @@ export default function HomeV2() {
     if (run === introRunRef.current) setSettled()
   }
 
-  useEffect(() => {
+    replayRef.current = playIntro
     drawInstrument()
     playIntro()
 
@@ -267,6 +269,8 @@ export default function HomeV2() {
     window.addEventListener('resize', handleResize)
     return () => {
       window.removeEventListener('resize', handleResize)
+      introRunRef.current += 1
+      replayRef.current = null
       cancelAnimations()
     }
   }, [])
@@ -356,7 +360,7 @@ export default function HomeV2() {
             </div>
 
             <footer className="hv2-folio__actions">
-              <button className="hv2-text-command" type="button" onClick={playIntro}>重演</button>
+              <button className="hv2-text-command" type="button" onClick={() => replayRef.current?.()}>重演</button>
               <button
                 className="hv2-entry-link"
                 type="button"

@@ -1,9 +1,10 @@
+import { prepareQuestions } from '../lib/questionInput'
 import { useState, useCallback, useRef, useEffect } from 'react'
-import AdvancedShijia from '../components/AdvancedShijia'
 import { runQimen } from '../lib/browserEngine'
 import { Link, useSearchParams } from 'react-router-dom'
 import { calculate, fromLunarDate, JIU_GONG } from '../lib/qimen'
 import JiuGongGrid from '../components/JiuGongGrid'
+import PalaceReading from '../components/PalaceReading'
 
 // ============================================================
 // 常量定义
@@ -176,6 +177,8 @@ function loadReviewRecords() {
   }
 }
 
+// Retained for the legacy knowledge-link workflow and its verification.
+// eslint-disable-next-line no-unused-vars
 function saveReviewRecords(records) {
   if (typeof window === 'undefined') return
   window.localStorage.setItem(REVIEW_STORAGE_KEY, JSON.stringify(records.slice(0, 50)))
@@ -215,6 +218,8 @@ function getReviewStats(records) {
   }
 }
 
+// Retained for the legacy knowledge-link workflow and its verification.
+// eslint-disable-next-line no-unused-vars
 function buildReviewRecord(result) {
   const bestGong = result.analysis?.bestGong || ''
   const bestPrediction = bestGong ? result.jiuGongAnalysis?.[bestGong]?.prediction : null
@@ -337,6 +342,8 @@ function buildKnowledgeUpdateSuggestions(records, stats) {
   return suggestions
 }
 
+// Retained for the legacy knowledge-link workflow and its verification.
+// eslint-disable-next-line no-unused-vars
 function downloadKnowledgeUpdateJson(records, stats) {
   if (typeof window === 'undefined') return
   const updates = buildKnowledgeUpdateSuggestions(records, stats)
@@ -361,15 +368,14 @@ function TimeSelector({ onSubmit, loading, initialQuestion = '' }) {
   const [method, setMethod] = useState('时家')
   const [purpose, setPurpose] = useState('综合')
   const [question, setQuestion] = useState(() => initialQuestion)
+  const [clarifying, setClarifying] = useState(false)
+  const [clarification, setClarification] = useState('')
+  const [needsQuestionConfirmation, setNeedsQuestionConfirmation] = useState(false)
   const [birthYear, setBirthYear] = useState('')
-  const [outcome, setOutcome] = useState('')
   const [ziHour, setZiHour] = useState(() => beijingClock().getHours() === 23 ? 23 : 0)
   const [exactTime, setExactTime] = useState(() => stamp(beijingClock()).slice(11))
   const [manual, setManual] = useState(false)
   const [manualGanzhi, setManualGanzhi] = useState('')
-  const [horizon, setHorizon] = useState('')
-  const [urgency, setUrgency] = useState('待核')
-  const [firstMover, setFirstMover] = useState('待核')
   const [trueSolar, setTrueSolar] = useState(false)
   const [longitude, setLongitude] = useState('')
   const [ziMode, setZiMode] = useState('change')
@@ -391,6 +397,7 @@ function TimeSelector({ onSubmit, loading, initialQuestion = '' }) {
   const [lunarDay, setLunarDay] = useState('')
   const [isLeapMonth, setIsLeapMonth] = useState(false)
 const handleUseCurrentTime = useCallback(() => {
+    if (needsQuestionConfirmation) { setClarification('请先确认整理后的问题符合原意。'); return }
     const now = beijingClock()
     setCalendarType('solar')
     setSolarDate(formatSolarDate(now))
@@ -398,10 +405,11 @@ const handleUseCurrentTime = useCallback(() => {
     setZiHour(now.getHours() === 23 ? 23 : 0)
     setExactTime(stamp(now).slice(11))
     const questionText = question.trim()
-    onSubmit(now, { method, qijuMethod, manual, manualGanzhi, purpose, question: questionText, yearLife: birthYear.trim(), outcome, horizon, urgency, firstMover, trueSolar, longitude, ziMode, manualJu, gender, topic, primary, stage, asker, subject })
-  }, [method, qijuMethod, purpose, question, birthYear, manual, manualGanzhi, ziHour, exactTime, outcome, horizon, urgency, firstMover, trueSolar, longitude, ziMode, manualJu, gender, topic, primary, stage, asker, subject, onSubmit])
+    onSubmit(now, { method, qijuMethod, manual, manualGanzhi, purpose, question: questionText, yearLife: birthYear.trim(), trueSolar, longitude, ziMode, manualJu, gender, topic, primary, stage, asker, subject })
+  }, [needsQuestionConfirmation, method, qijuMethod, purpose, question, birthYear, manual, manualGanzhi, trueSolar, longitude, ziMode, manualJu, gender, topic, primary, stage, asker, subject, onSubmit])
 
   const handleSubmit = useCallback(() => {
+    if (needsQuestionConfirmation) { setClarification('请先确认整理后的问题符合原意。'); return }
     let date
 
     if (calendarType === 'solar') {
@@ -435,8 +443,22 @@ const handleUseCurrentTime = useCallback(() => {
     if (!exactTime || !/^\d{2}:\d{2}$/.test(exactTime)) { alert('请选择有效时间'); return }
     const questionText = question.trim()
 
-    onSubmit(date, { method, qijuMethod, manual, manualGanzhi, purpose, question: questionText, yearLife: birthYear.trim(), outcome, horizon, urgency, firstMover, trueSolar, longitude, ziMode, manualJu, gender, topic, primary, stage, asker, subject })
-  }, [calendarType, solarDate, shiChenIndex, lunarYear, lunarMonth, lunarDay, isLeapMonth, qijuMethod, method, purpose, question, birthYear, manual, manualGanzhi, ziHour, exactTime, outcome, horizon, urgency, firstMover, trueSolar, longitude, ziMode, manualJu, gender, topic, primary, stage, asker, subject, onSubmit])
+    onSubmit(date, { method, qijuMethod, manual, manualGanzhi, purpose, question: questionText, yearLife: birthYear.trim(), trueSolar, longitude, ziMode, manualJu, gender, topic, primary, stage, asker, subject })
+  }, [needsQuestionConfirmation, calendarType, solarDate, lunarYear, lunarMonth, lunarDay, isLeapMonth, qijuMethod, method, purpose, question, birthYear, manual, manualGanzhi, exactTime, trueSolar, longitude, ziMode, manualJu, gender, topic, primary, stage, asker, subject, onSubmit])
+
+  const clarifyQuestion = async () => {
+    if (!question.trim()) { setClarification('请先填写问题。'); return }
+    setClarifying(true); setClarification('')
+    try {
+      const response = await fetch('/api/clarify', { method: 'POST', headers: { 'Content-Type': 'application/json' }, body: JSON.stringify({ question }) })
+      const data = await response.json().catch(() => ({}))
+      if (!response.ok || !Array.isArray(data.questions)) throw new Error(data.error || '问题整理服务尚未配置或暂时不可用，请手动整理问题。')
+      setQuestion(data.questions.join('\n'))
+      setNeedsQuestionConfirmation(true)
+      setClarification(`请检查并确认整理后的问题是否符合原意，再点击排盘。${data.note ? ` ${data.note}` : ''}`)
+    } catch (error) { setClarification(error.message || '问题整理暂时不可用。') }
+    finally { setClarifying(false) }
+  }
 
   const inputClass = 'w-full bg-[var(--qm-bg)] border border-[var(--qm-border)] rounded-lg px-4 py-3 text-[var(--qm-ink)] focus:border-[var(--qm-primary)] focus:outline-none focus:ring-1 focus:ring-[rgba(107,36,31,0.3)] transition-colors'
   const labelClass = 'block text-[var(--qm-primary)] text-sm font-bold mb-2'
@@ -587,20 +609,19 @@ const handleUseCurrentTime = useCallback(() => {
           value={question}
           onChange={(e) => setQuestion(e.target.value)}
           rows={3}
-          maxLength={120}
+          maxLength={600}
           placeholder="例如：这周是否适合主动联系客户推进合同？一盘尽量只问一件事。"
           className="w-full resize-none bg-[var(--qm-bg)] border border-[var(--qm-border)] rounded-lg px-4 py-3 text-[var(--qm-ink)] placeholder:text-[#8a7c6b] focus:border-[var(--qm-primary)] focus:outline-none transition-colors"
         />
         <div className="mt-2 flex justify-between gap-3 text-xs leading-5 text-[#7f725f]">
-          <span>问题越具体，宫位建议和复盘口径越容易校准。</span>
-          <span>{question.length}/120</span>
+          <span>请使用正向、单一的问题；同一类别的多个事项请分行填写，不同类别请分别排盘。</span>
+          <span>{question.length}/600</span>
         </div>
         {question.trim() && <p className="mt-2 text-xs text-[var(--qm-ink-soft)]">{buildQuestionRewriteHint(question)}</p>}
-        <label className="mt-4 block text-sm font-bold text-[var(--qm-primary)]">可观察结果（进行预测时填写）</label>
-        <input className={inputClass} value={outcome} onChange={e => setOutcome(e.target.value)} placeholder="例如：收到合同尾款" maxLength={200} />
-        <label className="mt-3 block text-sm font-bold text-[var(--qm-primary)]">观察期限（可选）</label>
-        <input className={inputClass} value={horizon} onChange={e => setHorizon(e.target.value)} placeholder="例如：月底前" maxLength={80} />
-        <div className="mt-3 grid grid-cols-2 gap-2"><label className="text-sm">事项急缓<select className={inputClass} value={urgency} onChange={e => setUrgency(e.target.value)}>{['待核','急','缓'].map(x => <option key={x}>{x}</option>)}</select></label><label className="text-sm">行动先后<select className={inputClass} value={firstMover} onChange={e => setFirstMover(e.target.value)}>{['待核','本人','对方','双方未动','同动'].map(x => <option key={x}>{x}</option>)}</select></label></div>
+        <button type="button" disabled={clarifying} onClick={clarifyQuestion} className="mt-3 border border-[var(--qm-border)] px-3 py-2 text-sm">{clarifying ? '正在整理…' : '使用 DeepSeek 整理问题'}</button>
+        <p className="mt-1 text-xs text-[var(--qm-ink-soft)]">点击后将问题发送至 DeepSeek；请勿输入不愿分享的敏感信息。整理后请核对内容。</p>
+        {clarification && <p role="status" className="mt-2 text-sm">{clarification}</p>}
+        {needsQuestionConfirmation && <label className="mt-2 flex gap-2 text-sm"><input type="checkbox" onChange={e => { if (e.target.checked) setNeedsQuestionConfirmation(false) }} />我已检查，整理后的问题符合原意</label>}
         <details className="mt-4 border border-[var(--qm-border)] bg-[var(--qm-surface-2)]">
           <summary className="flex cursor-pointer list-none items-center justify-between gap-3 px-4 py-3 text-sm font-bold text-[var(--qm-primary)] marker:content-none">
             <span>高级设置</span>
@@ -725,6 +746,8 @@ const handleUseCurrentTime = useCallback(() => {
   )
 }
 
+// Retained for the legacy knowledge-link workflow and its verification.
+// eslint-disable-next-line no-unused-vars
 function CurrentDecisionCard({ result }) {
   const question = result.basicInfo?.question || ''
   const purpose = result.basicInfo?.purpose || '综合'
@@ -749,6 +772,8 @@ function CurrentDecisionCard({ result }) {
   )
 }
 
+// Retained for the legacy knowledge-link workflow and its verification.
+// eslint-disable-next-line no-unused-vars
 function QuestionCalibrationCard({ result }) {
   const question = result?.basicInfo?.question || ''
   const quality = assessQuestionQuality(question)
@@ -787,6 +812,8 @@ function QuestionCalibrationCard({ result }) {
   )
 }
 
+// Retained for the legacy knowledge-link workflow and its verification.
+// eslint-disable-next-line no-unused-vars
 function QuestionGate({ result }) {
   const template = YONGSHEN_TEMPLATES[result?.basicInfo?.purpose] || YONGSHEN_TEMPLATES.综合
   return (
@@ -802,6 +829,8 @@ function QuestionGate({ result }) {
   )
 }
 
+// Retained for the legacy knowledge-link workflow and its verification.
+// eslint-disable-next-line no-unused-vars
 function YongShenTemplateCard({ purpose }) {
   const template = YONGSHEN_TEMPLATES[purpose] || YONGSHEN_TEMPLATES.综合
   return (
@@ -816,6 +845,8 @@ function YongShenTemplateCard({ purpose }) {
   )
 }
 
+// Retained for the legacy knowledge-link workflow and its verification.
+// eslint-disable-next-line no-unused-vars
 function MultiGongPanel({ multiGong }) {
   if (!multiGong) return null
 
@@ -1045,6 +1076,8 @@ function buildExpertSteps(palace, analysis, expert) {
 // 内联 PalaceDetail 弹窗组件
 // ============================================================
 
+// Retained for the legacy knowledge-link workflow and its verification.
+// eslint-disable-next-line no-unused-vars
 function PalaceDetail({ palace, onClose }) {
   const [showExpert, setShowExpert] = useState(false)
   if (!palace) return null
@@ -1206,6 +1239,8 @@ function PalaceDetail({ palace, onClose }) {
 // 内联 ChartActions 组件（含复制 + 保存图片）
 // ============================================================
 
+// Retained for the legacy knowledge-link workflow and its verification.
+// eslint-disable-next-line no-unused-vars
 function ChartActions({ result, gridRef }) {
   const [copyStatus, setCopyStatus] = useState('idle')
   const [saving, setSaving] = useState(false)
@@ -1359,6 +1394,8 @@ function ChartActions({ result, gridRef }) {
 // 主页面组件
 // ============================================================
 
+// Retained for the legacy knowledge-link workflow and its verification.
+// eslint-disable-next-line no-unused-vars
 function getInitialResult(initialQuestion = '') {
   try {
     return calculate(new Date(), {
@@ -1387,15 +1424,40 @@ function asGrid(cells) {
 }
 const categoryMap = {事业:'事业官运',财运:'求财',婚姻:'婚姻',健康:'健康',学业:'考试',官司:'官司',出行:'出行',走失:'走失',择吉:'择吉',天气:'天气',风水阳宅:'风水阳宅',风水阴宅:'风水阴宅'}
 const panel = 'bg-[var(--qm-surface)] rounded-xl p-5 border border-[var(--qm-border)]'
+function canonical(value) {
+  if (Array.isArray(value)) return value.map(canonical)
+  if (value && typeof value === 'object') return Object.fromEntries(Object.keys(value).sort().map(key => [key, canonical(value[key])]))
+  return value
+}
+
+function ModelInterpretation({ analysis }) {
+  const [state, setState] = useState({ loading: false, error: '', result: null })
+  const run = async () => {
+    setState({ loading: true, error: '', result: null })
+    try {
+      const response = await fetch('/api/qimen', { method: 'POST', headers: { 'Content-Type': 'application/json' }, body: JSON.stringify({ mode: 'interpret', input: analysis.input }) })
+      const data = await response.json().catch(() => ({}))
+      if (!response.ok) throw new Error(data.error || '综合解读服务尚未配置或暂时不可用。')
+      if (JSON.stringify(canonical(data.header)) !== JSON.stringify(canonical(analysis.header)) || JSON.stringify(canonical(data.cells)) !== JSON.stringify(canonical(analysis.cells))) throw new Error('服务端盘面与当前盘面不一致，已停止综合解读。')
+      if (!Array.isArray(data.sections) || !Array.isArray(data.evidence)) throw new Error('综合解读格式不正确。')
+      setState({ loading: false, error: '', result: data })
+    } catch (error) { setState({ loading: false, error: error.message || '综合解读暂时不可用。', result: null }) }
+  }
+  return <section className="mt-5 border-t border-[var(--qm-border-soft)] pt-4">
+    <button type="button" onClick={run} disabled={state.loading} className="border border-[var(--qm-primary)] px-4 py-2 text-sm">{state.loading ? '正在生成解读…' : '使用 DeepSeek 综合解读'}</button>
+    <p className="mt-2 text-xs leading-6 text-[var(--qm-ink-soft)]">点击后会将所问事项、排盘参数和盘面依据发送至 DeepSeek。请勿提交不愿分享的敏感信息。</p>
+    {state.error && <p role="alert" className="mt-2 text-sm text-red-700">{state.error}</p>}
+    {state.result && <div className="mt-4 space-y-4"><p className="text-xs">以下内容由模型依据规则输出生成；编号仅验证引用存在，不保证解释正确，请结合原始盘面复核。</p>{state.result.sections.map(section => <div key={section.title}><h3 className="font-bold">{section.title}</h3><p className="mt-1 whitespace-pre-wrap text-sm leading-7">{section.text} <span className="text-xs">[{section.citations.join('、')}]</span></p></div>)}<details><summary className="cursor-pointer text-sm">查看引用的引擎依据</summary>{state.result.evidence.map(item => <p className="mt-2 text-xs leading-6" key={item.id}>[{item.id}] {item.text}</p>)}</details></div>}
+  </section>
+}
+
 export default function Divination() {
   const [params] = useSearchParams()
   const [result,setResult] = useState(null)
   const [error,setError] = useState('')
   const [loading,setLoading] = useState(false)
   const [selected,setSelected] = useState(null)
-  const [extra,setExtra] = useState('cases')
   const [legacyRecords] = useState(loadReviewRecords)
-  const [saved,setSaved] = useState(false)
   const gridRef=useRef(null)
   const request=useRef(0)
   const initialQuestion=(params.get('question') || '').slice(0,120)
@@ -1403,29 +1465,39 @@ export default function Divination() {
     const seq=++request.current
     const question=(options.question || '').trim(); const outcome=(options.outcome || '').trim()
     const category=categoryMap[options.purpose]
-    if (options.manual && !question) { setLoading(false); setResult(null); setError('手工四柱起局请填写具体问题、可观察结果与局式。'); return }
-    if (question && (!category || !outcome)) { setLoading(false); setResult(null); setError(!category ? '请选择具体的分析目的，才能进行预测。' : '请填写可观察结果，以明确预测和复盘口径。'); return }
-    setLoading(true);setError('');setSelected(null);setSaved(false)
+    const prepared = prepareQuestions(question)
+    if (prepared.error) { setLoading(false); setResult(null); setError(prepared.error); return }
+    if (options.manual && !question) { setLoading(false); setResult(null); setError('手工四柱起局请填写具体问题与局式。'); return }
+    if (question && !category) { setLoading(false); setResult(null); setError('请选择具体的分析目的，才能进行预测。'); return }
+    setLoading(true);setError('');setSelected(null)
     const payload={ ...options,mode: question ? (options.manual ? 'manual' : 'event'):'chart', category,question,outcome,time:stamp(date),longitude:options.trueSolar && options.longitude !== '' ? Number(options.longitude) : null }
     try {
-      const data=await runQimen(payload)
-      if(seq===request.current) setResult({...data,question,outcome,time:payload.time,category})
+      const questions = prepared.questions.length ? prepared.questions : ['']
+      const analyses = []
+      for (const item of questions) {
+        const data = await runQimen({ ...payload, question: item })
+        analyses.push({ ...data, question: item, input: { ...payload, question: item } })
+      }
+      if(seq===request.current) setResult({...analyses[0], analyses, question, outcome, time:payload.time,category, requestId: seq})
     } catch(e) {if(seq===request.current){setResult(null);setError(e.message || '无法连接排盘服务。')}} finally {if(seq===request.current)setLoading(false)}
   },[])
-  useEffect(()=>{ calculate(beijingClock()) },[calculate])
-  const copy=async()=>{try{await navigator.clipboard.writeText([result.header.ganzhi,result.header.ju_name,result.timeConvention,result.question,result.report].filter(Boolean).join('\n'));alert('已复制盘面与分析')}catch{alert('复制失败，请检查浏览器权限。')}}
+  useEffect(() => {
+    let active = true
+    Promise.resolve().then(() => { if (active) calculate(beijingClock()) })
+    return () => { active = false }
+  }, [calculate])
+  const copy=async()=>{try{await navigator.clipboard.writeText([result.header.ganzhi,result.header.ju_name,result.timeConvention,...(result.analyses || []).flatMap(item => [item.question,item.report])].filter(Boolean).join('\n'));alert('已复制盘面与分析')}catch{alert('复制失败，请检查浏览器权限。')}}
   const image=async()=>{try{const {toPng}=await import('html-to-image');const url=await toPng(gridRef.current,{pixelRatio:2,cacheBust:true});const a=document.createElement('a');a.href=url;a.download='qimen-chart.png';a.click()}catch{alert('保存图片失败，请重试。')}}
-  const save=()=>{try{const key='shijia-v26-casebook';const records=JSON.parse(localStorage.getItem(key)||'[]');if(!Array.isArray(records))throw Error();records.unshift({id:crypto.randomUUID(),kind:'事前判断',source:'在线排盘',chart:`${result.time} ${result.header.ganzhi} ${result.header.ju_name}`,question:result.question,prediction:result.report,observation:result.outcome,window:result.scope?.观察期限 || '未提供',invalid:'待补充',createdAt:new Date().toISOString()});localStorage.setItem(key,JSON.stringify(records));setSaved(true)}catch{alert('保存失败，请检查浏览器存储空间。')}}
   return <div className="min-h-[80vh] px-4 py-8 md:py-12 animate-fadeIn"><h1 className="text-center text-3xl font-bold tracking-wider text-[var(--qm-primary)] md:text-5xl" style={{fontFamily:FONT_SONG}}>在线排盘</h1><p className="mx-auto mb-10 mt-3 max-w-xl text-center text-[var(--qm-ink-soft)]">时家阳盘 · 拆补法。盘面与预测使用同一套规则；时间按北京时间输入。</p>
     <div className="mx-auto grid max-w-6xl grid-cols-1 gap-8 lg:grid-cols-12"><div className="order-2 lg:order-1 lg:col-span-4"><div className={`${panel} sticky top-20`}><h2 className="mb-5 text-lg font-bold text-[var(--qm-primary)]">排盘参数</h2><TimeSelector onSubmit={calculate} loading={loading} initialQuestion={initialQuestion}/><p className="mt-4 text-xs leading-5 text-[var(--qm-ink-soft)]">排盘在当前浏览器内计算。首次使用需要加载计算组件；仅支持时家阳盘拆补，未填写问题时只显示盘面。</p></div></div>
     <div className="order-1 space-y-5 lg:order-2 lg:col-span-8">{error && <div role="alert" className={`${panel} text-sm text-red-700`}>{error}</div>}{loading && <p className={panel}>正在排盘…</p>}
-    {result && !loading && <><div className={panel}><h2 className="font-bold text-[var(--qm-primary)]">盘面信息</h2><p className="mt-2 text-sm leading-7">{result.header.ganzhi}　{result.header.ju_name}　{result.header.term || ''}<br/>旬首 {result.header.旬首}　旬空 {result.header.旬空地支}<br/>值符 {result.header.值符.join(' · ')}　值使 {result.header.值使.join(' · ')}<br/>{result.timeConvention}</p><p className="mt-3 border-t border-[var(--qm-border-soft)] pt-3 text-sm">本盘所问：{result.question || '未填写，当前仅展示盘面。'}</p></div>
-    <div ref={gridRef} className={panel}><JiuGongGrid limitedMarkers result={asGrid(result.cells)} onPalaceClick={k=>setSelected(result.cells.find(c=>String(c.palace)===k))}/>{selected && <div className="mt-4 border-t border-[var(--qm-border-soft)] pt-3 text-sm leading-7"><strong>{GONG_NAMES[String(selected.palace)] || `${selected.palace}宫`}</strong>　{selected.god || '—'} · {selected.star || '—'} · {selected.gate || '—'}<br/>天盘 {selected.heaven.join('、') || '—'}　地盘 {selected.earth.join('、') || '—'}　{selected.void ? '空亡 ' : ''}{selected.horse ? '驿马' : ''}<p className="text-xs text-[var(--qm-ink-soft)]">具体吉凶需结合用神、旺衰与其他宫位，不能单凭一宫下结论。</p></div>}</div>
-    <div className="flex flex-wrap gap-2"><button onClick={copy} className="border border-[var(--qm-border)] px-4 py-2 text-sm">复制结果</button><button onClick={image} className="border border-[var(--qm-border)] px-4 py-2 text-sm">保存盘面图片</button>{result.report && <button onClick={save} disabled={saved} className="border border-[var(--qm-primary)] px-4 py-2 text-sm text-[var(--qm-primary)]">{saved?'已保存本盘':'保存本盘复盘'}</button>}</div>
-    {result.report ? <div className={panel}><h2 className="text-lg font-bold text-[var(--qm-primary)]">预测与分析依据</h2><p className="mt-2 text-sm leading-6 text-[var(--qm-ink-soft)]">以下是规则给出的盘面线索与倾向，分数及信心属于内部信号，不代表经过验证的预测概率；应结合反证和现实反馈复核。</p>{result.timingNote && <p className="mt-2 text-sm">{result.timingNote}</p>}<div className="mt-4 border border-[var(--qm-border-soft)] p-3 text-sm leading-7"><b>本问与取用神</b><p>{result.scope?.问项} · 主用神 {result.scope?.主用神}</p><p>{result.scope?.取用依据}</p><p>观察：{result.outcome}；期限：{result.scope?.观察期限}</p></div><pre className="mt-4 whitespace-pre-wrap break-words font-sans text-sm leading-7">{result.report.replace(/信心高/g, '信号较集中').replace(/信心中/g, '信号有分歧').replace(/信心低/g, '信号不足').replace(/由 LLM 复核/g, '需进一步复核')}</pre><p className="mt-5 border-t border-[var(--qm-border-soft)] pt-4 text-xs leading-6">以上内容属于传统文化与时空决策模型的分析参考，不构成绝对预测；涉及健康、法律、投资和重大人生决定时，请结合现实信息与专业意见。</p></div> : <div className={`${panel} text-sm leading-7`}>补充具体问题、分析目的和可观察结果后，可查看预测依据与复盘线索。</div>}
-    {result.cases && <details className={panel}><summary className="cursor-pointer font-bold">同类书例参照</summary><p className="mt-2 text-xs">仅供方法参考，不能套用结局。</p>{result.cases.书例?.map(item=><div className="mt-3 text-sm" key={item.编号}><b>{item.标题}</b><p>{item.断法要点}</p></div>)}</details>}
+    {result && !loading && <><div className={panel}><h2 className="font-bold text-[var(--qm-primary)]">盘面信息</h2><p className="mt-2 text-sm leading-7">{result.header.ganzhi} {result.header.ju_name} {result.header.term || ''}<br/>旬首 {result.header.旬首} 旬空 {result.header.旬空地支}<br/>值符 {result.header.值符.join(' · ')} 值使 {result.header.值使.join(' · ')}<br/>{result.timeConvention}</p><p className="mt-3 border-t border-[var(--qm-border-soft)] pt-3 text-sm">本盘所问：{result.question || '未填写，当前仅展示盘面。'}</p></div>
+    <div ref={gridRef} className={panel}><JiuGongGrid limitedMarkers result={asGrid(result.cells)} onPalaceClick={k=>setSelected(result.cells.find(c=>String(c.palace)===k))}/>{selected && <PalaceReading cell={selected} onClose={() => setSelected(null)}/>}</div>
+    <div className="flex flex-wrap gap-2"><button onClick={copy} className="border border-[var(--qm-border)] px-4 py-2 text-sm">复制结果</button><button onClick={image} className="border border-[var(--qm-border)] px-4 py-2 text-sm">保存盘面图片</button></div>
+    {result.report ? result.analyses.map((analysis, index) => <div key={`${result.requestId}-${index}`} className={panel}><h2 className="text-lg font-bold text-[var(--qm-primary)]">预测结果与分析依据</h2><div className="mt-4 border border-[var(--qm-primary)] p-4 leading-7"><b>本事项的倾向</b><p>关于“{analysis.question}”：{analysis.tendency?.倾向 || '资料不足，暂无法判断'}。</p><p className="text-sm">这是依据盘面规则形成的条件性倾向；实际结果仍需结合事实及反证核实。</p></div><p className="mt-4 text-sm">分析顺序：定局 → 定位用神 → 定象 → 综合旺衰与限制 → 观察条件和应期。</p><p className="mt-2 text-sm leading-6 text-[var(--qm-ink-soft)]">以下是规则给出的盘面线索与倾向，分数及信心属于内部信号，不代表经过验证的预测概率；应结合反证和现实反馈复核。</p>{analysis.timingNote && <p className="mt-2 text-sm">{analysis.timingNote}</p>}<div className="mt-4 border border-[var(--qm-border-soft)] p-3 text-sm leading-7"><b>本问与取用神</b><p>{analysis.scope?.问项} · 主用神 {analysis.scope?.主用神}</p><p>{analysis.scope?.取用依据}</p><p>具体结果、行动先后与观察期限未提供时，相关判断需结合现实核实。</p></div><pre className="mt-4 whitespace-pre-wrap break-words font-sans text-sm leading-7">{analysis.report.replace(/信心高/g, '信号较集中').replace(/信心中/g, '信号有分歧').replace(/信心低/g, '信号不足').replace(/由 LLM 复核/g, '需进一步复核')}</pre><p className="mt-5 border-t border-[var(--qm-border-soft)] pt-4 text-xs leading-6">以上内容属于传统文化与时空决策模型的分析参考，不构成绝对预测；涉及健康、法律、投资和重大人生决定时，请结合现实信息与专业意见。</p><ModelInterpretation analysis={analysis}/></div>) : <div className={`${panel} text-sm leading-7`}>选择分析目的并填写具体问题后，可查看预测结果与分析依据。</div>}
+
     </>}
-    <details className={panel}><summary className="cursor-pointer font-bold text-[var(--qm-primary)]">深入分析与案例复盘</summary><div className="mt-4 flex flex-wrap gap-2">{[['cases','案例复盘'],['lifetime','终身局'],['review','截图核盘'],['compare','转宫比较']].map(([id,label])=><button key={id} type="button" onClick={()=>setExtra(id)} className={`border border-[var(--qm-border)] px-3 py-2 text-sm ${extra===id?'bg-[var(--qm-primary)] text-[var(--qm-surface)]':''}`}>{label}</button>)}</div><AdvancedShijia key={extra} mode={extra} initialTime={(result?.time || stamp(beijingClock())).replace(' ','T')}/></details>
+
     {legacyRecords.length>0 && <details className={panel}><summary className="cursor-pointer font-bold">原有复盘记录（{legacyRecords.length}）</summary><p className="mt-2 text-xs">历史记录保留原计算口径，不与新规则的结果混算。</p>{legacyRecords.map((item,i)=><div key={item.id || i} className="mt-3 border-t border-[var(--qm-border-soft)] pt-2 text-sm">{item.question || '未填写问题'} · {item.date || item.createdAt || ''}</div>)}<button onClick={()=>downloadReviewCsv(legacyRecords,getReviewStats(legacyRecords))} className="mt-3 border border-[var(--qm-border)] px-3 py-2 text-sm">导出原有记录</button></details>}
     </div></div></div>
 }

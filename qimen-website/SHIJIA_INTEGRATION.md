@@ -5,3 +5,7 @@
 `public/qimen_engine/` 和 `public/qimen_api/` 为浏览器运行所需的引擎及案例数据。更新 `qimen_engine/` 或 `api/qimen.py` 后必须同步这些文件并重新验证。`api/qimen.py` 同时保留独立 Python 接口，供支持 Python 的部署使用。
 
 时家阳盘转盘拆补法的纯盘、事件局、手工四柱、真太阳时、案例检索、终身局、截图人工转录核对和转宫比较可通过原排盘页使用。截图需人工转录，转宫裁决、终身局完整综合判断仍需人工复核。历史记录保存在原浏览器，历史旧盘与新规则不混算。
+
+## 可选的 DeepSeek 问题整理
+
+公开排盘页面可由用户主动点击“使用 DeepSeek 整理问题”；点击会将问题发送至 DeepSeek，整理后的内容必须由用户核对。排盘数据仍由浏览器内的引擎计算。部署到支持 Python Serverless Functions 的环境时，需在部署平台的服务端安全设置中配置 `DEEPSEEK_API_KEY`；可选 `DEEPSEEK_MODEL`，默认 `deepseek-chat`。不要把密钥写入前端、仓库或浏览器。Vite 本身不运行 `api/clarify.py`，本地开发需要另外运行兼容该接口的服务端或使用部署平台的开发工具。尚未配置密钥时可以手动整理问题。问题整理使用 `/api/clarify`；综合解读使用 `/api/qimen`，服务端使用同一引擎重新计算后将问题、盘头和证据发送给 DeepSeek。页面会核对两端盘面，并提示模型引文编号只验证存在，不能保证解释正确。Vite 开发服务器本身不运行这些 Python 接口。

@@ -63,6 +63,10 @@ export default function JiuGongGrid({ result, onPalaceClick, limitedMarkers = fa
             <div
               key={gongNum}
               onClick={() => onPalaceClick?.(gongKey)}
+              role="button"
+              tabIndex={0}
+              aria-label={`查看${gongInfo.name}${gongKey}宫详情`}
+              onKeyDown={(event) => { if (event.key === 'Enter' || event.key === ' ') { event.preventDefault(); onPalaceClick?.(gongKey) } }}
               className={`palace-cell aspect-square relative bg-[var(--qm-surface)] border rounded-lg p-2 md:p-3 cursor-pointer transition-all duration-200 hover:border-[rgba(107,36,31,0.6)] hover:bg-[rgba(255,250,240,0.9)] hover:shadow-[0_6px_16px_rgba(107,36,31,0.14)] ${
                 gongNum === 5 ? 'col-span-1' : ''
               } border-[var(--qm-border)]`}

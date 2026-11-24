@@ -464,7 +464,6 @@ function SourceReader({ course }) {
 
   useEffect(() => {
     const controller = new AbortController()
-    setResult({ text: '', error: '', loading: true })
     async function readSource() {
       try {
         const response = await fetch(course.rawUrl, { signal: controller.signal })
@@ -546,7 +545,7 @@ export default function Knowledge() {
     if (course.rawUrl) {
       return (
         <div className="min-h-[80vh] px-4 py-10 text-[var(--qm-ink)] md:py-14">
-          <SourceReader course={course} />
+          <SourceReader key={`${course.rawUrl}:${course.sectionId || ""}`} course={course} />
         </div>
       )
     }

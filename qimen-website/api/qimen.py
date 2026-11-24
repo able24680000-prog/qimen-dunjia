@@ -5,7 +5,7 @@ from http.server import BaseHTTPRequestHandler
 sys.path.insert(0, os.path.join(os.path.dirname(os.path.dirname(__file__)), 'qimen_engine'))
 from calendar_util import auto_pan
 from workflow import event, lifetime, chart_header
-from analyze import CATEGORY_SHEN, format_package, analyze
+from analyze import CATEGORY_SHEN, format_package, analyze, detect, gate_palace_relation
 from pan_engine import pan
 from event_scope import resolve_scope
 from chart_review import compare_chart, snapshot
@@ -44,10 +44,13 @@ def _calendar(data):
 def _cells(chart):
     snap = snapshot(chart, chart_header(chart, {'ju_name': ''}))['九宫']
     name_by_id = {1:'坎1',2:'坤2',3:'震3',4:'巽4',5:'中5',6:'乾6',7:'兑7',8:'艮8',9:'离9'}
+    keying = detect(chart)['keying']
     return [dict(palace=p, star=snap[name_by_id[p]]['星'], gate=snap[name_by_id[p]]['门'],
                  god=snap[name_by_id[p]]['神'], heaven=snap[name_by_id[p]]['天盘'],
                  earth=snap[name_by_id[p]]['地盘'], void=snap[name_by_id[p]]['空'],
-                 horse=snap[name_by_id[p]]['马']) for p in (4,9,2,3,5,7,8,1,6)]
+                 horse=snap[name_by_id[p]]['马'],
+                 gateRelation=gate_palace_relation(snap[name_by_id[p]]['门'], p) if snap[name_by_id[p]]['门'] else None,
+                 patterns=keying.get(name_by_id[p], {}).get('逐干', [])) for p in (4,9,2,3,5,7,8,1,6)]
 
 def _time_note(opts):
     return ('北京时间，已按输入经度校正真太阳时' if opts['use_true_solar'] else '北京时间，未做真太阳时校正') + ('；23点换日' if opts['zi_mode']=='change' else '；0点换日')
@@ -111,7 +114,7 @@ def run_analysis(data):
     stamp = _stamp(data.get('time','')) if mode == 'event' else None
     category = data.get('category')
     if not isinstance(category,str) or category not in CATEGORY_SHEN or category=='终身局': raise ValueError('请选择支持的事件类别。')
-    question, outcome = _text(data,'question',True), _text(data,'outcome',True)
+    question, outcome = _text(data,'question',True), _text(data,'outcome') or '未提供，待核'
     horizon, urgency, mover = _text(data,'horizon',maximum=80), data.get('urgency','待核'), data.get('firstMover','待核')
     if urgency not in ('急','缓','待核') or mover not in ('本人','对方','双方未动','同动','待核'): raise ValueError('急缓或行动顺序无效。')
     gender = data.get('gender') or None
@@ -146,15 +149,22 @@ def run_analysis(data):
         time_note = _time_note(opts)
     return {'mode':mode,'version':'时家奇门 v2.6','timeConvention':time_note, 'header':package['盘头'],
             'scope':package['问项资料'],'timingNote':package.get('期限提示',''),'cells':_cells(chart),
-            'cases':package.get('书例参照'),'report':format_package(package['分析'])}
+            'cases':package.get('书例参照'), 'tendency':package['分析'].get('tendency'), 'report':format_package(package['分析'])}
 
 class handler(BaseHTTPRequestHandler):
     def do_POST(self):
         try:
             length=int(self.headers.get('Content-Length','0'))
             if length<=0 or length>MAX_BYTES: raise ValueError('请求内容为空或过长。')
-            body=run_analysis(json.loads(self.rfile.read(length).decode('utf-8'))); status=200
+            data=json.loads(self.rfile.read(length).decode('utf-8'))
+            if isinstance(data, dict) and data.get('mode') == 'interpret':
+                from interpretation import interpret
+                body=interpret(data.get('input'), run_analysis, os.environ.get('DEEPSEEK_API_KEY'))
+            else:
+                body=run_analysis(data)
+            status=200
         except (ValueError, TypeError, UnicodeError, json.JSONDecodeError) as exc: status,body=400,{'error':str(exc) or '请求格式有误。'}
+        except RuntimeError as exc: status,body=503,{'error':str(exc)}
         except Exception: status,body=500,{'error':'分析暂时不可用，请稍后重试。'}
         encoded=json.dumps(body,ensure_ascii=False).encode('utf-8')
         self.send_response(status); self.send_header('Content-Type','application/json; charset=utf-8'); self.send_header('Cache-Control','no-store'); self.end_headers(); self.wfile.write(encoded)

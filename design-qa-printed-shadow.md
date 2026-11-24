@@ -2,7 +2,7 @@
 
 source visual truth path: `E:\+trae solo\qimen-all-v3\printed-shadow-source.png`
 
-implementation path: `E:\+trae solo\qimen-all-v3\首页预览-PrintedShadow融合版.html`
+implementation: 曾使用独立预览文件 `首页预览-PrintedShadow融合版.html`（过程稿已移除；本记录保留作历史参考）。
 
 viewport: desktop first, responsive rules included for tablet/mobile
 

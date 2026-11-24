@@ -14,6 +14,13 @@ class ApiTest(unittest.TestCase):
         self.assertEqual(next(c for c in result['cells'] if c['palace'] == 3)['gate'], '死门')
         self.assertEqual(result['scope']['主用神'], '伤门')
         self.assertIn('【本问】', result['report'])
+    def test_event_question_without_observation(self):
+        result = run_analysis({key: value for key, value in BASE.items() if key != 'outcome'})
+        self.assertEqual(result['scope']['观察结果'], '未提供，待核')
+        self.assertEqual(result['scope']['主用神'], '伤门')
+        self.assertIn('倾向', result['tendency'])
+        self.assertIn('【成败倾向结论】', result['report'])
+
     def test_question_specific_scope(self):
         result = run_analysis({**BASE, 'category': '考试', 'question': '孩子考试通过吗', 'outcome': '考试通过'})
         self.assertEqual(result['scope']['主用神'], '时干')
@@ -112,6 +119,15 @@ class UnifiedPageTest(unittest.TestCase):
         self.assertEqual(chart['header'], event['header'])
         self.assertEqual(chart['cells'], event['cells'])
         self.assertNotIn('report', chart)
+    def test_palace_patterns_use_v26_primary_earth_and_guest_stem(self):
+        chart = run_analysis({'mode':'chart','time':BASE['time']})
+        cells = {cell['palace']: cell for cell in chart['cells']}
+        self.assertEqual(cells[2]['star'], '芮禽')
+        self.assertEqual([(p['位置'], p['组合'], p['格局']) for p in cells[2]['patterns']],
+                         [('本干','丙+丙','月奇悖师'), ('寄干','壬+丙','水蛇入火')])
+        self.assertEqual(cells[5]['patterns'], [])
+        self.assertEqual(cells[5]['earth'], ['壬'])
+
     def test_confirmed_sheng_gate_is_earth(self):
         from analyze import gate_wuxing
         from pan_engine import gate_wuxing as pan_gate_wuxing
