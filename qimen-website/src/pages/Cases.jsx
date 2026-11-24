@@ -1,3 +1,5 @@
+import { useParams } from 'react-router-dom'
+
 const CASES = [
   {
     id: 'career-promotion',
@@ -158,7 +160,7 @@ export function CasesLegacy() {
 }
 
 export default function Cases() {
-  const caseId = typeof window === 'undefined' ? '' : window.location.pathname.split('/')[2] || ''
+  const { caseId = '' } = useParams()
   const selectedCase = CASES.find((item) => item.id === caseId)
 
   if (!caseId) {
